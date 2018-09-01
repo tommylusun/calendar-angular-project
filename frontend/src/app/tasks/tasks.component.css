@@ -1,0 +1,35 @@
+
+.container {
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+}
+.outer-box {
+    margin: 30px;
+    background-color: lightgrey;
+    padding : 100px;
+}
+.tasks-list{
+    /* background-color: rgb(188, 235, 190); */
+    margin : 0 auto;
+    padding-top : 20px;
+    padding-bottom : 20px;
+    /* width : 60%; */
+    justify-content: center;
+}
+.list-item {
+    text-align: left;
+    align-items: center;
+    padding-bottom : 10px;
+    outline-color: black;
+
+}
+.add-task {
+    margin: 10px 10px 10px 10px;
+}
+.task-name {
+    word-break: break-word;
+}
+.button {
+    padding : 5px;
+}
