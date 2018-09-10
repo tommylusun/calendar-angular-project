@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { CreateTaskComponent } from '../create-task/create-task.component';
 
 @Component({
   selector: 'app-tasks',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasksComponent implements OnInit {
 
+  showForm = false;
   newTaskName;
   tasks: any[] = [
     {
@@ -34,15 +36,12 @@ export class TasksComponent implements OnInit {
 
   ngOnInit() {
 
-
-
   }
-  addTask() {
-    this.tasks.push({
-      name : this.newTaskName,
-      type : 'daily',
-      done : false
-    });
+  addTask(newTask) {
+    this.tasks.push(newTask);
+  }
+
+  addTaskButton() {
   }
 
   deleteTask(task) {
