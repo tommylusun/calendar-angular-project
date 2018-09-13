@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

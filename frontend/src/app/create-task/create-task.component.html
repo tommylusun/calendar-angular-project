@@ -5,7 +5,7 @@
       <button class="btn btn-primary add-task" (click)="addTaskButton()">Add New Task</button>
   </div>
 
-  <div [hidden]="!showForm">
+  <div>
       <form (ngSubmit)="submit()" #taskForm="ngForm">
       <div class="form-group">
         <label for="name">Task Name</label>
@@ -19,13 +19,14 @@
 
       <div class="form-group">
           <label for="power">Type</label>
-          <select class="form-control" id="type"
+          <select class="form-control dropdown-menu" id="type"
                   required
+                 
                   [(ngModel)]="type" name="type"
                   #power="ngModel">
-            <option *ngFor="let x of types" [value]="x">{{x}}</option>
+            <option class="dropdown-item" *ngFor="let x of types" [ngValue]="x">{{x}}</option>
           </select>
-        </div>
+      </div>
 
       <button type="submit" class="btn btn-success">Submit</button>
       <button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button>

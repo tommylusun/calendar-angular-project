@@ -38,8 +38,9 @@ export class CreateTaskComponent implements OnInit {
         type: this.type,
         done: false
       });
+      this.showForm = false;
     }
-    this.showForm = false;
+
   }
 
   valueChange($event) {

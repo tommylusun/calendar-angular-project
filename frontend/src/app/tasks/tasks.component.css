@@ -2,12 +2,13 @@
 .container {
     justify-content: center;
     align-items: center;
-    width: 600px;
 }
 .outer-box {
     margin: 30px;
     background-color: lightgrey;
-    padding : 100px;
+    padding : 50px;
+    width : 800px;
+    margin: auto;
 }
 .tasks-list{
     /* background-color: rgb(188, 235, 190); */
