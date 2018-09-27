@@ -11,6 +11,14 @@ a {
 	text-decoration: none;
 }
 
+.month-dropdown {
+	font-size: 2em;
+	line-height: 1.25em;
+	margin: .25em 0;
+	border: none;
+	cursor: pointer;
+}
+
 h2 {
 	font-size: 2em;
 	line-height: 1.25em;
@@ -54,6 +62,9 @@ table {
 .calendar thead {
 	font-weight: 600;
 	text-transform: uppercase;
+	text-align: left;
+
+	
 }
 
 .calendar tbody {
@@ -62,12 +73,21 @@ table {
 }
 
 .calendar tbody td:hover {
-	border: 2px solid #00addf;
+	/* border: 2px solid #00addf; */
+	cursor: pointer;
+}
+/* .calendar tbody td:active {
+	border: 2px solid #df0000;
+	cursor: pointer;
+} */
+
+.calendar .selected {
+	border: 2px solid #df0000;
 }
 
 .calendar td {
 	border: 2px solid transparent;
-	border-radius: 50%;
+	/* border-radius: 50%; */
 	display: inline-block;
 	height: 4em;
 	line-height: 4em;

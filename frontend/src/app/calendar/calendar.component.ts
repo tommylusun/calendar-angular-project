@@ -1,6 +1,8 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  Output,
+  EventEmitter
 } from '@angular/core';
 
 @Component({
@@ -20,12 +22,14 @@ export class CalendarComponent implements OnInit {
   dayNames: string[];
   dayPerMonth: number[];
   FebNumberOfDays: number;
-
+  selectedDate = Date;
   day: number;
   firstDayOfMonth: number;
   days: string[];
 
   counter: number;
+
+  @Output() clickedDay = new EventEmitter<any>();
 
   constructor() {
     this.counter = 1;
@@ -36,10 +40,7 @@ export class CalendarComponent implements OnInit {
     this.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     this.dayPerMonth = [31, this.FebNumberOfDays , 31, 30, 31, 30, 31, 30, 30, 31, 30, 31];
-    this.currentDate = this.date.getDate();
-    this.day = this.date.getDay();
-    this.currentMonth = this.date.getMonth();
-    this.currentYear = this.date.getFullYear();
+    this.initializeCurrentDay();
     this.initializeCalendar();
   }
 
@@ -52,6 +53,7 @@ export class CalendarComponent implements OnInit {
     this.firstDayOfMonth = firstDay.getDay();
     this.days = Array.from((Array(this.dayPerMonth[this.currentMonth] + 1).keys())).map(String);
     this.days.shift();
+    console.log(this.days);
     // const prevDays = [for (i of range(20,50,5)) i];
     this.days.unshift(...Array(this.firstDayOfMonth).fill(' '));
     // this.days.push(...Array((7 + 1 - this.dayPerMonth[this.currentMonth] % 7)).fill(0));
@@ -69,6 +71,18 @@ export class CalendarComponent implements OnInit {
 
   clickDay(day) {
     console.log('Go to Day ' + day);
+
+    if (day !== ' ') {
+      this.date = new Date(this.currentYear, this.currentMonth, day, 0);
+      console.log('Go to Day ' + this.currentYear + ' '  + this.currentMonth + ' ' + day);
+      this.initializeCurrentDay();
+    }
+
+    this.clickedDay.emit(this.date);
+
+
+
+
   }
 
   goToToday() {
@@ -94,8 +108,8 @@ export class CalendarComponent implements OnInit {
   prevMonth() {
     if (this.currentMonth >= 1) {
       this.currentMonth--;
-      this.initializeCalendar();
     }
+    this.initializeCalendar();
   }
 
   nextYear() {
@@ -107,5 +121,24 @@ export class CalendarComponent implements OnInit {
   prevYear() {
       this.currentYear--;
       this.initializeCalendar();
+  }
+
+  initializeCurrentDay() {
+    this.currentDate = this.date.getDate();
+    this.day = this.date.getDay();
+    this.currentMonth = this.date.getMonth();
+    this.currentYear = this.date.getFullYear();
+  }
+
+  dateSelected(day) {
+    return (this.currentMonth === this.date.getMonth()
+    && this.currentYear === this.date.getFullYear()
+    && Number(day) === this.date.getDate());
+
+  }
+
+  selectMonth(ind) {
+    this.currentMonth = ind;
+    this.initializeCalendar();
   }
 }

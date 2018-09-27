@@ -19,6 +19,9 @@ export class CreateTaskComponent implements OnInit {
   constructor() {
     this.showForm = false;
     this.types = ['Daily', 'Weekly', 'Monthly'];
+    this.taskDesc = 'Placeholder';
+    this.taskName = 'Placeholder';
+    this.type = 'Daily';
   }
 
   ngOnInit() {
@@ -38,9 +41,7 @@ export class CreateTaskComponent implements OnInit {
         type: this.type,
         done: false
       });
-      this.showForm = false;
     }
-
   }
 
   valueChange($event) {

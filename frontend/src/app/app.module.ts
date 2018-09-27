@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { TaskDetailsComponent } from './task-details/task-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
     CreateTaskComponent,
-    CalendarComponent
+    CalendarComponent,
+    TaskDetailsComponent
   ],
   imports: [
     BrowserModule,
