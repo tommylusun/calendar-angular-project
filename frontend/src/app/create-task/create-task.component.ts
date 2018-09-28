@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import { Task } from '../task';
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
@@ -13,11 +14,23 @@ export class CreateTaskComponent implements OnInit {
   taskType: String;
   type: String;
   types: String[];
+  monthNames: String[];
+
+  startYear: number;
+  startMonth: number;
+  startDate: number;
+
+  endYear: number;
+  endMonth: number;
+  endDate: number;
+
+  @Input() currentDate: Date;
 
   @Output() submitPressed = new EventEmitter<any>();
 
   constructor() {
-    this.showForm = false;
+    this.monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+     'July', 'August', 'September', 'October', 'November', 'December'];
     this.types = ['Daily', 'Weekly', 'Monthly'];
     this.taskDesc = 'Placeholder';
     this.taskName = 'Placeholder';
@@ -25,31 +38,48 @@ export class CreateTaskComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.updateDay(this.currentDate);
+    this.endMonth = this.startMonth;
+    this.endYear = this.startYear;
+    this.endDate = this.startDate;
   }
 
-  addTaskButton() {
-    this.showForm = true;
-  }
   submit(taskForm: NgForm) {
-    console.log(this.taskDesc);
-    console.log(this.taskName);
 
+    const fullStartDate = new Date(this.startYear, this.startMonth, this.startDate);
+    const fullEndDate = new Date(this.endYear, this.endMonth, this.endDate);
+
+    const newTask = new Task({
+      name: this.taskName,
+      desc: this.taskDesc,
+      type: this.type,
+      startDate: fullStartDate,
+      endDate: fullEndDate
+    });
+    console.log(newTask);
     if (this.taskDesc && this.taskName) {
-      this.submitPressed.emit({
-        name: this.taskName,
-        desc: this.taskDesc,
-        type: this.type,
-        done: false
-      });
+      this.submitPressed.emit(newTask);
     }
   }
 
   valueChange($event) {
-    console.log(this.taskDesc);
   }
 
   cancel() {
     this.showForm = false;
+  }
+
+  selectStartMonth(ind) {
+    this.startMonth = ind;
+  }
+  selectEndMonth(ind) {
+    this.endMonth = ind;
+  }
+
+  updateDay(date: Date) {
+    this.startDate = date.getDate();
+    this.startYear = date.getFullYear();
+    this.startMonth = date.getMonth();
   }
 
 }

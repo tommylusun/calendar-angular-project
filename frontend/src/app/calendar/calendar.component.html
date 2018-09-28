@@ -1,70 +1,40 @@
 <div class="container">
-    <div class="calendar">
-        <header>				
+  <div class="calendar">
 
-            <h2>{{currentYear}}</h2>
-    
-            <a (click)="prevYear()" class="btn-prev fontawesome-angle-left" href="#"></a>
-            <a (click)="nextYear()"class="btn-next fontawesome-angle-right" href="#"></a>
-    
-          </header>
-        <header>				
-            <div class="dropdown">
-                <button class="btn-lg month-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                  {{monthNames[currentMonth]}}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a href="#" (click)="selectMonth(i)"class="dropdown-item" *ngFor="let month of monthNames; let i = index">{{month}}</a>
-                </div>
-              </div>
-            <!-- <h2>{{monthNames[currentMonth]}}</h2> -->
-    
-            <a (click)="prevMonth()" class="btn-prev fontawesome-angle-left" href="#"></a>
-            <a (click)="nextMonth()"class="btn-next fontawesome-angle-right" href="#"></a>
-    
-          </header>
-      <table>
-        
-          <thead>
-            
-            <tr>
-              
-              <td *ngFor="let day of dayNames">{{day}}</td>
+    <header>
+      <h2>{{currentYear}}</h2>
+      <a (click)="prevYear()" class="btn-prev fontawesome-angle-left" href="#"></a>
+      <a (click)="nextYear()" class="btn-next fontawesome-angle-right" href="#"></a>
+    </header>
 
-            </tr>
+    <header>
+      <div class="dropdown">
+        <button class="btn-lg month-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+          {{monthNames[currentMonth]}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a href="#" (click)="selectMonth(i)" class="dropdown-item" *ngFor="let month of monthNames; let i = index">{{month}}</a>
+        </div>
+      </div>
 
-          </thead>
+      <a (click)="prevMonth()" class="btn-prev fontawesome-angle-left" href="#"></a>
+      <a (click)="nextMonth()" class="btn-next fontawesome-angle-right" href="#"></a>
+    </header>
 
-          <tbody>
-            
-            <tr >
-                <td [ngClass]="{'selected': dateSelected(date), 'td:hover': date!=' '}" (click)="clickDay(date)" *ngFor="let date of days">{{date}}</td>
-            </tr>
-            <!-- <tr *ngIf="firstRowNeeded()">
-              <td [ngClass]="{'selected': dateSelected(dummy), ':hover': dummy!=' '}" (click)="clickDay(dummy)" *ngFor="let dummy of days | slice:0:7">{{dummy}}</td>
-            </tr>
-            <tr>
-                <td [ngClass]="{'selected': dateSelected(dummy) }" (click)="clickDay(dummy)" *ngFor="let dummy of days | slice:7:7*2">{{dummy}}</td>
-            </tr>
-            <tr>
-                <td [ngClass]="{'selected': dateSelected(dummy) }" (click)="clickDay(dummy)" *ngFor="let dummy of days | slice:7*2:7*3">{{dummy}}</td>
-            </tr>
+    <table>
+      <thead>
+        <tr>
+          <td *ngFor="let day of dayNames">{{day}}</td>
+        </tr>
+      </thead>
 
-            <tr>
-                <td [ngClass]="{'selected': dateSelected(dummy) }" (click)="clickDay(dummy)" *ngFor="let dummy of days | slice:7*3:7*4">{{dummy}}</td>
-            </tr>
-            <tr>
-                <td [ngClass]="{'selected': dateSelected(dummy) }" (click)="clickDay(dummy)" *ngFor="let dummy of days | slice:7*4:7*5">{{dummy}}</td>
-            </tr>
+      <tbody>
+        <tr>
+          <td [ngClass]="{'selected': dateSelected(date), 'td:hover': date!=' '}" (click)="clickDay(date)" *ngFor="let date of days">{{date}}</td>
+        </tr>
+      </tbody>
+    </table>
 
-            <tr>
-                <td [ngClass]="{'selected': dateSelected(dummy) }" (click)="clickDay(dummy)" *ngFor="let dummy of days | slice:7*5:7*6">{{dummy}}</td>
-            </tr> -->
-
-
-          </tbody>
-
-        </table>
   </div>
   <button (click)="goToToday()">Today</button>
 </div>

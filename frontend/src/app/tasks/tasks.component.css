@@ -1,4 +1,7 @@
 
+.outer-container {
+    margin-top: 50px;
+}
 .container {
     justify-content: center;
     align-items: center;
@@ -9,6 +12,9 @@
     padding : 50px;
     width : 800px;
     margin: auto;
+}
+.create-task {
+    padding: 0px;
 }
 .tasks-list{
     /* background-color: rgb(188, 235, 190); */
