@@ -6,6 +6,16 @@
     justify-content: center;
     align-items: center;
 }
+.top-row {
+    margin: 20px;
+}
+.task-list-title {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 20pt;
+    font-weight: 500;
+}
+
 .outer-box {
     margin: 30px;
     background-color: lightgrey;

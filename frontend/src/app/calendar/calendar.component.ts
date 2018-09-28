@@ -79,10 +79,11 @@ export class CalendarComponent implements OnInit {
     }
 
     this.clickedDay.emit(this.date);
+  }
 
-
-
-
+  goToDay(date: Date) {
+    this.date = date;
+    this.initializeCurrentDay();
   }
 
   goToToday() {

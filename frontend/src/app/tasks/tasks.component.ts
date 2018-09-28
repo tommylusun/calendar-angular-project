@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CreateTaskComponent } from '../create-task/create-task.component';
 import { Task } from '../task';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 
 @Component({
@@ -12,6 +13,9 @@ export class TasksComponent implements OnInit {
 
   @ViewChild('createTask')
   private createTaskComponent: CreateTaskComponent;
+
+  @ViewChild('calendar')
+  private calendarComponent: CalendarComponent;
 
   showForm = false;
   newTaskName;
@@ -70,6 +74,18 @@ export class TasksComponent implements OnInit {
         this.showTasks.push(el);
       }
     }
+  }
 
+  nextDay() {
+    this.day.setDate(this.day.getDate() + 1);
+    this.constructTasksList(this.day);
+    this.createTaskComponent.updateDay(this.day);
+    this.calendarComponent.goToDay(this.day);
+  }
+  prevDay() {
+    this.day.setDate(this.day.getDate() - 1);
+    this.constructTasksList(this.day);
+    this.createTaskComponent.updateDay(this.day);
+    this.calendarComponent.goToDay(this.day);
   }
 }

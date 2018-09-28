@@ -6,11 +6,16 @@
     </div>
 
 
-    <!-- Overall Tasks List -->
+    
     <div class="col-5">
-      <h1>
-        List of Tasks
-      </h1>
+      <!-- Header of Tasks List -->
+      <div class="top-row">
+        <button (click)="prevDay()">Prev Day</button>
+        <span class="task-list-title">List of Tasks</span>
+        <button (click)="nextDay()">Next Day</button>
+      </div>
+
+      <!-- Overall Tasks List -->
       <div class="outer-box rounded col">
         <div class="tasks-list rounded">
           <div class="container">
@@ -65,17 +70,16 @@
                 </div>
               </div>
             </div>
-
-
-
+            <!-- End Daily Tasks List -->
           </div>
         </div>
       </div>
+      <!-- End Tasks List -->
     </div>
 
     <!-- Calendar Component -->
     <div class="col-4">
-      <app-calendar (clickedDay)="changeDay($event)"></app-calendar>
+      <app-calendar #calendar (clickedDay)="changeDay($event)"></app-calendar>
     </div>
 
   </div>

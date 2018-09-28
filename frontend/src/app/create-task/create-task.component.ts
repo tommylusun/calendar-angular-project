@@ -77,9 +77,9 @@ export class CreateTaskComponent implements OnInit {
   }
 
   updateDay(date: Date) {
-    this.startDate = date.getDate();
-    this.startYear = date.getFullYear();
-    this.startMonth = date.getMonth();
+    this.endDate = this.startDate = date.getDate();
+    this.endMonth = this.startMonth = date.getMonth();
+    this.endYear = this.startYear = date.getFullYear();
   }
 
 }
