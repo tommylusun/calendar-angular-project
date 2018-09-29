@@ -1,8 +1,15 @@
+
+.create-task-container {
+    background-color: lightgrey;
+    padding: 20px;
+}
+
 .month-dropdown {
 	border: 1px solid black;
     cursor: pointer;
     text-align: center;
     min-width: 100px;
+    height: 100%;
 }
 
 .dropdown {

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container create-task-container rounded">
 
 
   <!-- <div class="row justify-content-center">
@@ -25,25 +25,28 @@
       </div>
 
       <!-- Start Date Form -->
+      <!-- <div class="row">
+          <label class="col-3">Year</label>
+          <label class="col-6">Month</label>
+          <label class="col-3">Date</label>
+      </div> -->
       <div>Start Date</div>
+
       <div class="row">
         <div class="col-3">
-          <label>Year</label>
           <input style="width: 50px;" name="startYear" [(ngModel)]="startYear" type="text">
         </div>
         <div class="col-6 dropdown">
-          <label>Month</label>
-            <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
-              {{monthNames[startMonth]}}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a href="#" (click)="selectStartMonth(i)" class="dropdown-item" *ngFor="let month of monthNames; let i = index">{{month}}</a>
-            </div>
+          <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
+            {{monthNames[startMonth]}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a href="#" (click)="selectStartMonth(i)" class="dropdown-item" *ngFor="let month of monthNames; let i = index">{{month}}</a>
+          </div>
         </div>
 
         <div class="col-3" *ngIf="type === 'Weekly' || type === 'Daily'">
-          <label>Date</label>
-          <input style="width: 50px;" name="startDate" [(ngModel)]="startDate" type="text">
+            <input style="width: 50px;" name="startDate" [(ngModel)]="startDate" type="text">
         </div>
       </div>
 
@@ -51,11 +54,9 @@
       <div>End Date</div>
       <div class="row">
         <div class="col-3">
-          <label>Year</label>
           <input style="width: 50px;" name="endYear" [(ngModel)]="endYear" type="text">
         </div>
         <div class="col-6 dropdown">
-          <label>Month</label>
           <!-- <div class="dropdown"> -->
           <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
             {{monthNames[endMonth]}}
@@ -66,14 +67,13 @@
           <!-- </div> -->
         </div>
 
-        <div class="col-3" >
+        <div class="col-3">
           <div *ngIf="type === 'Weekly' || type === 'Daily'">
-              <label>Date</label>
-              <input style="width: 50px;" name="endDate" [(ngModel)]="endDate" type="text">
+            <input style="width: 50px;" name="endDate" [(ngModel)]="endDate" type="text">
           </div>
-          
+
         </div>
-      </div >
+      </div>
       <button style="margin-top: 20px" type="submit" class="btn btn-success">Submit</button>
     </form>
 

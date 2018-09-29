@@ -1,19 +1,26 @@
 
 .outer-container {
     margin-top: 50px;
+    padding-left: 150px;
+    padding-right: 150px;
 }
 .container {
     justify-content: center;
     align-items: center;
 }
 .top-row {
-    margin: 20px;
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+
 }
 .task-list-title {
-    padding-left: 20px;
-    padding-right: 20px;
+    
+    padding-left: 10px;
+    padding-right: 10px;
     font-size: 20pt;
     font-weight: 500;
+
 }
 
 .task-type-header {

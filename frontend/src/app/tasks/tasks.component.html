@@ -1,17 +1,15 @@
-<div class="container outer-container">
+<div class="outer-container">
   <div class="row">
     <!-- Create Task Form Component -->
     <div class="col-3 create-task">
       <app-create-task #createTask [currentDate]="day" (submitPressed)="addTask($event)"></app-create-task>
     </div>
 
-
-
     <div class="col-5">
       <!-- Header of Tasks List -->
       <div class="top-row">
         <button class="btn btn-info" (click)="prevDay()">Prev Day</button>
-        <span class="task-list-title">List of Tasks</span>
+        <span class="task-list-title">{{day.toDateString()}}</span>
         <button class="btn btn-info" (click)="nextDay()">Next Day</button>
       </div>
 
@@ -21,26 +19,26 @@
           <div class="container">
 
             <!-- Monthly Tasks List -->
-            <h3 class="task-type-header">Monthly</h3>
+            <h3 class="task-type-header">This Month's Tasks</h3>
             <div *ngFor="let task of showTasks">
               <div *ngIf="task.type==='Monthly'">
-                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+                  <app-task-item [taskItem]="task" [day]="day" (deletePressed)="deleteTask($event)"></app-task-item>
               </div>
             </div>
 
             <!-- Weeky Tasks List -->
-            <h3 class="task-type-header">Weekly</h3>
+            <h3 class="task-type-header">This Week's Tasks</h3>
             <div *ngFor="let task of showTasks">
               <div *ngIf="task.type==='Weekly'">
-                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+                  <app-task-item [taskItem]="task" [day]="day" (deletePressed)="deleteTask($event)"></app-task-item>
               </div>
             </div>
 
             <!-- Daily Tasks List -->
-            <h3 class="task-type-header">Daily</h3>
+            <h3 class="task-type-header">Today's Tasks</h3>
             <div *ngFor="let task of showTasks">
               <div *ngIf="task.type==='Daily'">
-                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+                  <app-task-item [taskItem]="task" [day]="day" (deletePressed)="deleteTask($event)"></app-task-item>
               </div>
             </div>
             <!-- End Daily Tasks List -->
