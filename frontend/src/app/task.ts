@@ -41,6 +41,10 @@ export class Task {
                 }
                 currentDate.setDate(currentDate.getDate() + 1);
             }
+            // Edge case, if the end date is on day 0, while loop will miss it
+            if (this.endDate.getDay() === 0) {
+                this.checklist2[this.endDate.toDateString()] = new Checklist(new Date(this.endDate));
+            }
 
         } else if (this.type === 'Monthly') {
             currentDate.setDate(1);

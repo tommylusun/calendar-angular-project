@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CreateTaskComponent } from '../create-task/create-task.component';
 import { Task } from '../task';
 import { CalendarComponent } from '../calendar/calendar.component';
+import { TaskItemComponent } from '../task-item/task-item.component';
 
 
 @Component({

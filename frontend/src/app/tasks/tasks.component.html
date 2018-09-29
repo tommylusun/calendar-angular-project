@@ -6,13 +6,13 @@
     </div>
 
 
-    
+
     <div class="col-5">
       <!-- Header of Tasks List -->
       <div class="top-row">
-        <button (click)="prevDay()">Prev Day</button>
+        <button class="btn btn-info" (click)="prevDay()">Prev Day</button>
         <span class="task-list-title">List of Tasks</span>
-        <button (click)="nextDay()">Next Day</button>
+        <button class="btn btn-info" (click)="nextDay()">Next Day</button>
       </div>
 
       <!-- Overall Tasks List -->
@@ -21,59 +21,33 @@
           <div class="container">
 
             <!-- Monthly Tasks List -->
-            <h3 style="border-bottom: 2px solid black; padding: 10px">Monthly</h3>
+            <h3 class="task-type-header">Monthly</h3>
             <div *ngFor="let task of showTasks">
-              <div class="row list-item" *ngIf="task.type==='Monthly'">
-                <div class="col-10 list-item">
-                  <input name="checked" class="form-check-input" type="checkbox" (click)="checkTask(task)" [checked]="getCheckBox(task)"
-                    id="defaultCheck1">
-                  <label (click)="checkTask(task)">
-                    <span class="task-name">{{task.name}}</span>
-                  </label>
-                </div>
-                <div class="col-1">
-                  <button class="btn btn-secondary" (click)="deleteTask(task)">Delete</button>
-                </div>
+              <div *ngIf="task.type==='Monthly'">
+                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
               </div>
             </div>
 
             <!-- Weeky Tasks List -->
-            <h3 style="border-bottom: 2px solid black; padding: 10px">Weekly</h3>
+            <h3 class="task-type-header">Weekly</h3>
             <div *ngFor="let task of showTasks">
-              <div class="row list-item" *ngIf="task.type==='Weekly'">
-                <div class="col-10 list-item">
-                  <input name="checked" class="form-check-input" type="checkbox" (click)="checkTask(task)" [checked]="getCheckBox(task)"
-                    id="defaultCheck1">
-                  <label (click)="checkTask(task)">
-                    <span class="task-name">{{task.name}}</span>
-                  </label>
-                </div>
-                <div class="col-1">
-                  <button class="btn btn-secondary" (click)="deleteTask(task)">Delete</button>
-                </div>
+              <div *ngIf="task.type==='Weekly'">
+                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
               </div>
             </div>
 
             <!-- Daily Tasks List -->
-            <h3 style="border-bottom: 2px solid black; padding: 10px">Daily</h3>
+            <h3 class="task-type-header">Daily</h3>
             <div *ngFor="let task of showTasks">
-              <div class="row list-item" *ngIf="task.type==='Daily'">
-                <div class="col-10 list-item">
-                  <input name="checked" class="form-check-input" type="checkbox" (click)="checkTask(task)" [checked]="getCheckBox(task)"
-                    id="defaultCheck1">
-                  <label (click)="checkTask(task)">
-                    <span class="task-name">{{task.name}}</span>
-                  </label>
-                </div>
-                <div class="col-1">
-                  <button class="btn btn-secondary" (click)="deleteTask(task)">Delete</button>
-                </div>
+              <div *ngIf="task.type==='Daily'">
+                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
               </div>
             </div>
             <!-- End Daily Tasks List -->
           </div>
         </div>
       </div>
+
       <!-- End Tasks List -->
     </div>
 

@@ -16,10 +16,15 @@
     font-weight: 500;
 }
 
+.task-type-header {
+    border-bottom: 2px solid black; 
+    padding: 10px; 
+    margin-bottom: 30px;
+}
 .outer-box {
     margin: 30px;
     background-color: lightgrey;
-    padding : 50px;
+
     width : 800px;
     margin: auto;
 }

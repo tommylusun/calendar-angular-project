@@ -93,6 +93,7 @@ export class CalendarComponent implements OnInit {
     this.currentMonth = this.date.getMonth();
     this.currentYear = this.date.getFullYear();
     this.initializeCalendar();
+    this.clickedDay.emit(this.date);
   }
 
   firstRowNeeded() {
