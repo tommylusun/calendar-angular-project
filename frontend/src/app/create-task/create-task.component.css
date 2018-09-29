@@ -2,6 +2,7 @@
 .create-task-container {
     background-color: lightgrey;
     padding: 20px;
+    margin-top: 60px;
 }
 
 .month-dropdown {

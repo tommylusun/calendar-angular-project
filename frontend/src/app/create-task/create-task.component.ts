@@ -32,8 +32,8 @@ export class CreateTaskComponent implements OnInit {
     this.monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
      'July', 'August', 'September', 'October', 'November', 'December'];
     this.types = ['Daily', 'Weekly', 'Monthly'];
-    this.taskDesc = 'Placeholder';
-    this.taskName = 'Placeholder';
+    this.taskDesc = '';
+    this.taskName = '';
     this.type = 'Daily';
   }
 
@@ -49,6 +49,13 @@ export class CreateTaskComponent implements OnInit {
     const fullStartDate = new Date(this.startYear, this.startMonth, this.startDate);
     const fullEndDate = new Date(this.endYear, this.endMonth, this.endDate);
 
+    if (this.taskName === '') {
+      this.taskName = this.type +
+      ' Task starting ' +
+      fullStartDate.toDateString() + ', ending ' +
+      fullEndDate.toDateString();
+    }
+
     const newTask = new Task({
       name: this.taskName,
       desc: this.taskDesc,
@@ -56,10 +63,15 @@ export class CreateTaskComponent implements OnInit {
       startDate: fullStartDate,
       endDate: fullEndDate
     });
-    console.log(newTask);
-    if (this.taskDesc && this.taskName) {
-      this.submitPressed.emit(newTask);
-    }
+
+    this.submitPressed.emit(newTask);
+    this.reset();
+
+  }
+
+  reset() {
+    this.taskName = '';
+    this.taskDesc = '';
   }
 
   valueChange($event) {
