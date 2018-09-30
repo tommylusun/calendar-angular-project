@@ -55,7 +55,11 @@ export class CalendarComponent implements OnInit {
     this.days.shift();
     console.log(this.days);
     // const prevDays = [for (i of range(20,50,5)) i];
-    this.days.unshift(...Array(this.firstDayOfMonth).fill(' '));
+    this.days.unshift(...Array(this.firstDayOfMonth).fill(''));
+
+    const lastDay = new Date(firstDay);
+    lastDay.setDate(this.dayPerMonth[this.currentMonth] + 1);
+    this.days.push(...Array(7 - lastDay.getDay()).fill(''));
     // this.days.push(...Array((7 + 1 - this.dayPerMonth[this.currentMonth] % 7)).fill(0));
   }
 
@@ -72,7 +76,7 @@ export class CalendarComponent implements OnInit {
   clickDay(day) {
     console.log('Go to Day ' + day);
 
-    if (day !== ' ') {
+    if (day !== '') {
       this.date = new Date(this.currentYear, this.currentMonth, day, 0);
       console.log('Go to Day ' + this.currentYear + ' '  + this.currentMonth + ' ' + day);
       this.initializeCurrentDay();
@@ -82,16 +86,26 @@ export class CalendarComponent implements OnInit {
   }
 
   goToDay(date: Date) {
-    this.date = date;
+    this.date = new Date(date);
     this.initializeCurrentDay();
   }
 
   goToToday() {
     this.date = new Date();
-    this.currentDate = this.date.getDate();
-    this.day = this.date.getDay();
-    this.currentMonth = this.date.getMonth();
-    this.currentYear = this.date.getFullYear();
+    this.initializeCurrentDay();
+    this.initializeCalendar();
+    this.clickedDay.emit(this.date);
+  }
+  goToPrevDay() {
+    this.date.setDate(this.date.getDate() - 1);
+    this.initializeCurrentDay();
+    this.initializeCalendar();
+    this.clickedDay.emit(this.date);
+  }
+
+  goToNextDay() {
+    this.date.setDate(this.date.getDate() + 1);
+    this.initializeCurrentDay();
     this.initializeCalendar();
     this.clickedDay.emit(this.date);
   }

@@ -1,0 +1,49 @@
+.task-container {
+  margin-bottom: 10px;
+
+  animation-duration: 0.5s;
+  animation-name: slidein;
+  /* animation-iteration-count: infinite; */
+
+  /* padding: 10px; */
+}
+
+@keyframes slidein {
+  from {
+    margin-top: -5%;
+    opacity: 0;
+  }
+
+  to {
+    margin-top: 0%;
+    opacity: 1;
+  }
+}
+
+.list-item {
+  text-align: left;
+  align-items: center;
+}
+
+.task-col {
+  text-align: left;
+}
+
+.delete-button {
+  text-align: right;
+}
+
+.task-name {
+  /* margin-left: 10px; */
+  text-align: left;
+  word-wrap: break-word;
+
+}
+
+input {
+  vertical-align: middle;
+}
+
+label {
+  margin-bottom: 0px;
+}

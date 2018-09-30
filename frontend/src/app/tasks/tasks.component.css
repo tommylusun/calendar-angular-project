@@ -3,6 +3,8 @@
     margin-top: 50px;
     padding-left: 150px;
     padding-right: 150px;
+    position: absolute;
+    
 }
 .container {
     justify-content: center;
@@ -10,7 +12,7 @@
 }
 .top-row {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     justify-content: center;
 
 }
@@ -18,7 +20,7 @@
     
     padding-left: 10px;
     padding-right: 10px;
-    font-size: 20pt;
+    font-size: 30pt;
     font-weight: 500;
 
 }
@@ -30,14 +32,17 @@
 }
 .outer-box {
     margin: 30px;
-    background-color: lightgrey;
-
     width : 800px;
     margin: auto;
+
+
 }
-.create-task {
-    padding: 0px;
+  
+  
+.create-task-component {
+    
 }
+
 .tasks-list{
     /* background-color: rgb(188, 235, 190); */
     margin : 0 auto;

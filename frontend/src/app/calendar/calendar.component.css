@@ -15,7 +15,8 @@ a {
 	font-size: 2em;
 	line-height: 1.25em;
 	margin: .25em 0;
-	border: none;
+	border: 1px solid black;
+	border-radius: 5px 5px 5px 5px;
 	cursor: pointer;
 }
 
@@ -36,20 +37,25 @@ table {
 	border-spacing: 0;
 }
 
-.container {
+.calendar-container {
 	margin-top: 60px;
-	height: 538px;
+	min-width: 500px;
+	max-width: 500px;
+	
+	/* height: 538px; */
 	/* left: 50%; */
 	/* margin: -255px 0 0 -245px; */
     /* position: absolute;
     top: 10%; */
-	width: 510px;
+	/* width: 510px; */
 }
 
 /* ---------- CALENDAR ---------- */
 
 .calendar {
-	text-align: center;
+
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .calendar header {
@@ -63,19 +69,21 @@ table {
 .calendar thead {
 	font-weight: 600;
 	text-transform: uppercase;
-	text-align: left;
+	text-align: center;
 
 	
 }
 
 .calendar tbody {
-	text-align: left;
-	color: #7c8a95;
+	text-align: center;
+	color: rgb(90, 94, 97);
 }
 
 .calendar tbody td:hover {
 	/* border: 2px solid #00addf; */
 	cursor: pointer;
+	/* border: 2px solid rgb(90, 94, 97); */
+	/* border-radius: 30%; */
 }
 /* .calendar tbody td:active {
 	border: 2px solid #df0000;
@@ -83,7 +91,8 @@ table {
 } */
 
 .calendar .selected {
-	border: 2px solid #df0000;
+	border: 2px solid rgb(90, 94, 97);
+	border-radius: 30%;
 }
 
 .calendar td {
@@ -98,12 +107,12 @@ table {
 
 .calendar .prev-month,
 .calendar .next-month {
-	color: #cbd1d2;
+	color: rgb(90, 94, 97);
 }
 
 .calendar .prev-month:hover,
 .calendar .next-month:hover {
-	border: 2px solid #cbd1d2;
+	border: 2px solid rgb(90, 94, 97);
 }
 
 .current-day {
@@ -111,33 +120,11 @@ table {
 	color: #f9f9f9;
 }
 
-.event {
-	cursor: pointer;
-	position: relative;
-}
-
-.event:after {
-	background: #00addf;
-	border-radius: 50%;
-	bottom: .5em;
-	display: block;
-	content: '';
-	height: .5em;
-	left: 50%;
-	margin: -.25em 0 0 -.25em;
-	position: absolute;
-	width: .5em;
-}
-
-.event.current-day:after {
-	background: #f9f9f9;
-}
-
 .btn-prev,
 .btn-next {
-	border: 2px solid #cbd1d2;
+	border: 2px solid rgb(90, 94, 97);
 	border-radius: 50%;
-	color: #cbd1d2;
+	color: rgb(90, 94, 97);
 	height: 2em;
 	font-size: .75em;
 	line-height: 2em;
@@ -149,8 +136,8 @@ table {
 
 .btn-prev:hover,
 .btn-next:hover {
-	background: #cbd1d2;
-	color: #f9f9f9;
+	background: rgb(90, 94, 97);
+	color: rgb(90, 94, 97);
 }
 
 .btn-prev {
@@ -159,4 +146,8 @@ table {
 
 .btn-next {
 	right: 6em;
+}
+
+.bottom-button {
+	margin: 10px;
 }

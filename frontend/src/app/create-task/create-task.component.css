@@ -1,6 +1,6 @@
 
 .create-task-container {
-    background-color: lightgrey;
+
     padding: 20px;
     margin-top: 60px;
 }
@@ -8,14 +8,35 @@
 .month-dropdown {
 	border: 1px solid black;
     cursor: pointer;
+    border-radius: 5px 5px 5px 5px;
     text-align: center;
     min-width: 100px;
     height: 100%;
 }
 
-.dropdown {
+.dropdown-menu-month {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-menu-year {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-menu-date {
+    height: 300px;
+    width: 50px;
+    overflow-y: auto;
 }
 
 .dropdown-item {
     
+}
+.dropdown{
+    padding: 0px;
+}
+
+.dropdown-item {
+    font-size: 10pt;
 }

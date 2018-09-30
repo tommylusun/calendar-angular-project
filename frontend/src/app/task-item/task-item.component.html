@@ -1,0 +1,17 @@
+<div class="task-container">
+  <div class="row list-item">
+
+    <div class="col-1">
+      <input id="check-box" name="checked" type="checkbox" (click)="checkTask(task)" [checked]="getCheckBox(task)">
+    </div>
+    <div class="col-8 task-col">
+      <label class="task-name" (click)="checkTask(task)">
+        {{task.name}}
+      </label>
+    </div>
+    <div class="col-3 delete-button">
+      <button class="btn btn-secondary" (click)="deleteTask(task)">Delete</button>
+    </div>
+    <hr>
+  </div>
+</div>

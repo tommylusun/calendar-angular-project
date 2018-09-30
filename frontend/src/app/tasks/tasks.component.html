@@ -1,20 +1,20 @@
 <div class="outer-container">
   <div class="row">
     <!-- Create Task Form Component -->
-    <div class="col-3 create-task">
-      <app-create-task #createTask [currentDate]="day" (submitPressed)="addTask($event)"></app-create-task>
+    <div class="col-3 create-task-component">
+      <app-create-task class="" #createTask [currentDate]="day" (submitPressed)="addTask($event)"></app-create-task>
     </div>
 
     <div class="col-5">
       <!-- Header of Tasks List -->
       <div class="top-row">
-        <button class="btn btn-info" (click)="prevDay()">Prev Day</button>
+        <!-- <button class="btn btn-info" (click)="prevDay()">Prev Day</button> -->
         <span class="task-list-title">{{day.toDateString()}}</span>
-        <button class="btn btn-info" (click)="nextDay()">Next Day</button>
+        <!-- <button class="btn btn-info" (click)="nextDay()">Next Day</button> -->
       </div>
 
       <!-- Overall Tasks List -->
-      <div class="outer-box rounded col">
+      <div class="outer-box component-background rounded col">
         <div class="tasks-list rounded">
           <div class="container">
 
