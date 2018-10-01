@@ -2,8 +2,25 @@
 .create-task-container {
 
     padding: 20px;
-    margin-top: 60px;
+    animation-duration: 0.5s;
+  animation-name: slidein;
+  /* animation-iteration-count: infinite; */
+
+  /* padding: 10px; */
 }
+
+@keyframes slidein {
+  from {
+    margin-top: -5%;
+    opacity: 0;
+  }
+
+  to {
+    margin-top: 0%;
+    opacity: 1;
+  }
+}
+    
 
 .month-dropdown {
 	border: 1px solid black;
@@ -34,7 +51,7 @@
     
 }
 .dropdown{
-    padding: 0px;
+    padding: 5px;
 }
 
 .dropdown-item {

@@ -3,8 +3,43 @@
     margin-top: 50px;
     padding-left: 150px;
     padding-right: 150px;
-    position: absolute;
     
+}
+
+.tab-container {
+
+    margin: 30px;
+    width : 70%;
+    margin: auto;
+}
+.nav-link {
+    color: rgb(90, 94, 97);
+}
+.create-tab {
+    float: right;
+}
+.nav-item :hover{
+    background-color: rgba(255, 255, 255, 0.25);
+    
+}
+
+.nav-item .create-task:hover {
+    background-color: rgba(22, 212, 48, 0.25);
+}
+.active {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+.nav {
+    font-size: 16pt;
+    
+    
+}
+.active {
+    
+}
+
+.header {
+    text-align: center;
 }
 .container {
     justify-content: center;
@@ -17,11 +52,11 @@
 
 }
 .task-list-title {
-    
     padding-left: 10px;
     padding-right: 10px;
     font-size: 30pt;
     font-weight: 500;
+    min-width: 400px;
 
 }
 
@@ -32,7 +67,8 @@
 }
 .outer-box {
     margin: 30px;
-    width : 800px;
+    width : 100%;
+    padding: 20px;
     margin: auto;
 
 
@@ -40,6 +76,11 @@
   
   
 .create-task-component {
+    position: absolute;
+    max-width: 500px;
+    z-index: 1;
+    top: 50px;
+    backdrop-filter: blur(5px);
     
 }
 
@@ -66,4 +107,20 @@
 }
 .button {
     padding : 5px;
+}
+
+thead {
+	font-weight: 600;
+	text-transform: uppercase;
+	text-align: center;
+
+	
+}
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.calendar-component {
+    position: absolute;
 }

@@ -19,16 +19,58 @@ export class TasksComponent implements OnInit {
   private calendarComponent: CalendarComponent;
 
   showForm = false;
+  showCal = false;
   newTaskName;
   newTasks: Task[];
   day: Date;
   showTasks: Task[];
-  constructor() { }
+  view: string;
+
+  dayNames: string[];
+
+
+  constructor() {
+    this.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+   }
 
   ngOnInit() {
 
     this.newTasks = [];
     this.showTasks = [];
+    this.view = 'day';
+    const endDate = new Date();
+    const startDate = new Date();
+    endDate.setMonth(11);
+    endDate.setDate(31);
+    let newTask = new Task({
+      name: 'new model task',
+      description: 'Some description',
+      startDate: startDate,
+      endDate: endDate,
+      type: 'Daily'
+    });
+
+    this.newTasks.push(newTask);
+    newTask = new Task({
+      name: 'new model task 2',
+      description: 'Some description',
+      startDate: startDate,
+      endDate: endDate,
+      type: 'Daily'
+    });
+    this.newTasks.push(newTask);
+
+    this.newTasks.push(newTask);
+    newTask = new Task({
+      name: 'Weekly task 2',
+      description: 'Some description',
+      startDate: startDate,
+      endDate: endDate,
+      type: 'Weekly'
+    });
+    this.newTasks.push(newTask);
+
+
     this.day = new Date();
     this.constructTasksList(this.day);
 
@@ -48,6 +90,7 @@ export class TasksComponent implements OnInit {
     });
     this.newTasks.push(newTask2);
     this.constructTasksList(this.day);
+    this.showForm = false;
   }
 
   changeDay(day: Date) {
@@ -89,4 +132,11 @@ export class TasksComponent implements OnInit {
     this.createTaskComponent.updateDay(this.day);
     this.calendarComponent.goToDay(this.day);
   }
+
+  changeView(view) {
+    this.view = view;
+  }
+
+
+
 }
