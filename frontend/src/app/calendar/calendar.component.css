@@ -47,6 +47,24 @@ table {
     /* position: absolute;
     top: 10%; */
 	/* width: 510px; */
+	animation-duration: 0.5s;
+	animation-name: slidein2;
+	/* animation-iteration-count: infinite; */
+  
+	/* padding: 10px; */
+  }
+  
+  @keyframes slidein2 {
+	from {
+	  margin-left: -40%;
+	  opacity: 0;
+	}
+  
+	to {
+	  margin-left: 0%;
+	  opacity: 1;
+	}
+  
 }
 
 /* ---------- CALENDAR ---------- */

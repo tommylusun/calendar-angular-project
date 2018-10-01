@@ -9,7 +9,7 @@
 .tab-container {
 
     margin: 30px;
-    width : 70%;
+    width : 100%;
     margin: auto;
 }
 .nav-link {
@@ -78,6 +78,7 @@
 .create-task-component {
     position: absolute;
     max-width: 500px;
+    min-width: 350px;
     z-index: 1;
     top: 50px;
     backdrop-filter: blur(5px);
