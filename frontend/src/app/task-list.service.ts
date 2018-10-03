@@ -16,6 +16,10 @@ export class TaskListService {
     this.tasksList.push(task);
   }
 
+  deleteTask(task: Task) {
+    this.tasksList.splice( this.tasksList.indexOf(task), 1 );
+  }
+
   getTasks() {
     return this.tasksList;
   }
@@ -28,7 +32,17 @@ export class TaskListService {
         showTasks.push(task);
       }
     });
+    return showTasks;
+  }
 
+  getDayTasksWithType(date: Date, type: string) {
+    const showTasks = [];
+
+    this.tasksList.forEach(task => {
+      if (task.ifShouldShow(date) && task.type === type) {
+        showTasks.push(task);
+      }
+    });
     return showTasks;
   }
 

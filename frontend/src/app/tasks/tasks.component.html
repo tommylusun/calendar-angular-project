@@ -1,7 +1,7 @@
 <div class="outer-container">
 
   <div class="row">
-    
+
     <div class="col-5" *ngIf="showCal">
       <app-calendar #calendar (clickedDay)="changeDay($event)"></app-calendar>
     </div>
@@ -44,7 +44,7 @@
           <div class="header row">
             <div class="col">
               <span class="chevron left" (click)="prevDay()"></span>
-              <label class="task-list-title">{{day.toDateString()}}</label>
+              <label class="task-list-title">{{getTitle()}}</label>
               <span class="chevron right" (click)="nextDay()"></span>
             </div>
           </div>
@@ -63,7 +63,7 @@
           <div class="header row">
             <div class="col">
               <span class="chevron left" (click)="prevDay()"></span>
-              <label class="task-list-title">{{day.toDateString()}}</label>
+              <label class="task-list-title">{{getTitle()}}</label>
               <span class="chevron right" (click)="nextDay()"></span>
             </div>
           </div>
@@ -82,8 +82,8 @@
 
             <tbody>
               <tr>
-                <td *ngFor="let thing of dayNames">
-                  <div *ngFor="let task of showTasks">
+                <td *ngFor="let day of weekTasks">
+                  <div *ngFor="let task of day">
                     <div *ngIf="task.type==='Daily'">
                       <div>
                         <p class="task-name" (click)="checkTask(task)">

@@ -29,6 +29,9 @@ export class TasksComponent implements OnInit {
   dayNames: string[];
 
 
+  weekTasks: any[];
+
+
   constructor() {
     this.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
    }
@@ -37,6 +40,7 @@ export class TasksComponent implements OnInit {
 
     this.newTasks = [];
     this.showTasks = [];
+    this.weekTasks = [];
     this.view = 'day';
     const endDate = new Date();
     const startDate = new Date();
@@ -72,7 +76,8 @@ export class TasksComponent implements OnInit {
 
 
     this.day = new Date();
-    this.constructTasksList(this.day);
+    this.showTasks = this.constructTasksList(this.day);
+    this.constructWeekLists(this.day);
 
   }
 
@@ -89,20 +94,22 @@ export class TasksComponent implements OnInit {
       type: newTask2.type
     });
     this.newTasks.push(newTask2);
-    this.constructTasksList(this.day);
+    this.showTasks = this.constructTasksList(this.day);
     this.showForm = false;
   }
 
   changeDay(day: Date) {
     this.day = day;
-    this.constructTasksList(this.day);
+    this.showTasks = this.constructTasksList(this.day);
+    this.constructWeekLists(this.day);
     this.createTaskComponent.updateDay(this.day);
+
 
   }
 
   deleteTask(task: Task) {
     this.newTasks.splice( this.newTasks.indexOf(task), 1 );
-    this.constructTasksList(this.day);
+    this.showTasks = this.constructTasksList(this.day);
   }
   checkTask(task: Task) {
     task.toggleCheckBox(this.day);
@@ -112,31 +119,74 @@ export class TasksComponent implements OnInit {
     return task.getCheckBox(this.day);
   }
   constructTasksList(day: Date) {
-    this.showTasks = [];
+    const showTasks = [];
     for (const el of this.newTasks) {
       if (el.ifShouldShow(day)) {
-        this.showTasks.push(el);
+        showTasks.push(el);
       }
     }
+    return showTasks;
   }
 
   nextDay() {
-    this.day.setDate(this.day.getDate() + 1);
-    this.constructTasksList(this.day);
-    this.createTaskComponent.updateDay(this.day);
-    this.calendarComponent.goToDay(this.day);
+    if (this.view === 'day') {
+      this.day.setDate(this.day.getDate() + 1);
+      this.showTasks = this.constructTasksList(this.day);
+      this.constructWeekLists(this.day);
+      this.createTaskComponent.updateDay(this.day);
+      this.calendarComponent.goToDay(this.day);
+    } else if (this.view === 'week') {
+      this.day.setDate(this.day.getDate() + 7);
+      this.showTasks = this.constructTasksList(this.day);
+      this.constructWeekLists(this.day);
+      this.createTaskComponent.updateDay(this.day);
+      this.calendarComponent.goToDay(this.day);
+    }
   }
   prevDay() {
-    this.day.setDate(this.day.getDate() - 1);
-    this.constructTasksList(this.day);
-    this.createTaskComponent.updateDay(this.day);
-    this.calendarComponent.goToDay(this.day);
+    if (this.view === 'day') {
+      this.day.setDate(this.day.getDate() - 1);
+      this.showTasks = this.constructTasksList(this.day);
+      this.constructWeekLists(this.day);
+      this.createTaskComponent.updateDay(this.day);
+      this.calendarComponent.goToDay(this.day);
+    } else if (this.view === 'week') {
+      this.day.setDate(this.day.getDate() - 7);
+      this.showTasks = this.constructTasksList(this.day);
+      this.constructWeekLists(this.day);
+      this.createTaskComponent.updateDay(this.day);
+      this.calendarComponent.goToDay(this.day);
+    }
   }
 
   changeView(view) {
     this.view = view;
   }
 
+  constructWeekLists(day: Date) {
+    this.weekTasks = [];
+    const date = new Date(day);
+    date.setDate(date.getDate() - date.getDay());
+    for (let i = 0; i < 7; i++) {
+      const list = this.constructTasksList(date);
+      this.weekTasks.push(list);
+      date.setDate(date.getDate() + 1);
+    }
+  }
 
+  getTitle() {
+    if (this.view === 'day') {
+      return this.day.toDateString();
+    } else if (this.view === 'week') {
+      console.log('yes');
+      const displayDate = new Date(this.day);
+      displayDate.setDate(displayDate.getDate() - displayDate.getDay());
+      return displayDate.toDateString();
+    } else {
+      const displayDate = new Date(this.day);
+      displayDate.setDate(1);
+      return displayDate.toDateString();
+    }
+  }
 
 }
