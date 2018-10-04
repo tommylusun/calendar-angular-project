@@ -1,18 +1,14 @@
 <div class="outer-container">
 
-  <div class="row">
-
-    <div class="col-5" *ngIf="showCal">
-      <app-calendar></app-calendar>
-    </div>
-
-    <div class="col">
-      <div class="tab-container row">
-        <ul class="nav col-8">
-          <li class="nav-item">
-            <a class="nav-link" (click)="showCal=!showCal" href="#">Calendar</a>
-          </li>
-          <li class="nav-item">
+  <div class="tab-container row">
+    <ul class="nav col-6">
+      <li class="nav-item">
+        <a class="nav-link" (click)="showCal=!showCal" href="#">Calendar</a>
+      </li>
+      
+    </ul>
+    <ul class="nav navbar-right col-6">
+        <li class="nav-item">
             <a class="nav-link" (click)="changeView('day')" href="#">Day</a>
           </li>
           <li class="nav-item">
@@ -21,23 +17,25 @@
           <li class="nav-item">
             <a class="nav-link" (click)="changeView('month')" href="#">Month</a>
           </li>
-        </ul>
-        <ul class="nav navbar-right col-4">
-          <li class="nav-item create-tab ">
-            <a class="nav-link create-task " (click)="showForm=!showForm" href="#">Create Task</a>
-
-          </li>
-          <div class="create-task-component" *ngIf="showForm==true">
+      <li class="nav-item create-tab ">
+        <a class="nav-link create-task " (click)="showForm=!showForm" href="#">Create Task</a>
+        <div class="create-task-component" *ngIf="showForm==true">
             <app-create-task class="" (submitPressed)="addTask($event)"></app-create-task>
           </div>
-        </ul>
-      </div>
+      </li>
 
+    </ul>
+  </div>
 
+  <div class="row">
 
+    <div class="col-5" *ngIf="showCal">
+      <app-calendar></app-calendar>
+    </div>
+
+    <div class="col">
 
       <div class="component-background outer-box">
-
 
         <div *ngIf="view === 'day'">
           <h3>Your tasks for Today</h3>
