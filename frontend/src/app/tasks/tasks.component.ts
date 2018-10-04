@@ -3,6 +3,8 @@ import { CreateTaskComponent } from '../create-task/create-task.component';
 import { Task } from '../task';
 import { CalendarComponent } from '../calendar/calendar.component';
 import { TaskItemComponent } from '../task-item/task-item.component';
+import { TaskListService } from '../task-list.service';
+import { CurrentDateService } from '../current-date.service';
 
 
 @Component({
@@ -26,14 +28,13 @@ export class TasksComponent implements OnInit {
   showTasks: Task[];
   view: string;
 
-  dayNames: string[];
+  dayNames: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 
   weekTasks: any[];
 
 
-  constructor() {
-    this.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  constructor(private currentDateService: CurrentDateService) {
    }
 
   ngOnInit() {
@@ -74,37 +75,22 @@ export class TasksComponent implements OnInit {
     });
     this.newTasks.push(newTask);
 
-
     this.day = new Date();
+    this.currentDateService.setDate(this.day);
     this.showTasks = this.constructTasksList(this.day);
     this.constructWeekLists(this.day);
 
+    this.currentDateService.dateSubject.subscribe((data: Date) => {
+      this.day = data;
+      this.showTasks = this.constructTasksList(this.day);
+      this.constructWeekLists(this.day);
+    });
   }
 
   addTask(newTask2) {
-    const endDate = new Date();
-    const startDate = new Date(this.day);
-    endDate.setMonth(11);
-    endDate.setDate(31);
-    const newTask = new Task({
-      name: 'new model task',
-      description: 'Some description',
-      startDate: startDate,
-      endDate: endDate,
-      type: newTask2.type
-    });
     this.newTasks.push(newTask2);
     this.showTasks = this.constructTasksList(this.day);
     this.showForm = false;
-  }
-
-  changeDay(day: Date) {
-    this.day = day;
-    this.showTasks = this.constructTasksList(this.day);
-    this.constructWeekLists(this.day);
-    this.createTaskComponent.updateDay(this.day);
-
-
   }
 
   deleteTask(task: Task) {
@@ -131,31 +117,19 @@ export class TasksComponent implements OnInit {
   nextDay() {
     if (this.view === 'day') {
       this.day.setDate(this.day.getDate() + 1);
-      this.showTasks = this.constructTasksList(this.day);
-      this.constructWeekLists(this.day);
-      this.createTaskComponent.updateDay(this.day);
-      this.calendarComponent.goToDay(this.day);
+      this.currentDateService.dateSubject.next(this.day);
     } else if (this.view === 'week') {
       this.day.setDate(this.day.getDate() + 7);
-      this.showTasks = this.constructTasksList(this.day);
-      this.constructWeekLists(this.day);
-      this.createTaskComponent.updateDay(this.day);
-      this.calendarComponent.goToDay(this.day);
+      this.currentDateService.dateSubject.next(this.day);
     }
   }
   prevDay() {
     if (this.view === 'day') {
       this.day.setDate(this.day.getDate() - 1);
-      this.showTasks = this.constructTasksList(this.day);
-      this.constructWeekLists(this.day);
-      this.createTaskComponent.updateDay(this.day);
-      this.calendarComponent.goToDay(this.day);
+      this.currentDateService.dateSubject.next(this.day);
     } else if (this.view === 'week') {
       this.day.setDate(this.day.getDate() - 7);
-      this.showTasks = this.constructTasksList(this.day);
-      this.constructWeekLists(this.day);
-      this.createTaskComponent.updateDay(this.day);
-      this.calendarComponent.goToDay(this.day);
+      this.currentDateService.dateSubject.next(this.day);
     }
   }
 
@@ -178,7 +152,6 @@ export class TasksComponent implements OnInit {
     if (this.view === 'day') {
       return this.day.toDateString();
     } else if (this.view === 'week') {
-      console.log('yes');
       const displayDate = new Date(this.day);
       displayDate.setDate(displayDate.getDate() - displayDate.getDay());
       return displayDate.toDateString();
