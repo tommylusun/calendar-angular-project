@@ -14,12 +14,6 @@ import { CurrentDateService } from '../current-date.service';
 })
 export class TasksComponent implements OnInit {
 
-  @ViewChild('createTask')
-  private createTaskComponent: CreateTaskComponent;
-
-  @ViewChild('calendar')
-  private calendarComponent: CalendarComponent;
-
   showForm = false;
   showCal = false;
   newTaskName;
@@ -27,12 +21,9 @@ export class TasksComponent implements OnInit {
   day: Date;
   showTasks: Task[];
   view: string;
-
-  dayNames: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-
   weekTasks: any[];
 
+  dayNames: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   constructor(private currentDateService: CurrentDateService) {
    }

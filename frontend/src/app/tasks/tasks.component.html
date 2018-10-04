@@ -3,7 +3,7 @@
   <div class="row">
 
     <div class="col-5" *ngIf="showCal">
-      <app-calendar #calendar></app-calendar>
+      <app-calendar></app-calendar>
     </div>
 
     <div class="col">
@@ -28,7 +28,7 @@
 
           </li>
           <div class="create-task-component" *ngIf="showForm==true">
-            <app-create-task class="" #createTask (submitPressed)="addTask($event)"></app-create-task>
+            <app-create-task class="" (submitPressed)="addTask($event)"></app-create-task>
           </div>
         </ul>
       </div>
