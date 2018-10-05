@@ -25,7 +25,7 @@ export class TasksComponent implements OnInit {
 
   dayNames: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  constructor(private currentDateService: CurrentDateService) {
+  constructor(private currentDateService: CurrentDateService, private taskListService: TaskListService) {
    }
 
   ngOnInit() {
@@ -34,76 +34,33 @@ export class TasksComponent implements OnInit {
     this.showTasks = [];
     this.weekTasks = [];
     this.view = 'day';
-    const endDate = new Date();
-    const startDate = new Date();
-    endDate.setMonth(11);
-    endDate.setDate(31);
-    let newTask = new Task({
-      name: 'new model task',
-      description: 'Some description',
-      startDate: startDate,
-      endDate: endDate,
-      type: 'Daily'
-    });
-
-    this.newTasks.push(newTask);
-    newTask = new Task({
-      name: 'new model task 2',
-      description: 'Some description',
-      startDate: startDate,
-      endDate: endDate,
-      type: 'Daily'
-    });
-    this.newTasks.push(newTask);
-
-    this.newTasks.push(newTask);
-    newTask = new Task({
-      name: 'Weekly task 2',
-      description: 'Some description',
-      startDate: startDate,
-      endDate: endDate,
-      type: 'Weekly'
-    });
-    this.newTasks.push(newTask);
 
     this.day = new Date();
     this.currentDateService.setDate(this.day);
-    this.showTasks = this.constructTasksList(this.day);
-    this.constructWeekLists(this.day);
+    this.taskListService.bootstrapTaskslist();
+    this.showTasks = this.taskListService.getDayTasks(this.day);
+    this.weekTasks = this.taskListService.constructWeekLists(this.day);
 
     this.currentDateService.dateSubject.subscribe((data: Date) => {
       this.day = data;
-      this.showTasks = this.constructTasksList(this.day);
-      this.constructWeekLists(this.day);
+      this.showTasks = this.taskListService.getDayTasks(this.day);
+      this.weekTasks = this.taskListService.constructWeekLists(this.day);
+    });
+
+    this.taskListService.tasksSubject.subscribe((list: Task[]) => {
+      this.showTasks = this.taskListService.getDayTasks(this.day);
+      this.weekTasks = this.taskListService.constructWeekLists(this.day);
     });
   }
 
-  addTask(newTask2) {
-    this.newTasks.push(newTask2);
-    this.showTasks = this.constructTasksList(this.day);
-    this.showForm = false;
-  }
-
-  deleteTask(task: Task) {
-    this.newTasks.splice( this.newTasks.indexOf(task), 1 );
-    this.showTasks = this.constructTasksList(this.day);
-  }
   checkTask(task: Task) {
-    task.toggleCheckBox(this.day);
+    this.taskListService.toggleCheckBox(task, this.day);
   }
 
   getCheckBox(task: Task) {
-    return task.getCheckBox(this.day);
+    this.taskListService.getCheckBox(task, this.day);
   }
-  constructTasksList(day: Date) {
-    const showTasks = [];
-    for (const el of this.newTasks) {
-      if (el.ifShouldShow(day)) {
-        showTasks.push(el);
-      }
-    }
-    return showTasks;
-  }
+
 
   nextDay() {
     if (this.view === 'day') {
@@ -111,6 +68,9 @@ export class TasksComponent implements OnInit {
       this.currentDateService.dateSubject.next(this.day);
     } else if (this.view === 'week') {
       this.day.setDate(this.day.getDate() + 7);
+      this.currentDateService.dateSubject.next(this.day);
+    } else if (this.view === 'month') {
+      this.day.setMonth(this.day.getMonth() + 1);
       this.currentDateService.dateSubject.next(this.day);
     }
   }
@@ -121,22 +81,14 @@ export class TasksComponent implements OnInit {
     } else if (this.view === 'week') {
       this.day.setDate(this.day.getDate() - 7);
       this.currentDateService.dateSubject.next(this.day);
+    } else if (this.view === 'month') {
+      this.day.setMonth(this.day.getMonth() - 1);
+      this.currentDateService.dateSubject.next(this.day);
     }
   }
 
   changeView(view) {
     this.view = view;
-  }
-
-  constructWeekLists(day: Date) {
-    this.weekTasks = [];
-    const date = new Date(day);
-    date.setDate(date.getDate() - date.getDay());
-    for (let i = 0; i < 7; i++) {
-      const list = this.constructTasksList(date);
-      this.weekTasks.push(list);
-      date.setDate(date.getDate() + 1);
-    }
   }
 
   getTitle() {
@@ -149,7 +101,7 @@ export class TasksComponent implements OnInit {
     } else {
       const displayDate = new Date(this.day);
       displayDate.setDate(1);
-      return displayDate.toDateString();
+      return displayDate.getMonth().toString() + ' ' + displayDate.getFullYear().toString();
     }
   }
 

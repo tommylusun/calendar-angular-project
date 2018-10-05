@@ -1,5 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Task } from './task';
+import {
+  Injectable
+} from '@angular/core';
+import {
+  Task
+} from './task';
+import {
+  Subject
+} from 'rxjs';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -7,17 +16,51 @@ export class TaskListService {
 
   tasksList: Task[];
 
+  tasksSubject = new Subject <Task[]>();
+
   constructor() {
     this.tasksList = [];
-   }
+  }
 
+
+  addMockTask(type: string) {
+    const endDate = new Date();
+    const startDate = new Date();
+    endDate.setMonth(11);
+    endDate.setDate(31);
+    const taskName = type +
+      ' Task starting on ' +
+      endDate.toDateString() + ', ending ' +
+      startDate.toDateString();
+    const newTask = new Task({
+      name: taskName,
+      description: 'Some description',
+      startDate: startDate,
+      endDate: startDate,
+      type: type
+    });
+    return newTask;
+  }
+
+  bootstrapTaskslist() {
+    this.tasksList.push(this.addMockTask('Daily'));
+    this.tasksList.push(this.addMockTask('Daily'));
+    this.tasksList.push(this.addMockTask('Weekly'));
+    this.tasksList.push(this.addMockTask('Weekly'));
+    this.tasksList.push(this.addMockTask('Monthly'));
+    this.tasksList.push(this.addMockTask('Monthly'));
+
+    this.tasksSubject.next(this.tasksList);
+  }
 
   addTask(task: Task) {
     this.tasksList.push(task);
+    this.tasksSubject.next(this.tasksList);
   }
 
   deleteTask(task: Task) {
-    this.tasksList.splice( this.tasksList.indexOf(task), 1 );
+    this.tasksList.splice(this.tasksList.indexOf(task), 1);
+    this.tasksSubject.next(this.tasksList);
   }
 
   getTasks() {
@@ -46,6 +89,24 @@ export class TaskListService {
     return showTasks;
   }
 
+  toggleCheckBox(task: Task, date: Date) {
+    task.toggleCheckBox(date);
+  }
 
+  getCheckBox(task: Task, date: Date) {
+    return task.getCheckBox(date);
+  }
+
+  constructWeekLists(day: Date) {
+    const weekTasks = [];
+    const date = new Date(day);
+    date.setDate(date.getDate() - date.getDay());
+    for (let i = 0; i < 7; i++) {
+      const list = this.getDayTasksWithType(date, 'Daily');
+      weekTasks.push(list);
+      date.setDate(date.getDate() + 1);
+    }
+    return weekTasks;
+  }
 
 }

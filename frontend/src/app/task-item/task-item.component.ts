@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task';
+import { TaskListService } from '../task-list.service';
 
 @Component({
   selector: 'app-task-item',
@@ -11,25 +12,23 @@ export class TaskItemComponent implements OnInit {
   @Input() taskItem: Task;
   @Input() day: Date;
 
-  @Output() deletePressed = new EventEmitter<any>();
-
-  task: Task;
-  constructor() { }
+  // task: Task;
+  constructor(private taskListService: TaskListService) { }
 
   ngOnInit() {
-    this.task = this.taskItem;
+    // this.task = this.taskItem;
   }
 
-  checkTask(task: Task) {
-    task.toggleCheckBox(this.day);
+  checkTask() {
+    this.taskListService.toggleCheckBox(this.taskItem, this.day);
   }
 
-  getCheckBox(task: Task) {
-    return task.getCheckBox(this.day);
+  getCheckBox() {
+    return this.taskListService.getCheckBox(this.taskItem, this.day);
   }
 
-  deleteTask(task: Task) {
-    this.deletePressed.emit(task);
+  deleteTask() {
+    this.taskListService.deleteTask(this.taskItem);
   }
 
 }

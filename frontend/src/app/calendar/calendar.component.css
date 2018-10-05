@@ -111,6 +111,11 @@ table {
 	border: 2px solid rgb(90, 94, 97);
 	border-radius: 30%;
 }
+.calendar .hovered {
+	border: 2px solid rgb(90, 94, 97);
+	transition-duration: 0.2s;
+	border-radius: 30%;
+}
 
 .calendar td {
 	border: 2px solid transparent;

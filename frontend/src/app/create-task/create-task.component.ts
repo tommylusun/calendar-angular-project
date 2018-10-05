@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import { Task } from '../task';
 import { CurrentDateService } from '../current-date.service';
 import { Subscription } from 'rxjs';
+import { TaskListService } from '../task-list.service';
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
@@ -11,8 +12,8 @@ import { Subscription } from 'rxjs';
 export class CreateTaskComponent implements OnInit {
 
   showForm: boolean;
-  taskName: String;
-  taskDesc: String;
+  taskName: String = '';
+  taskDesc: String = '';
   taskType: String;
 
   type: String = 'Daily';
@@ -36,7 +37,7 @@ export class CreateTaskComponent implements OnInit {
 
   @Output() submitPressed = new EventEmitter<any>();
 
-  constructor(private currentDateService: CurrentDateService) {
+  constructor(private currentDateService: CurrentDateService, private tasksListService: TaskListService) {
   }
 
   ngOnInit() {
@@ -79,7 +80,6 @@ export class CreateTaskComponent implements OnInit {
       fullStartDate.toDateString() + ', ending ' +
       fullEndDate.toDateString();
     }
-
     const newTask = new Task({
       name: this.taskName,
       desc: this.taskDesc,
@@ -88,17 +88,14 @@ export class CreateTaskComponent implements OnInit {
       endDate: fullEndDate
     });
 
-    this.submitPressed.emit(newTask);
+    this.tasksListService.addTask(newTask);
     this.reset();
-
+    this.showForm = false;
   }
 
   reset() {
     this.taskName = '';
     this.taskDesc = '';
-  }
-
-  valueChange($event) {
   }
 
   cancel() {
@@ -112,7 +109,6 @@ export class CreateTaskComponent implements OnInit {
   selectEndMonth(ind) {
     this.endMonth = ind;
     this.endDatesList = this.createDateRange(this.endMonth, this.endYear);
-
   }
 
   updateDay(date: Date) {
@@ -131,7 +127,6 @@ export class CreateTaskComponent implements OnInit {
   selectStartYear(ind) {
     this.startYear = ind;
   }
-
   selectEndYear(ind) {
     this.endYear = ind;
   }

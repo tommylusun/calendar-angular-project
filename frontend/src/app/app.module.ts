@@ -24,7 +24,7 @@ import { CurrentDateService } from './current-date.service';
     BrowserModule,
     FormsModule
   ],
-  providers: [TaskListService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
