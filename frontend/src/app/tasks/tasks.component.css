@@ -3,7 +3,6 @@
     margin-top: 50px;
     padding-left: 150px;
     padding-right: 150px;
-    
 }
 
 .tab-container {
@@ -68,6 +67,7 @@
     margin-bottom: 30px;
 }
 .outer-box {
+    
     margin: 30px;
     width : 100%;
     padding: 20px;
@@ -83,7 +83,6 @@
     min-width: 350px;
     z-index: 1;
     top: 50px;
-    backdrop-filter: blur(5px);
     
 }
 

@@ -110,6 +110,7 @@ table {
 .calendar .selected {
 	border: 2px solid rgb(90, 94, 97);
 	border-radius: 30%;
+	transition-duration: 0.2s;
 }
 .calendar .hovered {
 	border: 2px solid rgb(90, 94, 97);

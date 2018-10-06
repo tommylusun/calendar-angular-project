@@ -12,6 +12,8 @@ export class TaskItemComponent implements OnInit {
   @Input() taskItem: Task;
   @Input() day: Date;
 
+  showDetails = false;
+
   // task: Task;
   constructor(private taskListService: TaskListService) { }
 

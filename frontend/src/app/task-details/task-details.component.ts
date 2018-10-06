@@ -13,6 +13,7 @@ export class TaskDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

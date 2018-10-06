@@ -1,11 +1,15 @@
-<div class="task-container" [ngClass]="class" (mouseover)="class='hover'" (mouseout)="class=''">
-  <div class="row list-item">
 
+<hr>
+<div  class="task-container" [ngClass]="{'hover' : show, 'selected' : showDetails}" (mouseover)="show=true" (mouseout)="show=false">
+
+  
+  
+  <div class="row list-item" (click)="showDetails=!showDetails">
     <div class="col-1">
       <input id="check-box" name="checked" type="checkbox" (click)="checkTask()" [checked]="getCheckBox()">
     </div>
     <div class="col-8 task-col">
-      <label class="task-name" (click)="checkTask()">
+      <label class="task-name">
         {{taskItem.name}}
       </label>
     </div>
@@ -14,4 +18,10 @@
     </div>
     <hr>
   </div>
+  <div *ngIf="showDetails">
+      <app-task-details [task]="taskItem"></app-task-details>
+    </div>
 </div>
+
+
+

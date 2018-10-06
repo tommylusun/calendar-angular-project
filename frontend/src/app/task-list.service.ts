@@ -34,7 +34,7 @@ export class TaskListService {
       startDate.toDateString();
     const newTask = new Task({
       name: taskName,
-      description: 'Some description',
+      description: 'Lorem ipsum I like some things but iuno what it is.',
       startDate: startDate,
       endDate: startDate,
       type: type

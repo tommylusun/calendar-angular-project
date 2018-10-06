@@ -1,0 +1,9 @@
+.outer-container {
+    display: flex;
+    text-align: left;
+    padding: 10px;
+    padding-left: 50px;
+    /* margin: 10px; */
+    font-size: 10pt;
+    background: rgba(178, 210, 228, 0.8);
+}
