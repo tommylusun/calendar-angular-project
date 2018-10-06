@@ -10,10 +10,20 @@ export class TaskDetailsComponent implements OnInit {
 
   @Input() task: Task;
 
+  iterable;
+  list = [];
   constructor() { }
 
   ngOnInit() {
+    this.iterable = Object.keys(this.task.checklist2);
+    for (const g of this.iterable) {
 
+      this.list.push(this.task.checklist2[g]);
+
+    }
+    console.log(this.task.checklist2);
+    console.log(this.iterable[0]);
+    console.log(this.list);
   }
 
 }

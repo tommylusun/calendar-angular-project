@@ -2,5 +2,9 @@
   <div>
     <p>{{task.description}}</p>
     <p>{{task.startDate.toDateString()}} - {{task.endDate.toDateString()}}</p>
+    <div *ngFor="let check of list">
+        <label>{{check.date.toDateString()}} - {{check.done}}</label>
+    </div>
   </div>
+
 </div>
