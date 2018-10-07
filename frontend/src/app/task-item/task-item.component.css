@@ -49,8 +49,8 @@
 
 .row2 {
   display: flex;
-  padding:5px;
-  padding-left:20px;
+  padding: 20px;
+
 }
 
 .checked {
@@ -74,7 +74,6 @@
 }
 
 .list-item {
-  padding: 10px;
 
   text-align: left;
   align-items: center;
