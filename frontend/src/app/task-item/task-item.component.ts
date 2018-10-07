@@ -14,15 +14,19 @@ export class TaskItemComponent implements OnInit {
 
   showDetails = false;
 
+  checkTaskButton;
+
   // task: Task;
   constructor(private taskListService: TaskListService) { }
 
   ngOnInit() {
     // this.task = this.taskItem;
+    this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
   }
 
   checkTask() {
     this.taskListService.toggleCheckBox(this.taskItem, this.day);
+    this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
   }
 
   getCheckBox() {

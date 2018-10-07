@@ -55,6 +55,7 @@ export class Task {
             }
             this.checklist2[currentDate.toDateString()] = new Checklist(new Date(currentDate));
         }
+        this.checklist = Object.values(this.checklist2);
     }
 
     ifShouldShow(date: Date) {

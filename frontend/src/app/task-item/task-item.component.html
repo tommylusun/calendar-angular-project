@@ -1,27 +1,33 @@
-
 <hr>
-<div  class="task-container" [ngClass]="{'hover' : show, 'selected' : showDetails}" (mouseover)="show=true" (mouseout)="show=false">
+<div class="task-container" [ngClass]="{'hover' : show, 'selected' : showDetails}" (mouseover)="show=true" (mouseout)="show=false">
 
-  
-  
-  <div class="row list-item" (click)="showDetails=!showDetails">
-    <div class="col-1">
-      <input id="check-box" name="checked" type="checkbox" (click)="checkTask()" [checked]="getCheckBox()">
+  <div class="row list-item">
+
+    <div class="col" (click)="showDetails=!showDetails">
+
+      <div class="row2">
+          <div (click)="checkTask()" class="col-1 checkbox center">
+              <span [ngClass]="{checked: getCheckBox()}">
+              </span>
+            </div>
+            <!-- <input id="check-box" name="checked" type="checkbox" (click)="checkTask()" [checked]="getCheckBox()"> -->
+            <div class="col-8 task-col">
+              <label class="task-name">
+                {{taskItem.name}}
+              </label>
+            </div>
+      </div>
+      
+
     </div>
-    <div class="col-8 task-col">
-      <label class="task-name">
-        {{taskItem.name}}
-      </label>
-    </div>
+
+
     <div class="col-3 delete-button">
-      <button class="btn btn-secondary" (click)="deleteTask()">Delete</button>
+      <!-- <button class="btn btn-secondary" (click)="deleteTask()">Delete</button> -->
+      <button class="btn btn-secondary" (click)="checkTask()">{{checkTaskButton}}</button>
     </div>
-    <hr>
   </div>
   <div *ngIf="showDetails">
-      <app-task-details [task]="taskItem"></app-task-details>
-    </div>
+    <app-task-details [task]="taskItem"></app-task-details>
+  </div>
 </div>
-
-
-

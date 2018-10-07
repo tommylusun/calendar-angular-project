@@ -5,18 +5,20 @@
   /* animation-iteration-count: infinite; */
   transition-duration: 0.3s;
   /* padding: 10px; */
-  
+
 }
+
 .hover {
-    /* border: 1px solid black; */
-    box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.25);
-    transition-duration: 0.2s;
-    transform: scale(1.01);
-    background: rgba(255,255,255,0.25);
-    /* cursor: pointer; */
+  /* border: 1px solid black; */
+  box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.25);
+  transition-duration: 0.2s;
+  transform: scale(1.01);
+  background: rgba(255, 255, 255, 0.25);
+  /* cursor: pointer; */
 }
+
 .selected {
-    border: 1px solid gray;
+  border: 1px solid gray;
 }
 
 @keyframes slidein {
@@ -31,8 +33,48 @@
   }
 }
 
+.center {
+  text-align: center;
+}
+
+.checkbox {
+  display: block;
+  height: 25px;
+  width: 25px;
+  max-width: 25px;
+  max-height: 25px;
+
+  background: rgba(255, 255, 255, 1);
+}
+
+.row2 {
+  display: flex;
+  padding:5px;
+  padding-left:20px;
+}
+
+.checked {
+  cursor: pointer;
+  display: inline-block;
+  position: absolute;
+  /*Add another block-level blank space*/
+  content: '';
+  /* display: block; */
+
+  /*Make it a small rectangle so the border will create an L-shape*/
+  width: 10px;
+  height: 22px;
+
+  /*Add a white border on the bottom and left, creating that 'L' */
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  left: 10px;
+
+}
+
 .list-item {
-    padding: 10px;
+  padding: 10px;
 
   text-align: left;
   align-items: center;
@@ -44,6 +86,7 @@
 
 .delete-button {
   text-align: right;
+  padding-right: 20px;
 }
 
 .task-name {

@@ -15,15 +15,12 @@ export class TaskDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.iterable = Object.keys(this.task.checklist2);
-    for (const g of this.iterable) {
 
-      this.list.push(this.task.checklist2[g]);
-
-    }
-    console.log(this.task.checklist2);
-    console.log(this.iterable[0]);
-    console.log(this.list);
+    // this.list = Array.from(Object.keys(this.task.checklist2), check => this.task.checklist2[check]);
+    this.list = Object.values(this.task.checklist2);
+    // console.log(this.task.checklist2);
+    // console.log(this.iterable[0]);
+    // console.log(this.list);
   }
 
 }

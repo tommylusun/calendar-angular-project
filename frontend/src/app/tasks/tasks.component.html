@@ -18,9 +18,9 @@
         <a class="nav-link" (click)="changeView('month')" href="#">Month</a>
       </li>
       <li class="nav-item create-tab ">
-        <a class="nav-link create-task " (click)="showForm=!showForm" href="#">Create Task</a>
+        <a class="nav-link create-task "  (click)="showForm=!showForm" href="#">Create Task</a>
         <div class="create-task-component" *ngIf="showForm==true">
-          <app-create-task></app-create-task>
+          <app-create-task ></app-create-task>
         </div>
       </li>
 
