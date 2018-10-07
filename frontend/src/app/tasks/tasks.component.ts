@@ -105,5 +105,10 @@ export class TasksComponent implements OnInit {
     }
   }
 
+  goToToday() {
+    this.day = new Date();
+    this.currentDateService.dateSubject.next(this.day);
+  }
+
 
 }

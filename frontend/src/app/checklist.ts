@@ -10,5 +10,6 @@ export class Checklist {
 
     toggle() {
         this.done = !this.done;
+        return this.done;
     }
 }

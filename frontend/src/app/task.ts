@@ -9,6 +9,7 @@ export class Task {
     type: string;
     checklist: Checklist[];
     checklist2: any;
+    doneCount: number;
 
     constructor(object) {
         this.name = object.name;
@@ -16,7 +17,8 @@ export class Task {
         this.startDate = object.startDate;
         this.endDate = object.endDate;
         this.type = object.type;
-
+        
+        this.doneCount = 0;
         this.checklist2 = {};
         this.constructCheckboxList();
     }
@@ -100,17 +102,22 @@ export class Task {
     }
 
     toggleCheckBox(date: Date) {
-
+            let toggle;
             if (this.type === 'Daily') {
-                this.checklist2[date.toDateString()].toggle();
+                toggle = this.checklist2[date.toDateString()].toggle();
             } else if (this.type === 'Weekly') {
                 const weekStartDate = new Date(date);
                 weekStartDate.setDate(date.getDate() - (date.getDay()));
-                this.checklist2[weekStartDate.toDateString()].toggle();
+                toggle = this.checklist2[weekStartDate.toDateString()].toggle();
             } else if (this.type === 'Monthly') {
                 const monthStartDate = new Date(date);
                 monthStartDate.setDate(1);
-                this.checklist2[monthStartDate.toDateString()].toggle();
+                toggle = this.checklist2[monthStartDate.toDateString()].toggle();
+            }
+            if (toggle) {
+                this.doneCount++;
+            } else {
+                this.doneCount--;
             }
     }
 }

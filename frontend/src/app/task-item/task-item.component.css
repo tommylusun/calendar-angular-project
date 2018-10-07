@@ -4,6 +4,7 @@
   /* animation-name: slidein; */
   /* animation-iteration-count: infinite; */
   transition-duration: 0.3s;
+  /* min-width: 770px; */
   /* padding: 10px; */
 
 }
@@ -66,10 +67,11 @@
   height: 22px;
 
   /*Add a white border on the bottom and left, creating that 'L' */
-  border: solid #000;
+  border: solid rgb(16, 187, 39);
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
   left: 10px;
+  transition-duration: 0.2s;
 
 }
 

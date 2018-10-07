@@ -1,42 +1,47 @@
 
 .outer-container {
+    
     margin-top: 50px;
     padding-left: 150px;
     padding-right: 150px;
+    
+}
+.flex-reverse {
+    flex-wrap:wrap-reverse;
+}
+.tab-container .col-6 {
+    padding:0px;
 }
 
 .tab-container {
-
     margin: 30px;
+    padding: 0px;
     width : 100%;
     margin: auto;
 }
 .nav-link {
     color: rgb(90, 94, 97);
 }
-.create-tab {
-    float: right;
-    margin-left: 100px;
-}
 .nav-item :hover{
     background-color: rgba(255, 255, 255, 0.25);
-    
 }
 
-.nav-item .create-task:hover {
-    background-color: rgba(22, 212, 48, 0.5);
+.create-task {
+    display: inline;
+    float: right;
+    
+}
+.today-button {
+    float: left;
 }
 .active {
     background-color: rgba(255, 255, 255, 0.25);
 }
 .nav {
-    font-size: 16pt;   
+    font-size: 16pt;  
 }
 .navbar-right{
     float: right;
-}
-.active {
-    
 }
 
 .header {
@@ -67,7 +72,7 @@
     margin-bottom: 30px;
 }
 .outer-box {
-    
+    min-width: 770px;
     margin: 30px;
     width : 100%;
     padding: 20px;
@@ -82,8 +87,8 @@
     max-width: 500px;
     min-width: 350px;
     z-index: 1;
-    top: 50px;
-    
+    top: 60px;
+    right:40px;    
 }
 
 .tasks-list{
