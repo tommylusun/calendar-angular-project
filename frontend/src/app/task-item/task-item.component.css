@@ -38,13 +38,13 @@
 }
 
 .checkbox {
-  display: block;
+  /* display: block;
   height: 25px;
   width: 25px;
   max-width: 25px;
   max-height: 25px;
 
-  background: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 1); */
 }
 
 .row2 {
@@ -85,7 +85,7 @@
 }
 
 .delete-button {
-  text-align: right;
+  /* text-align: right; */
   padding-right: 20px;
 }
 
