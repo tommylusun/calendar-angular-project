@@ -10,6 +10,7 @@ export class Task {
     checklist: Checklist[];
     checklist2: any;
     doneCount: number;
+    showDetails: boolean;
 
     constructor(object) {
         this.name = object.name;
@@ -17,7 +18,7 @@ export class Task {
         this.startDate = object.startDate;
         this.endDate = object.endDate;
         this.type = object.type;
-
+        this.showDetails = false;
         this.doneCount = 0;
         this.checklist2 = {};
         this.constructCheckboxList();

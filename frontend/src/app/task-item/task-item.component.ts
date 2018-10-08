@@ -13,8 +13,6 @@ export class TaskItemComponent implements OnInit {
   @Input() taskItem: Task;
   @Input() day: Date;
 
-  showDetails = false;
-
   checkTaskButton;
 
   // task: Task;

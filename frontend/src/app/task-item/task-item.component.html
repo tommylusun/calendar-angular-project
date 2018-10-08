@@ -1,9 +1,9 @@
 <hr>
-<div class="task-container" [ngClass]="{'hover' : show, 'selected' : showDetails}" (mouseover)="show=true" (mouseout)="show=false">
+<div class="task-container" [ngClass]="{'hover' : show, 'selected' : taskItem.showDetails}" (mouseover)="show=true" (mouseout)="show=false">
 
   <div class="row list-item">
 
-    <div class="col" (click)="showDetails=!showDetails">
+    <div class="col" (click)="taskItem.showDetails=!taskItem.showDetails">
 
       <div class="row2">
           <div class="col-1 checkbox center">
@@ -27,7 +27,7 @@
       <button class="btn btn-secondary" (click)="checkTask()">{{checkTaskButton}}</button>
     </div>
   </div>
-  <div *ngIf="showDetails">
+  <div *ngIf="taskItem.showDetails">
     <app-task-details [task]="taskItem"></app-task-details>
   </div>
 </div>

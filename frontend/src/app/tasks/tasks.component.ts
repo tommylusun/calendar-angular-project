@@ -111,9 +111,10 @@ export class TasksComponent implements OnInit {
     this.currentDateService.dateSubject.next(this.day);
   }
 
-  goToTask(task, ind) {
+  goToTask(task: Task, ind) {
       this.day.setDate(this.day.getDate() - this.day.getDay() + ind);
       this.currentDateService.dateSubject.next(this.day);
+      task.showDetails = true;
       this.view = 'day';
 
   }

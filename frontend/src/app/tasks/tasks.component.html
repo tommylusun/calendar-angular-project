@@ -92,12 +92,12 @@
                 <td *ngFor="let day of weekTasks; let i = index">
                   <div *ngFor="let task of day">
                     <div *ngIf="task.type==='Daily'">
-                      <div class="week-task-item row">
+                      <div class="week-task-item row" (click)="goToTask(task,i)">
                           <div class="checkbox">
                             <span [ngClass]="{checked: taskChecked(task,i)}">   
                             </span>
                           </div>
-                        <p class="task-name" (click)="goToTask(task,i)">
+                        <p class="task-name">
                           {{task.name}}
                         </p>
                       </div>
