@@ -41,7 +41,7 @@
           </div>
         <div class="create-task">
             <button class="btn btn-success" (click)="showForm=!showForm" href="#">New Task</button>
-            <div class="create-task-component" *ngIf="showForm==true">
+            <div class="create-task-component" *ngIf="showForm===true">
               <app-create-task></app-create-task>
             </div>
         </div>
@@ -89,11 +89,15 @@
             </thead>
             <tbody>
               <tr>
-                <td *ngFor="let day of weekTasks">
+                <td *ngFor="let day of weekTasks; let i = index">
                   <div *ngFor="let task of day">
                     <div *ngIf="task.type==='Daily'">
                       <div class="week-task-item row">
-                        <p class="task-name" (click)="checkTask(task)">
+                          <div class="checkbox">
+                            <span [ngClass]="{checked: taskChecked(task,i)}">   
+                            </span>
+                          </div>
+                        <p class="task-name" (click)="goToTask(task,i)">
                           {{task.name}}
                         </p>
                       </div>

@@ -50,6 +50,7 @@ export class TasksComponent implements OnInit {
     this.taskListService.tasksSubject.subscribe((list: Task[]) => {
       this.showTasks = this.taskListService.getDayTasks(this.day);
       this.weekTasks = this.taskListService.constructWeekLists(this.day);
+      this.showForm = false;
     });
   }
 
@@ -108,6 +109,18 @@ export class TasksComponent implements OnInit {
   goToToday() {
     this.day = new Date();
     this.currentDateService.dateSubject.next(this.day);
+  }
+
+  goToTask(task, ind) {
+      this.day.setDate(this.day.getDate() - this.day.getDay() + ind);
+      this.currentDateService.dateSubject.next(this.day);
+      this.view = 'day';
+
+  }
+  taskChecked(task: Task, ind) {
+    const temp = new Date(this.day);
+    temp.setDate(this.day.getDate() - this.day.getDay() + ind);
+    return task.getCheckBox(temp);
   }
 
 

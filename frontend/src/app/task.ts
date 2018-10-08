@@ -17,7 +17,7 @@ export class Task {
         this.startDate = object.startDate;
         this.endDate = object.endDate;
         this.type = object.type;
-        
+
         this.doneCount = 0;
         this.checklist2 = {};
         this.constructCheckboxList();

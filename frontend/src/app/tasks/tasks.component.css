@@ -1,10 +1,8 @@
 
-.outer-container {
-    
+.outer-container {  
     margin-top: 50px;
     padding-left: 150px;
-    padding-right: 150px;
-    
+    padding-right: 150px;  
 }
 .flex-reverse {
     flex-wrap:wrap-reverse;
@@ -27,9 +25,7 @@
 }
 
 .create-task {
-    display: inline;
     float: right;
-    
 }
 .today-button {
     float: left;
@@ -81,7 +77,6 @@
 
 }
   
-  
 .create-task-component {
     position: absolute;
     max-width: 500px;
@@ -129,7 +124,44 @@ table {
     display: flex;
     text-align: left;
     padding: 5px;
+    margin: 0px;
+    
     /* border-bottom: 1px solid black; */
+}
+.week-task-item .checked {
+    display: inline-block;
+    position: absolute;
+    /*Add another block-level blank space*/
+    content: '';
+    /* display: block; */
+  
+    /*Make it a small rectangle so the border will create an L-shape*/
+    width: 25px;
+    height: 55px;
+  
+    /*Add a white border on the bottom and left, creating that 'L' */
+    border: solid rgba(16, 187, 39,0.65);
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    /* left: 35%;
+    top: 30%; */
+    margin:auto;
+    z-index: -1;
+}
+.week-task-item:before {
+    content: " "; /* This is necessary for the pseudo element to work. */ 
+    display: block; /* This will put the pseudo element on its own line. */
+    margin: 0 auto; /* This will center the border. */
+    width: 80%; /* Change this to whatever width you want. */
+    border-top: 1px solid gray; /* This creates the border. Replace black with whatever color you want. */
+    padding-top: 10px;
+}
+
+.checkbox {
+    display: block;
+    position: relative;
+    right: 65%;
+    top: 30px;
 }
 
 .week-task-item:hover {
@@ -140,3 +172,4 @@ table {
     transition-duration: 0.2s;
     cursor: pointer;
 }
+

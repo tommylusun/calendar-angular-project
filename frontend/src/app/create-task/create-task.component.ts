@@ -49,6 +49,7 @@ export class CreateTaskComponent implements OnInit {
     this.startDatesList = this.createDateRange(this.startMonth, this.startYear);
     this.endDatesList = this.createDateRange(this.endMonth, this.endYear);
     this.yearsList = Array.from((Array(10).keys())).map( (_, ind) => 2018 + ind);
+
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
