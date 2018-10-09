@@ -7,18 +7,25 @@ import {
 import {
   Subject
 } from 'rxjs';
-
+import {
+  map, catchError
+} from 'rxjs/operators';
+import {
+  HttpClient
+} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskListService {
 
+  backendURL = 'http://localhost:3000';
+
   tasksList: Task[];
 
   tasksSubject = new Subject <Task[]>();
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.tasksList = [];
   }
 
@@ -49,7 +56,8 @@ export class TaskListService {
     this.tasksList.push(this.addMockTask('Weekly'));
     this.tasksList.push(this.addMockTask('Monthly'));
     this.tasksList.push(this.addMockTask('Monthly'));
-
+    this.saveNewTask(this.addMockTask('Daily')).subscribe();
+    this.retreiveTasksList().subscribe();
     this.tasksSubject.next(this.tasksList);
   }
 
@@ -107,6 +115,19 @@ export class TaskListService {
       date.setDate(date.getDate() + 1);
     }
     return weekTasks;
+  }
+
+  retreiveTasksList() {
+    return this.http.get(this.backendURL + '/task_list')
+    .pipe(map((response: Task[]) => {
+      console.log('response ' + response);
+      this.tasksList = response;
+    }));
+  }
+
+  saveNewTask(task: Task) {
+    return this.http.post(this.backendURL + '/new_task', task)
+    .pipe(    );
   }
 
 }

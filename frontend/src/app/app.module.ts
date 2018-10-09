@@ -10,6 +10,7 @@ import { TaskDetailsComponent } from './task-details/task-details.component';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { TaskListService } from './task-list.service';
 import { CurrentDateService } from './current-date.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CurrentDateService } from './current-date.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

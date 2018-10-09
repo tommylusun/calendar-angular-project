@@ -125,11 +125,11 @@ table {
     text-align: left;
     padding: 5px;
     margin: 0px;
-    min-height: 20px;
+    min-height: 50px;
     
     /* border-bottom: 1px solid black; */
 }
-.week-task-item .checked {
+.week-task-item .checked2 {
     display: inline-block;
     position: absolute;
     /*Add another block-level blank space*/
@@ -149,20 +149,12 @@ table {
     margin:auto;
     z-index: -1;
 }
-.week-task-item:before {
-    content: " "; /* This is necessary for the pseudo element to work. */ 
-    display: block; /* This will put the pseudo element on its own line. */
-    margin: 0 auto; /* This will center the border. */
-    width: 80%; /* Change this to whatever width you want. */
-    border-top: 1px solid gray; /* This creates the border. Replace black with whatever color you want. */
-    padding-top: 10px;
-}
 
-.checkbox {
+.checkbox2{
     display: block;
     position: relative;
-    right: 65%;
-    top: 30px;
+    /* right: 65%; */
+    /* top: 30px; */
 }
 
 .week-task-item:hover {
