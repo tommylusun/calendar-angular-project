@@ -2,6 +2,7 @@ import { Checklist } from './checklist';
 
 export class Task {
 
+    id: string;
     name: string;
     description: string;
     startDate: Date;
@@ -13,6 +14,7 @@ export class Task {
     showDetails: boolean;
 
     constructor(object) {
+        this.id = object.id;
         this.name = object.name;
         this.description = object.description;
         this.startDate = object.startDate;
@@ -25,15 +27,16 @@ export class Task {
             this.importChecklist(object.checklist2);
         } else {
             this.constructCheckboxList();
-
         }
     }
 
     importChecklist(list) {
+        this.doneCount = 0;
         for (const key of Object.keys(list)) {
             this.checklist2[key] = new Checklist(new Date(key));
             if (list[key]['done']) {
                 this.checklist2[key].done = true;
+                this.doneCount++;
             }
         }
     }

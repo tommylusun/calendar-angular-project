@@ -115,14 +115,19 @@ thead {
 table {
     width: 100%;
     table-layout: fixed;
+    
 }
 
 .calendar-component {
     position: absolute;
 }
-
+.day-column {
+    display: flex;
+    align-items: flex-start;
+}
 .week-task-item {
     display: flex;
+    align-self: flex-start;
     text-align: left;
     padding: 5px;
     margin: 0px;

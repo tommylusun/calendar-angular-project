@@ -26,7 +26,8 @@ var taskSchema = mongoose.Schema({
   startDate: Date,
   endDate: Date,
   type: String,
-  checkList: Object
+  checkList: Object,
+  doneCount: Number
 });
 
 var Task = mongoose.model('Task', taskSchema);
@@ -39,14 +40,11 @@ var hostname = "localhost";
 
 app.get('/task_list', function (req, res) {
 
-  Task.find({},(err,tasks) => {
+  Task.find({}).sort([['_id', 1]]).exec((err,tasks) => {
     let list = [];
     console.log(tasks);
     res.send(tasks);
   });
-
-
-  
     //console.log(json);
 });
 
@@ -60,7 +58,8 @@ app.post('/new_task', function(req,res){
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     type: req.body.type,
-    checkList: req.body.checklist2
+    checkList: req.body.checklist2,
+    doneCount: req.body.doneCount
   });
 
   task.save((err,product)=>{
@@ -77,10 +76,24 @@ app.post('/new_task', function(req,res){
 
 });
 
-app.put('')
+app.put('/update_task', (req,res) => {
+  if (req.body.checklist2 !== undefined){
+    Task.findByIdAndUpdate(req.body.id,{checkList: req.body.checklist2},(err,res2) => {
+      if (err) {
+        res.send(err);
+      }
+      console.log(res2);
+      res.send(res2);
+    });
+  }
+  
+})
 
-app.delete('/deletepost', function(req,res){
-  res.send("")
+app.delete('/delete_task:task_id', function(req,res){
+  Task.deleteOne({_id: req.params.task_id}, (err) => {
+    res.send(err);
+  });
+  res.send("success");
 })
 
 // app.post('/', function (req, res) {
