@@ -22,61 +22,27 @@ export class TaskListService {
   backendURL = 'http://localhost:3000';
 
   tasksList: Task[];
-
   tasksSubject = new Subject <Task[]>();
 
   constructor(private http: HttpClient) {
     this.tasksList = [];
   }
 
-
-  addMockTask(type: string) {
-    const endDate = new Date();
-    const startDate = new Date();
-    endDate.setMonth(11);
-    endDate.setDate(31);
-    const taskName = type +
-      ' Task starting on ' +
-      endDate.toDateString() + ', ending ' +
-      startDate.toDateString();
-    const newTask = new Task({
-      name: taskName,
-      description: 'Lorem ipsum dolor sit amet, ' +
-      'consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea ' +
-      'commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ' +
-      'eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui ' +
-      'officia deserunt mollit anim id est laborum.',
-      startDate: startDate,
-      endDate: endDate,
-      type: type
-    });
-    return newTask;
-  }
-
   async bootstrapTaskslist() {
-    // this.tasksList.push(this.addMockTask('Daily'));
-    // this.tasksList.push(this.addMockTask('Daily'));
-    // this.tasksList.push(this.addMockTask('Weekly'));
-    // this.tasksList.push(this.addMockTask('Weekly'));
-    // this.tasksList.push(this.addMockTask('Monthly'));
-    // this.tasksList.push(this.addMockTask('Monthly'));
-    // console.log(this.addMockTask('Daily'));
-    // await this.saveNewTask(this.addMockTask('Daily'));
     await this.retreiveTasksList();
     this.tasksSubject.next(this.tasksList);
   }
 
-  addTask(task: Task) {
+  async addTask(task: Task) {
     this.tasksList.push(task);
-    this.saveNewTask(task);
+    await this.saveNewTaskRequest(task);
     this.tasksSubject.next(this.tasksList);
   }
 
   async deleteTask(task: Task) {
     this.tasksList.splice(this.tasksList.indexOf(task), 1);
     this.tasksSubject.next(this.tasksList);
-    await this.deleteTaskCall(task);
+    await this.deleteTaskRequest(task);
   }
 
   getTasks() {
@@ -107,7 +73,7 @@ export class TaskListService {
 
   async toggleCheckBox(task: Task, date: Date) {
     task.toggleCheckBox(date);
-    await this.updateTask(task);
+    await this.updateTaskRequest(task);
   }
 
   getCheckBox(task: Task, date: Date) {
@@ -149,16 +115,15 @@ export class TaskListService {
     })).toPromise();
   }
 
-  async saveNewTask(task: Task) {
-    return await this.http.post(this.backendURL + '/new_task', task)
-    .pipe(    ).toPromise();
+  async saveNewTaskRequest(task: Task) {
+    return await this.http.post(this.backendURL + '/new_task', task).toPromise();
   }
 
-  async deleteTaskCall(task: Task) {
+  async deleteTaskRequest(task: Task) {
     return await this.http.delete(this.backendURL + '/delete_task/' + task.id).toPromise();
   }
 
-  async updateTask(task: Task) {
+  async updateTaskRequest(task: Task) {
     return await this.http.put(this.backendURL + '/update_task', task).toPromise();
   }
 

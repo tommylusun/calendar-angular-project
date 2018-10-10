@@ -37,39 +37,26 @@ export class CreateTaskComponent implements OnInit {
 
   @Output() submitPressed = new EventEmitter<any>();
 
-  constructor(private currentDateService: CurrentDateService, private tasksListService: TaskListService) {
-  }
+  constructor(private currentDateService: CurrentDateService, private tasksListService: TaskListService) {}
 
   ngOnInit() {
     this.updateDay(this.currentDateService.getDate());
-    this.dateService = this.currentDateService.dateSubject.subscribe((data: Date) => {
-      this.updateDay(data);
-    });
-
     this.startDatesList = this.createDateRange(this.startMonth, this.startYear);
     this.endDatesList = this.createDateRange(this.endMonth, this.endYear);
     this.yearsList = Array.from((Array(10).keys())).map( (_, ind) => 2018 + ind);
 
-  }
-
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    this.dateService.unsubscribe();
+    this.dateService = this.currentDateService.dateSubject.subscribe((data: Date) => {
+      this.updateDay(data);
+    });
   }
 
   createDateRange(month, year) {
-    let febNumberOfDays = 0;
-    if ( (year % 100 !== 0) && (year % 4 === 0) || (year % 400 === 0)) {
-      febNumberOfDays = 29;
-    } else {
-      febNumberOfDays = 28;
-    }
-    const dayPerMonth = [31, febNumberOfDays , 31, 30, 31, 30, 31, 30, 30, 31, 30, 31];
-    const arr = Array.from((Array(dayPerMonth[month] + 1).keys()));
+    const days = this.currentDateService.getDaysPerMonth(year);
+    const arr = Array.from((Array(days[month] + 1).keys()));
     arr.shift();
     return arr;
-
   }
+
   submit(taskForm: NgForm) {
 
     const fullStartDate = new Date(this.startYear, this.startMonth, this.startDate);
@@ -107,6 +94,7 @@ export class CreateTaskComponent implements OnInit {
     this.startMonth = ind;
     this.startDatesList = this.createDateRange(this.startMonth, this.startYear);
   }
+
   selectEndMonth(ind) {
     this.endMonth = ind;
     this.endDatesList = this.createDateRange(this.endMonth, this.endYear);
@@ -121,6 +109,7 @@ export class CreateTaskComponent implements OnInit {
   selectStartDate(ind) {
     this.startDate = ind;
   }
+
   selectEndDate(ind) {
     this.endDate = ind;
   }
@@ -128,8 +117,13 @@ export class CreateTaskComponent implements OnInit {
   selectStartYear(ind) {
     this.startYear = ind;
   }
+
   selectEndYear(ind) {
     this.endYear = ind;
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    this.dateService.unsubscribe();
+  }
 }

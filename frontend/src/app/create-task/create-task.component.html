@@ -1,12 +1,9 @@
 <div class="create-task-container modal-background">
-
-
-  <!-- <div class="row justify-content-center">
-      <button class="btn btn-primary add-task" (click)="addTaskButton()">Add New Task</button>
-  </div> -->
-
   <div>
+
+    <!-- Create Task Form -->
     <form (ngSubmit)="submit()" #taskForm="ngForm">
+
       <div class="form-group">
         <label for="name">Task Name</label>
         <input name="taskName" [(ngModel)]="taskName" type="text" class="form-control" id="name" required>
@@ -45,50 +42,45 @@
         </div>
         <div class="col-4 dropdown" *ngIf="type!=='Monthly'">
           <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
-              {{startDate}}
-            </button>
-            <div class="dropdown-menu dropdown-menu-date" aria-labelledby="dropdownMenuButton">
-              <a href="#" (click)="selectStartDate(i)" class="dropdown-item" *ngFor="let i of startDatesList">{{i}}</a>
-            </div>
+            {{startDate}}
+          </button>
+          <div class="dropdown-menu dropdown-menu-date" aria-labelledby="dropdownMenuButton">
+            <a href="#" (click)="selectStartDate(i)" class="dropdown-item" *ngFor="let i of startDatesList">{{i}}</a>
+          </div>
         </div>
       </div>
 
       <!-- End Date Form -->
       <div>End Date</div>
       <div class="row">
-          <div class="col-4 dropdown">
-            <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
-              {{endYear}}
-            </button>
-            <div class="dropdown-menu dropdown-menu-year" aria-labelledby="dropdownMenuButton">
-              <a href="#" (click)="selectEndYear(i)" class="dropdown-item" *ngFor="let i of yearsList">{{i}}</a>
-            </div>
-          </div>
-          <div class="col-4 dropdown">
-            <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
-              {{monthNames[endMonth]}}
-            </button>
-            <div class="dropdown-menu dropdown-menu-month" aria-labelledby="dropdownMenuButton">
-              <a href="#" (click)="selectEndMonth(i)" class="dropdown-item" *ngFor="let month of monthNames; let i = index">{{month}}</a>
-            </div>
-          </div>
-          <div class="col-4 dropdown" *ngIf="type!=='Monthly'">
-            <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
-                {{endDate}}
-              </button>
-              <div class="dropdown-menu dropdown-menu-date" aria-labelledby="dropdownMenuButton">
-                <a href="#" (click)="selectEndDate(i)" class="dropdown-item" *ngFor="let i of endDatesList">{{i}}</a>
-              </div>
+        <div class="col-4 dropdown">
+          <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
+            {{endYear}}
+          </button>
+          <div class="dropdown-menu dropdown-menu-year" aria-labelledby="dropdownMenuButton">
+            <a href="#" (click)="selectEndYear(i)" class="dropdown-item" *ngFor="let i of yearsList">{{i}}</a>
           </div>
         </div>
+        <div class="col-4 dropdown">
+          <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
+            {{monthNames[endMonth]}}
+          </button>
+          <div class="dropdown-menu dropdown-menu-month" aria-labelledby="dropdownMenuButton">
+            <a href="#" (click)="selectEndMonth(i)" class="dropdown-item" *ngFor="let month of monthNames; let i = index">{{month}}</a>
+          </div>
+        </div>
+        <div class="col-4 dropdown" *ngIf="type!=='Monthly'">
+          <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
+            {{endDate}}
+          </button>
+          <div class="dropdown-menu dropdown-menu-date" aria-labelledby="dropdownMenuButton">
+            <a href="#" (click)="selectEndDate(i)" class="dropdown-item" *ngFor="let i of endDatesList">{{i}}</a>
+          </div>
+        </div>
+      </div>
 
-      <!-- <div>
-        <input type="date" value="startDateSelector">
-      </div> -->
       <button style="margin-top: 20px" type="submit" class="btn btn-success">Submit</button>
     </form>
 
   </div>
-
-
 </div>

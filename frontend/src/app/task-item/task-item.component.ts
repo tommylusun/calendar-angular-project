@@ -20,12 +20,11 @@ export class TaskItemComponent implements OnInit {
 
   ngOnInit() {
     // this.task = this.taskItem;
-    this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
+    this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete';
 
     // this.currentDateService.dateSubject.subscribe((date) => {
     //   this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
     // });
-
   }
 
   checkTask() {
@@ -36,10 +35,6 @@ export class TaskItemComponent implements OnInit {
   getCheckBox() {
     this.checkTaskButton = this.taskListService.getCheckBox(this.taskItem, this.day) ? 'Uncheck Task' : 'Mark as complete!';
     return this.taskListService.getCheckBox(this.taskItem, this.day);
-  }
-
-  deleteTask() {
-    this.taskListService.deleteTask(this.taskItem);
   }
 
 }

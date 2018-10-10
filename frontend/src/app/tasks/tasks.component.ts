@@ -23,13 +23,12 @@ export class TasksComponent implements OnInit {
   view: string;
   weekTasks: any[];
 
-  dayNames: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  dayNames: string[];
 
-  constructor(private currentDateService: CurrentDateService, private taskListService: TaskListService) {
-   }
+  constructor(private currentDateService: CurrentDateService, private taskListService: TaskListService) {}
 
   ngOnInit() {
-
+    this.dayNames = this.currentDateService.dayNames;
     this.newTasks = [];
     this.showTasks = [];
     this.weekTasks = [];
@@ -40,6 +39,7 @@ export class TasksComponent implements OnInit {
     this.taskListService.bootstrapTaskslist();
     this.showTasks = this.taskListService.getDayTasks(this.day);
     this.weekTasks = this.taskListService.constructWeekLists(this.day);
+
 
     this.currentDateService.dateSubject.subscribe((data: Date) => {
       this.day = data;
@@ -61,7 +61,6 @@ export class TasksComponent implements OnInit {
   getCheckBox(task: Task) {
     this.taskListService.getCheckBox(task, this.day);
   }
-
 
   nextDay() {
     if (this.view === 'day') {
@@ -92,7 +91,7 @@ export class TasksComponent implements OnInit {
     this.view = view;
   }
 
-  getTitle() {
+  getTitleDate() {
     if (this.view === 'day') {
       return this.day.toDateString();
     } else if (this.view === 'week') {
@@ -102,7 +101,8 @@ export class TasksComponent implements OnInit {
     } else {
       const displayDate = new Date(this.day);
       displayDate.setDate(1);
-      return displayDate.getMonth().toString() + ' ' + displayDate.getFullYear().toString();
+      const monthNames = this.currentDateService.monthNames;
+      return monthNames[displayDate.getMonth()] + ' ' + displayDate.getFullYear().toString();
     }
   }
 
@@ -116,8 +116,8 @@ export class TasksComponent implements OnInit {
       this.currentDateService.dateSubject.next(this.day);
       task.showDetails = true;
       this.view = 'day';
-
   }
+
   taskChecked(task: Task, ind) {
     const temp = new Date(this.day);
     temp.setDate(this.day.getDate() - this.day.getDay() + ind);
