@@ -4,6 +4,8 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
+import { CurrentDateService } from '../current-date.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
@@ -18,52 +20,59 @@ export class CalendarComponent implements OnInit {
   currentYear: number;
 
   date: Date;
-  monthNames: string[];
-  dayNames: string[];
-  dayPerMonth: number[];
+  monthNames: string[] = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
+  dayNames: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  dayPerMonth: number[] = [31, 0 , 31, 30, 31, 30, 31, 30, 30, 31, 30, 31];
   FebNumberOfDays: number;
   selectedDate = Date;
   day: number;
   firstDayOfMonth: number;
   days: string[];
 
-  counter: number;
+  dateSub: Subscription;
 
-  @Output() clickedDay = new EventEmitter<any>();
-
-  constructor() {
-    this.counter = 1;
-    this.date = new Date();
-    this.determineFebDays();
-    this.monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-     'July', 'August', 'September', 'October', 'November', 'December'];
-    this.dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-    this.dayPerMonth = [31, this.FebNumberOfDays , 31, 30, 31, 30, 31, 30, 30, 31, 30, 31];
-    this.initializeCurrentDay();
-    this.initializeCalendar();
+  constructor(private currentDateService: CurrentDateService) {
   }
-
 
   initializeCalendar() {
 
     this.determineFebDays();
-    console.log('YEAR: ' + this.currentYear + ' MONTH: ' + this.currentMonth + ' Day: ' + this.currentDate);
-    const firstDay = new Date(this.currentYear, this.currentMonth, 1, 0);
-    this.firstDayOfMonth = firstDay.getDay();
+    // console.log('YEAR: ' + this.currentYear + ' MONTH: ' + this.currentMonth + ' Day: ' + this.currentDate);
+
+    // Push list of dates of month to array
     this.days = Array.from((Array(this.dayPerMonth[this.currentMonth] + 1).keys())).map(String);
     this.days.shift();
-    console.log(this.days);
-    // const prevDays = [for (i of range(20,50,5)) i];
-    this.days.unshift(...Array(this.firstDayOfMonth).fill(''));
 
-    const lastDay = new Date(firstDay);
-    lastDay.setDate(this.dayPerMonth[this.currentMonth] + 1);
+    // Determine which day first date of month begins on
+    const firstDay = new Date(this.currentYear, this.currentMonth, 1, 0);
+    this.days.unshift(...Array(firstDay.getDay()).fill(''));
+
+    // Determin which day last date of month ends on
+    const lastDay = new Date(this.currentYear, this.currentMonth, this.dayPerMonth[this.currentMonth] + 1, 0);
     this.days.push(...Array(7 - lastDay.getDay()).fill(''));
-    // this.days.push(...Array((7 + 1 - this.dayPerMonth[this.currentMonth] % 7)).fill(0));
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.date = this.currentDateService.getDate();
+    this.initializeCurrentDay();
+    this.initializeCalendar();
+
+    this.dateSub = this.currentDateService.dateSubject.subscribe((data: Date) => {
+      this.date = data;
+      if (this.currentYear === data.getFullYear() && this.currentMonth === data.getMonth()) {
+        this.initializeCurrentDay();
+      } else {
+        this.initializeCurrentDay();
+        this.initializeCalendar();
+      }
+    });
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy(): void {
+    this.dateSub.unsubscribe();
+  }
 
   determineFebDays() {
     if ( (this.currentYear % 100 !== 0) && (this.currentYear % 4 === 0) || (this.currentYear % 400 === 0)) {
@@ -71,43 +80,31 @@ export class CalendarComponent implements OnInit {
     } else {
       this.FebNumberOfDays = 28;
     }
+    this.dayPerMonth[1] = this.FebNumberOfDays;
   }
 
   clickDay(day) {
-    console.log('Go to Day ' + day);
-
     if (day !== '') {
-      this.date = new Date(this.currentYear, this.currentMonth, day, 0);
-      console.log('Go to Day ' + this.currentYear + ' '  + this.currentMonth + ' ' + day);
-      this.initializeCurrentDay();
+      this.currentDateService.dateSubject.next(new Date(this.currentYear, this.currentMonth, day, 0));
     }
-
-    this.clickedDay.emit(this.date);
   }
 
   goToDay(date: Date) {
-    this.date = new Date(date);
-    this.initializeCurrentDay();
+    this.currentDateService.dateSubject.next(date);
   }
 
   goToToday() {
-    this.date = new Date();
-    this.initializeCurrentDay();
-    this.initializeCalendar();
-    this.clickedDay.emit(this.date);
+    this.currentDateService.dateSubject.next(new Date());
   }
   goToPrevDay() {
     this.date.setDate(this.date.getDate() - 1);
-    this.initializeCurrentDay();
-    this.initializeCalendar();
-    this.clickedDay.emit(this.date);
+    this.currentDateService.dateSubject.next(this.date);
+
   }
 
   goToNextDay() {
     this.date.setDate(this.date.getDate() + 1);
-    this.initializeCurrentDay();
-    this.initializeCalendar();
-    this.clickedDay.emit(this.date);
+    this.currentDateService.dateSubject.next(this.date);
   }
 
   firstRowNeeded() {
@@ -124,8 +121,8 @@ export class CalendarComponent implements OnInit {
   prevMonth() {
     if (this.currentMonth >= 1) {
       this.currentMonth--;
+      this.initializeCalendar();
     }
-    this.initializeCalendar();
   }
 
   nextYear() {
@@ -150,7 +147,6 @@ export class CalendarComponent implements OnInit {
     return (this.currentMonth === this.date.getMonth()
     && this.currentYear === this.date.getFullYear()
     && Number(day) === this.date.getDate());
-
   }
 
   selectMonth(ind) {

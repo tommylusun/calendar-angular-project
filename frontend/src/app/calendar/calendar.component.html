@@ -1,5 +1,5 @@
 <div class="calendar-container">
-  <div class="calendar component-background rounded">
+  <div class="calendar component-background">
 
     <header>
       <h2>{{currentYear}}</h2>
@@ -30,7 +30,7 @@
 
       <tbody>
         <tr>
-          <td [ngClass]="{'selected': dateSelected(date), 'td:hover': date==''}" (click)="clickDay(date)" *ngFor="let date of days">{{date}}</td>
+          <td [ngClass]="{'selected': dateSelected(date)}" (click)="clickDay(date)" *ngFor="let date of days">{{date}}</td>
         </tr>
       </tbody>
     </table>

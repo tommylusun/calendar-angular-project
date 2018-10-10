@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../task';
+import { Checklist } from '../checklist';
+import { TaskListService } from '../task-list.service';
 
 @Component({
   selector: 'app-task-details',
@@ -8,10 +10,21 @@ import { Task } from '../task';
 })
 export class TaskDetailsComponent implements OnInit {
 
-  task = Task;
-  constructor() { }
+  @Input() task: Task;
+
+  iterable;
+  list: Checklist[];
+  doneCount: number;
+  constructor(private taskListService: TaskListService) { }
 
   ngOnInit() {
+    // this.list = Array.from(Object.keys(this.task.checklist2), check => this.task.checklist2[check]);
+
+    this.list = Object.values(this.task.checklist2);
+  }
+
+  deleteTask() {
+    this.taskListService.deleteTask(this.task);
   }
 
 }

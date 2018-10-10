@@ -1,6 +1,9 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnDestroy } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { Task } from '../task';
+import { CurrentDateService } from '../current-date.service';
+import { Subscription } from 'rxjs';
+import { TaskListService } from '../task-list.service';
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
@@ -9,12 +12,14 @@ import { Task } from '../task';
 export class CreateTaskComponent implements OnInit {
 
   showForm: boolean;
-  taskName: String;
-  taskDesc: String;
+  taskName: String = '';
+  taskDesc: String = '';
   taskType: String;
-  type: String;
-  types: String[];
-  monthNames: String[];
+
+  type: String = 'Daily';
+  types: String[] = ['Daily', 'Weekly', 'Monthly'];
+  monthNames: String[] = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
 
   startYear: number;
   startMonth: number;
@@ -24,40 +29,32 @@ export class CreateTaskComponent implements OnInit {
   endMonth: number;
   endDate: number;
 
-
-
   yearsList: number[];
   startDatesList: number[];
   endDatesList: number[];
 
-
-
-
-  @Input() currentDate: Date;
+  dateService: Subscription;
 
   @Output() submitPressed = new EventEmitter<any>();
 
-  constructor() {
-    this.monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-     'July', 'August', 'September', 'October', 'November', 'December'];
-    this.types = ['Daily', 'Weekly', 'Monthly'];
-    this.taskDesc = '';
-    this.taskName = '';
-    this.type = 'Daily';
-
-
+  constructor(private currentDateService: CurrentDateService, private tasksListService: TaskListService) {
   }
 
   ngOnInit() {
-    this.updateDay(this.currentDate);
-    this.endMonth = this.startMonth;
-    this.endYear = this.startYear;
-    this.endDate = this.startDate;
+    this.updateDay(this.currentDateService.getDate());
+    this.dateService = this.currentDateService.dateSubject.subscribe((data: Date) => {
+      this.updateDay(data);
+    });
 
     this.startDatesList = this.createDateRange(this.startMonth, this.startYear);
     this.endDatesList = this.createDateRange(this.endMonth, this.endYear);
-
     this.yearsList = Array.from((Array(10).keys())).map( (_, ind) => 2018 + ind);
+
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    this.dateService.unsubscribe();
   }
 
   createDateRange(month, year) {
@@ -84,26 +81,22 @@ export class CreateTaskComponent implements OnInit {
       fullStartDate.toDateString() + ', ending ' +
       fullEndDate.toDateString();
     }
-
     const newTask = new Task({
       name: this.taskName,
-      desc: this.taskDesc,
+      description: this.taskDesc,
       type: this.type,
       startDate: fullStartDate,
       endDate: fullEndDate
     });
 
-    this.submitPressed.emit(newTask);
+    this.tasksListService.addTask(newTask);
     this.reset();
-
+    this.showForm = false;
   }
 
   reset() {
     this.taskName = '';
     this.taskDesc = '';
-  }
-
-  valueChange($event) {
   }
 
   cancel() {
@@ -117,7 +110,6 @@ export class CreateTaskComponent implements OnInit {
   selectEndMonth(ind) {
     this.endMonth = ind;
     this.endDatesList = this.createDateRange(this.endMonth, this.endYear);
-
   }
 
   updateDay(date: Date) {
@@ -136,7 +128,6 @@ export class CreateTaskComponent implements OnInit {
   selectStartYear(ind) {
     this.startYear = ind;
   }
-
   selectEndYear(ind) {
     this.endYear = ind;
   }

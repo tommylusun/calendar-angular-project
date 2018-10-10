@@ -1,11 +1,157 @@
 <div class="outer-container">
-  <div class="row">
-    <!-- Create Task Form Component -->
-    <div class="col-3 create-task-component">
-      <app-create-task class="" #createTask [currentDate]="day" (submitPressed)="addTask($event)"></app-create-task>
+
+  <div class="tab-container row">
+    <div class="col-6">
+        <ul class="nav">
+            <li class="nav-item">
+              <a [ngClass]="{active: showCal}" class="nav-link" (click)="showCal=!showCal" href="#">Calendar</a>
+            </li>
+            </ul>
+    </div>
+    <div class="col-6">
+
+
+  <ul class="nav navbar-right">
+      <li class="nav-item pull-right">
+        <a [ngClass]="{active: view==='day'}" class="nav-link" (click)="changeView('day')" href="#">Day</a>
+      </li>
+      <li class="nav-item">
+        <a [ngClass]="{active: view==='week'}" class="nav-link" (click)="changeView('week')" href="#">Week</a>
+      </li>
+      <li class="nav-item">
+        <a [ngClass]="{active: view==='month'}" class="nav-link" (click)="changeView('month')" href="#">Month</a>
+      </li>
+      
+        </ul>
+        </div>
+    
+  </div>
+
+  <div class="row flex-wrap-reverse">
+
+    <div class="col-5" *ngIf="showCal">
+      <app-calendar></app-calendar>
     </div>
 
-    <div class="col-5">
+    <div class="col">
+
+      <div class="component-background outer-box">
+          <div class="today-button">
+              <button class="btn btn-success btn-outline-dark" (click)="goToToday()" href="#">Go to Today</button>
+          </div>
+        <div class="create-task">
+            <button class="btn btn-success" (click)="showForm=!showForm" href="#">New Task</button>
+            <div class="create-task-component" *ngIf="showForm===true">
+              <app-create-task></app-create-task>
+            </div>
+        </div>
+        
+
+        <!-- Day View -->
+        <div *ngIf="view === 'day'">
+          <h3>Your tasks for</h3>
+          <div class="header row">
+            <div class="col">
+              <span class="chevron left" (click)="prevDay()"></span>
+              <label class="task-list-title">{{getTitle()}}</label>
+              <span class="chevron right" (click)="nextDay()"></span>
+            </div>
+          </div>
+          <h3 class="task-type-header"></h3>
+          <div *ngFor="let task of showTasks">
+            <div *ngIf="task.type==='Daily'">
+              <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+            </div>
+          </div>
+        </div>
+
+        <!-- Week View -->
+        <div *ngIf="view === 'week'">
+          <h3>Your tasks for week of</h3>
+          <div class="header row">
+            <div class="col">
+              <span class="chevron left" (click)="prevDay()"></span>
+              <label class="task-list-title">{{getTitle()}}</label>
+              <span class="chevron right" (click)="nextDay()"></span>
+            </div>
+          </div>
+          <h3 class="task-type-header"></h3>
+          <h3>Weekly Tasks</h3>
+          <div *ngFor="let task of showTasks">
+            <div *ngIf="task.type==='Weekly'">
+              <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+            </div>
+          </div>
+          <h3 class="task-type-header"></h3>
+          <table>
+            <thead>
+              <td class="table-headers" *ngFor="let day of dayNames">{{day}}</td>
+            </thead>
+            <tbody>
+              <tr>
+                <td *ngFor="let day of weekTasks; let i = index">
+                  <div class="day-column" *ngFor="let task of day">
+                    <div *ngIf="task.type==='Daily'">
+                      <div class="week-task-item row" (click)="goToTask(task,i)">
+                          <div class="checkbox">
+                            <span [ngClass]="{checked: taskChecked(task,i)}">   
+                            </span>
+                          </div>
+                        <p class="task-name">
+                          {{task.name}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+
+        <!-- Month View -->
+        <div *ngIf="view === 'month'">
+          <h3>Your tasks for</h3>
+          <div class="header row">
+            <div class="col">
+              <span class="chevron left" (click)="prevDay()"></span>
+              <label class="task-list-title">{{getTitle()}}</label>
+              <span class="chevron right" (click)="nextDay()"></span>
+            </div>
+          </div>
+          <h3 class="task-type-header"></h3>
+          <div *ngFor="let task of showTasks">
+            <div *ngIf="task.type==='Monthly'">
+              <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="row">
+    <!-- Create Task Form Component -->
+    <!-- <div class="col create-task-component">
+      <app-create-task class="" #createTask [currentDate]="day" (submitPressed)="addTask($event)"></app-create-task>
+    </div> -->
+
+    <div class="col" *ngIf="">
       <!-- Header of Tasks List -->
       <div class="top-row">
         <!-- <button class="btn btn-info" (click)="prevDay()">Prev Day</button> -->
@@ -22,7 +168,7 @@
             <h3 class="task-type-header">This Month's Tasks</h3>
             <div *ngFor="let task of showTasks">
               <div *ngIf="task.type==='Monthly'">
-                  <app-task-item [taskItem]="task" [day]="day" (deletePressed)="deleteTask($event)"></app-task-item>
+                <app-task-item [taskItem]="task" [day]="day" (deletePressed)="deleteTask($event)"></app-task-item>
               </div>
             </div>
 
@@ -30,7 +176,7 @@
             <h3 class="task-type-header">This Week's Tasks</h3>
             <div *ngFor="let task of showTasks">
               <div *ngIf="task.type==='Weekly'">
-                  <app-task-item [taskItem]="task" [day]="day" (deletePressed)="deleteTask($event)"></app-task-item>
+                <app-task-item [taskItem]="task" [day]="day" (deletePressed)="deleteTask($event)"></app-task-item>
               </div>
             </div>
 
@@ -38,7 +184,7 @@
             <h3 class="task-type-header">Today's Tasks</h3>
             <div *ngFor="let task of showTasks">
               <div *ngIf="task.type==='Daily'">
-                  <app-task-item [taskItem]="task" [day]="day" (deletePressed)="deleteTask($event)"></app-task-item>
+                <app-task-item [taskItem]="task" [day]="day" (deletePressed)="deleteTask($event)"></app-task-item>
               </div>
             </div>
             <!-- End Daily Tasks List -->
@@ -49,10 +195,6 @@
       <!-- End Tasks List -->
     </div>
 
-    <!-- Calendar Component -->
-    <div class="col-4">
-      <app-calendar #calendar (clickedDay)="changeDay($event)"></app-calendar>
-    </div>
-
   </div>
+
 </div>

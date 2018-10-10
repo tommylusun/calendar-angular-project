@@ -38,16 +38,33 @@ table {
 }
 
 .calendar-container {
-	margin-top: 60px;
 	min-width: 500px;
 	max-width: 500px;
-	
 	/* height: 538px; */
 	/* left: 50%; */
 	/* margin: -255px 0 0 -245px; */
     /* position: absolute;
     top: 10%; */
 	/* width: 510px; */
+	animation-duration: 0.4s;
+	animation-name: slidein2;
+	animation-timing-function: cubic-bezier(0.0, 0.5, 0, 1.000);
+	/* animation-iteration-count: infinite; */
+  
+	/* padding: 10px; */
+  }
+  
+  @keyframes slidein2 {
+	from {
+	  margin-left: -40%;
+	  opacity: 0;
+	}
+  
+	to {
+	  margin-left: 0%;
+	  opacity: 1;
+	}
+  
 }
 
 /* ---------- CALENDAR ---------- */
@@ -92,6 +109,12 @@ table {
 
 .calendar .selected {
 	border: 2px solid rgb(90, 94, 97);
+	border-radius: 30%;
+	transition-duration: 0.2s;
+}
+.calendar .hovered {
+	border: 2px solid rgb(90, 94, 97);
+	transition-duration: 0.2s;
 	border-radius: 30%;
 }
 

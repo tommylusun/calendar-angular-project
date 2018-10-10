@@ -1,10 +1,48 @@
 
-.outer-container {
+.outer-container {  
     margin-top: 50px;
     padding-left: 150px;
-    padding-right: 150px;
-    position: absolute;
-    
+    padding-right: 150px;  
+    margin-bottom: 50px;
+}
+.flex-reverse {
+    flex-wrap:wrap-reverse;
+}
+.tab-container .col-6 {
+    padding:0px;
+}
+
+.tab-container {
+    margin: 30px;
+    padding: 0px;
+    width : 100%;
+    margin: auto;
+}
+.nav-link {
+    color: rgb(90, 94, 97);
+}
+.nav-item :hover{
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.create-task {
+    float: right;
+}
+.today-button {
+    float: left;
+}
+.active {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+.nav {
+    font-size: 16pt;  
+}
+.navbar-right{
+    float: right;
+}
+
+.header {
+    text-align: center;
 }
 .container {
     justify-content: center;
@@ -17,11 +55,11 @@
 
 }
 .task-list-title {
-    
     padding-left: 10px;
     padding-right: 10px;
     font-size: 30pt;
     font-weight: 500;
+    min-width: 400px;
 
 }
 
@@ -31,16 +69,22 @@
     margin-bottom: 30px;
 }
 .outer-box {
+    min-width: 770px;
     margin: 30px;
-    width : 800px;
+    width : 100%;
+    padding: 20px;
     margin: auto;
 
 
 }
   
-  
 .create-task-component {
-    
+    position: absolute;
+    max-width: 500px;
+    min-width: 350px;
+    z-index: 1;
+    top: 60px;
+    right:40px;    
 }
 
 .tasks-list{
@@ -51,13 +95,6 @@
     /* width : 60%; */
     justify-content: center;
 }
-.list-item {
-    text-align: left;
-    align-items: center;
-    padding-bottom : 10px;
-    outline-color: black;
-
-}
 .add-task {
     margin: 10px 10px 10px 10px;
 }
@@ -67,3 +104,71 @@
 .button {
     padding : 5px;
 }
+
+thead {
+	font-weight: 600;
+	text-transform: uppercase;
+	text-align: center;
+
+	
+}
+table {
+    width: 100%;
+    table-layout: fixed;
+    
+}
+
+.calendar-component {
+    position: absolute;
+}
+.day-column {
+    display: flex;
+    align-items: flex-start;
+}
+.week-task-item {
+    display: flex;
+    align-self: flex-start;
+    text-align: left;
+    padding: 5px;
+    margin: 0px;
+    min-height: 50px;
+    
+    /* border-bottom: 1px solid black; */
+}
+.week-task-item .checked2 {
+    display: inline-block;
+    position: absolute;
+    /*Add another block-level blank space*/
+    content: '';
+    /* display: block; */
+  
+    /*Make it a small rectangle so the border will create an L-shape*/
+    width: 25px;
+    height: 55px;
+  
+    /*Add a white border on the bottom and left, creating that 'L' */
+    border: solid rgba(16, 187, 39,0.65);
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    /* left: 35%;
+    top: 30%; */
+    margin:auto;
+    z-index: -1;
+}
+
+.checkbox2{
+    display: block;
+    position: relative;
+    /* right: 65%; */
+    /* top: 30px; */
+}
+
+.week-task-item:hover {
+    /* border: 1px solid black; */
+    box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.25);
+    background: rgba(255,255,255,0.25);
+    transform: scale(1.05);
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+

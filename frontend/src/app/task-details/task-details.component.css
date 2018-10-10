@@ -1,0 +1,16 @@
+.outer-container {
+    display: flex;
+    text-align: left;
+    padding: 10px;
+    padding-left: 50px;
+    /* margin: 10px; */
+    font-size: 10pt;
+    background: rgba(191, 210, 223, 0.8);
+}
+
+.inner-container{
+    width: 100%;
+}
+.delete-button {
+    float: right;
+}

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task';
+import { TaskListService } from '../task-list.service';
+import { CurrentDateService } from '../current-date.service';
 
 @Component({
   selector: 'app-task-item',
@@ -11,25 +13,33 @@ export class TaskItemComponent implements OnInit {
   @Input() taskItem: Task;
   @Input() day: Date;
 
-  @Output() deletePressed = new EventEmitter<any>();
+  checkTaskButton;
 
-  task: Task;
-  constructor() { }
+  // task: Task;
+  constructor(private taskListService: TaskListService, private currentDateService: CurrentDateService) { }
 
   ngOnInit() {
-    this.task = this.taskItem;
+    // this.task = this.taskItem;
+    this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
+
+    // this.currentDateService.dateSubject.subscribe((date) => {
+    //   this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
+    // });
+
   }
 
-  checkTask(task: Task) {
-    task.toggleCheckBox(this.day);
+  checkTask() {
+    this.taskListService.toggleCheckBox(this.taskItem, this.day);
+    this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
   }
 
-  getCheckBox(task: Task) {
-    return task.getCheckBox(this.day);
+  getCheckBox() {
+    this.checkTaskButton = this.taskListService.getCheckBox(this.taskItem, this.day) ? 'Uncheck Task' : 'Mark as complete!';
+    return this.taskListService.getCheckBox(this.taskItem, this.day);
   }
 
-  deleteTask(task: Task) {
-    this.deletePressed.emit(task);
+  deleteTask() {
+    this.taskListService.deleteTask(this.taskItem);
   }
 
 }
