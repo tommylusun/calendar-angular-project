@@ -25,8 +25,7 @@ export class TasksComponent implements OnInit {
 
   dayNames: string[];
 
-  constructor(private currentDateService: CurrentDateService, private taskListService: TaskListService) {
-   }
+  constructor(private currentDateService: CurrentDateService, private taskListService: TaskListService) {}
 
   ngOnInit() {
     this.dayNames = this.currentDateService.dayNames;

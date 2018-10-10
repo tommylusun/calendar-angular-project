@@ -48,7 +48,6 @@ export class CalendarComponent implements OnInit {
   }
 
   initializeCalendar() {
-    // console.log('YEAR: ' + this.currentYear + ' MONTH: ' + this.currentMonth + ' Day: ' + this.currentDate);
     const days = this.currentDateService.getDaysPerMonth(this.currentYear);
     // Push list of dates of month to array
     this.days = Array.from((Array(days[this.currentMonth] + 1).keys())).map(String);

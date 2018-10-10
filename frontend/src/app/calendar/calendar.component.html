@@ -1,6 +1,7 @@
 <div class="calendar-container">
   <div class="calendar component-background">
 
+    <!-- Calendar Headers -->
     <header>
       <h2>{{currentYear}}</h2>
       <a (click)="prevYear()" class="btn-prev fontawesome-angle-left" href="#"></a>
@@ -21,6 +22,7 @@
       <a (click)="nextMonth()" class="btn-next fontawesome-angle-right" href="#"></a>
     </header>
 
+    <!-- Calendar Table -->
     <table>
       <thead>
         <tr>
@@ -35,6 +37,7 @@
       </tbody>
     </table>
 
+    <!-- Calender Footer buttons -->
     <div class="top-row">
       <button class="btn btn-secondary bottom-button" (click)="goToPrevDay()">Prev Day</button>
       <button class="btn btn-secondary bottom-button" (click)="goToToday()">Today</button>
