@@ -1,11 +1,17 @@
 <div class="outer-container">
-  <div>
+  <div class="inner-container">
     <p>{{task.description}}</p>
     <p>{{task.startDate.toDateString()}} - {{task.endDate.toDateString()}}</p>
+    
     <div>
         <label>{{task.doneCount}} / {{list.length}} Completed</label>
     </div>
         <!-- <label>{{check.date.toDateString()}} - {{check.done}}</label> -->
+
+        <div>
+          <button class="btn btn-danger delete-button" (click)="deleteTask()">Delete</button>
+        </div>
   </div>
+  
 
 </div>

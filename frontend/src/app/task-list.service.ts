@@ -155,7 +155,7 @@ export class TaskListService {
   }
 
   async deleteTaskCall(task: Task) {
-    return await this.http.delete(this.backendURL + '/delete_task:' + task.id).toPromise();
+    return await this.http.delete(this.backendURL + '/delete_task/' + task.id).toPromise();
   }
 
   async updateTask(task: Task) {

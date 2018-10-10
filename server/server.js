@@ -83,14 +83,18 @@ app.put('/update_task', (req,res) => {
       res.send(res2);
     });
   }
-  
 })
 
-app.delete('/delete_task:task_id', function(req,res){
-  Task.deleteOne({_id: req.params.task_id}, (err) => {
-    res.send(err);
+app.delete('/delete_task/:task_id', function(req,res){
+  Task.findByIdAndRemove(req.params.task_id, (err) => {
+    console.log(err);
   });
-  res.send("success");
+  // Task.deleteOne({_id: req.params.task_id}, (err) => {
+  //   console.log(err);
+  //   res.send(err);
+  // });
+  
+  // res.send("success");
 })
 
 // app.post('/', function (req, res) {
