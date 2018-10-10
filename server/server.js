@@ -22,7 +22,7 @@ db.once('open', function () {
 
 var taskSchema = mongoose.Schema({
   name: String,
-  desc: String,
+  description: String,
   startDate: Date,
   endDate: Date,
   type: String,
@@ -31,10 +31,6 @@ var taskSchema = mongoose.Schema({
 });
 
 var Task = mongoose.model('Task', taskSchema);
-
-
-
-
 
 var hostname = "localhost";
 
@@ -52,9 +48,10 @@ app.post('/new_task', function(req,res){
   //var name=req.body.name;
   //var permalink=req.body.permalink;
   //console.log(name + " " + permalink);
+  console.log(req.body);
   var task = new Task({
     name : req.body.name,
-    desc: req.body.description,
+    description: req.body.description,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     type: req.body.type,

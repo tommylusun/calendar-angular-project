@@ -83,7 +83,7 @@ export class CreateTaskComponent implements OnInit {
     }
     const newTask = new Task({
       name: this.taskName,
-      desc: this.taskDesc,
+      description: this.taskDesc,
       type: this.type,
       startDate: fullStartDate,
       endDate: fullEndDate
