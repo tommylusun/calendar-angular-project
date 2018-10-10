@@ -21,9 +21,22 @@ export class Task {
         this.showDetails = false;
         this.doneCount = 0;
         this.checklist2 = {};
-        this.constructCheckboxList();
+        if (object.checklist2) {
+            this.importChecklist(object.checklist2);
+        } else {
+            this.constructCheckboxList();
+
+        }
     }
 
+    importChecklist(list) {
+        for (const key of Object.keys(list)) {
+            this.checklist2[key] = new Checklist(new Date(key));
+            if (list[key]['done']) {
+                this.checklist2[key].done = true;
+            }
+        }
+    }
     // With checklist as map object
     constructCheckboxList() {
         const currentDate = new Date(this.startDate);

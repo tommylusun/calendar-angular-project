@@ -49,20 +49,22 @@ export class TaskListService {
     return newTask;
   }
 
-  bootstrapTaskslist() {
-    this.tasksList.push(this.addMockTask('Daily'));
-    this.tasksList.push(this.addMockTask('Daily'));
-    this.tasksList.push(this.addMockTask('Weekly'));
-    this.tasksList.push(this.addMockTask('Weekly'));
-    this.tasksList.push(this.addMockTask('Monthly'));
-    this.tasksList.push(this.addMockTask('Monthly'));
-    this.saveNewTask(this.addMockTask('Daily')).subscribe();
-    this.retreiveTasksList().subscribe();
+  async bootstrapTaskslist() {
+    // this.tasksList.push(this.addMockTask('Daily'));
+    // this.tasksList.push(this.addMockTask('Daily'));
+    // this.tasksList.push(this.addMockTask('Weekly'));
+    // this.tasksList.push(this.addMockTask('Weekly'));
+    // this.tasksList.push(this.addMockTask('Monthly'));
+    // this.tasksList.push(this.addMockTask('Monthly'));
+    // console.log(this.addMockTask('Daily'));
+    await this.saveNewTask(this.addMockTask('Daily'));
+    await this.retreiveTasksList();
     this.tasksSubject.next(this.tasksList);
   }
 
   addTask(task: Task) {
     this.tasksList.push(task);
+    this.saveNewTask(task);
     this.tasksSubject.next(this.tasksList);
   }
 
@@ -117,17 +119,30 @@ export class TaskListService {
     return weekTasks;
   }
 
-  retreiveTasksList() {
-    return this.http.get(this.backendURL + '/task_list')
+  async retreiveTasksList() {
+    return await this.http.get(this.backendURL + '/task_list')
     .pipe(map((response: Task[]) => {
       console.log('response ' + response);
-      this.tasksList = response;
-    }));
+      // this.tasksList = response;
+      for (const task of Object.values(response)) {
+        console.log(task);
+        const newTask = new Task({
+          name: task['name'],
+          description: task['description'],
+          startDate: new Date(task['startDate']),
+          endDate: new Date(task['endDate']),
+          type: task['type'],
+          checklist2: task['checkList']
+        });
+        this.tasksList.push(newTask);
+      }
+      console.log(this.tasksList[0]);
+    })).toPromise();
   }
 
-  saveNewTask(task: Task) {
-    return this.http.post(this.backendURL + '/new_task', task)
-    .pipe(    );
+  async saveNewTask(task: Task) {
+    return await this.http.post(this.backendURL + '/new_task', task)
+    .pipe(    ).toPromise();
   }
 
 }

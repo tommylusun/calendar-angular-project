@@ -3,6 +3,7 @@
     margin-top: 50px;
     padding-left: 150px;
     padding-right: 150px;  
+    margin-bottom: 50px;
 }
 .flex-reverse {
     flex-wrap:wrap-reverse;
