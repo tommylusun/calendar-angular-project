@@ -20,7 +20,7 @@ export class TaskItemComponent implements OnInit {
 
   ngOnInit() {
     // this.task = this.taskItem;
-    this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
+    this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete';
 
     // this.currentDateService.dateSubject.subscribe((date) => {
     //   this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
