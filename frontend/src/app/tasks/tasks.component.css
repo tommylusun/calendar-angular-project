@@ -118,6 +118,10 @@ table {
     
 }
 
+td {
+    vertical-align: top;
+}
+
 .calendar-component {
     position: absolute;
 }
@@ -130,8 +134,9 @@ table {
     align-self: flex-start;
     text-align: left;
     padding: 5px;
-    margin: 0px;
+    margin: 5px;
     min-height: 50px;
+    
     
     /* border-bottom: 1px solid black; */
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Task } from '../task';
 import { TaskListService } from '../task-list.service';
 import { CurrentDateService } from '../current-date.service';
@@ -35,6 +35,11 @@ export class TaskItemComponent implements OnInit {
   getCheckBox() {
     this.checkTaskButton = this.taskListService.getCheckBox(this.taskItem, this.day) ? 'Uncheck Task' : 'Mark as complete!';
     return this.taskListService.getCheckBox(this.taskItem, this.day);
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy(): void {
+    this.taskItem.showDetails = false;
   }
 
 }

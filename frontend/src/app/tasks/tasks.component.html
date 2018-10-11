@@ -90,7 +90,7 @@
               <tr>
                 <td *ngFor="let day of weekTasks; let i = index">
                   <div class="day-column" *ngFor="let task of day">
-                    <div *ngIf="task.type==='Daily'">
+                    <div style="min-width: 100%" *ngIf="task.type==='Daily'">
                       <div class="week-task-item row" (click)="goToTask(task,i)">
                         <p class="task-name">
                           {{task.name}}

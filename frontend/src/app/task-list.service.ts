@@ -69,6 +69,7 @@ export class TaskListService {
 
     this.tasksList.forEach(task => {
       if (task.ifShouldShow(date)) {
+        task.showDetails = false;
         showTasks.push(task);
       }
     });
