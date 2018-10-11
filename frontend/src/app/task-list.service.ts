@@ -35,14 +35,29 @@ export class TaskListService {
 
   async addTask(task: Task) {
     this.tasksList.push(task);
-    await this.saveNewTaskRequest(task);
+    await this.saveNewTaskRequest(task).then(res => {
+      console.log(res);
+    });
     this.tasksSubject.next(this.tasksList);
   }
 
   async deleteTask(task: Task) {
     this.tasksList.splice(this.tasksList.indexOf(task), 1);
     this.tasksSubject.next(this.tasksList);
-    await this.deleteTaskRequest(task);
+    await this.deleteTaskRequest(task).then(res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  async toggleCheckBox(task: Task, date: Date) {
+    task.toggleCheckBox(date);
+    await this.updateTaskRequest(task).then(res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+    });
   }
 
   getTasks() {
@@ -71,11 +86,6 @@ export class TaskListService {
     return showTasks;
   }
 
-  async toggleCheckBox(task: Task, date: Date) {
-    task.toggleCheckBox(date);
-    await this.updateTaskRequest(task);
-  }
-
   getCheckBox(task: Task, date: Date) {
     return task.getCheckBox(date);
   }
@@ -92,11 +102,9 @@ export class TaskListService {
     return weekTasks;
   }
 
-  async retreiveTasksList() {
-    return await this.http.get(this.backendURL + '/task_list')
+  retreiveTasksList() {
+    return this.http.get(this.backendURL + '/task_list')
     .pipe(map((response: Task[]) => {
-      console.log('response ' + response);
-      // this.tasksList = response;
       for (const task of Object.values(response)) {
         console.log(task);
         const newTask = new Task({
@@ -111,20 +119,19 @@ export class TaskListService {
         });
         this.tasksList.push(newTask);
       }
-      console.log(this.tasksList[0]);
     })).toPromise();
   }
 
-  async saveNewTaskRequest(task: Task) {
-    return await this.http.post(this.backendURL + '/new_task', task).toPromise();
+  saveNewTaskRequest(task: Task) {
+    return this.http.post(this.backendURL + '/new_task', task).toPromise();
   }
 
-  async deleteTaskRequest(task: Task) {
-    return await this.http.delete(this.backendURL + '/delete_task/' + task.id).toPromise();
+  deleteTaskRequest(task: Task) {
+    return this.http.delete(this.backendURL + '/delete_task/' + task.id).toPromise();
   }
 
-  async updateTaskRequest(task: Task) {
-    return await this.http.put(this.backendURL + '/update_task', task).toPromise();
+  updateTaskRequest(task: Task) {
+    return this.http.put(this.backendURL + '/update_task', task).toPromise();
   }
 
 }

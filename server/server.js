@@ -19,7 +19,6 @@ db.once('open', function () {
   console.log("Connected to db")
 });
 
-
 var taskSchema = mongoose.Schema({
   name: String,
   description: String,
@@ -41,13 +40,9 @@ app.get('/task_list', function (req, res) {
     console.log(tasks);
     res.send(tasks);
   });
-    //console.log(json);
 });
 
 app.post('/new_task', function(req,res){
-  //var name=req.body.name;
-  //var permalink=req.body.permalink;
-  //console.log(name + " " + permalink);
   console.log(req.body);
   var task = new Task({
     name : req.body.name,
@@ -77,43 +72,26 @@ app.put('/update_task', (req,res) => {
   if (req.body.checklist2 !== undefined){
     Task.findByIdAndUpdate(req.body.id,{checkList: req.body.checklist2},(err,res2) => {
       if (err) {
+        console.log(err);
         res.send(err);
+      } else {
+        console.log(res2);
+        res.send(res2);
       }
-      console.log(res2);
-      res.send(res2);
     });
   }
 })
 
 app.delete('/delete_task/:task_id', function(req,res){
-  Task.findByIdAndRemove(req.params.task_id, (err) => {
-    console.log(err);
+  Task.findByIdAndRemove(req.params.task_id, (err, res2) => {
+    if (err){
+      console.log(err);
+      res.send(err);
+    } else {
+      res.send(res2);
+    }
   });
-  // Task.deleteOne({_id: req.params.task_id}, (err) => {
-  //   console.log(err);
-  //   res.send(err);
-  // });
-  
-  // res.send("success");
+
 })
 
-// app.post('/', function (req, res) {
-//   res.send('Got a POST request')
-// })
-// var cb0 = function (req, res, next) {
-//   console.log('CB0')
-//   next()
-// }
-
-// var cb1 = function (req, res, next) {
-//   console.log('CB1')
-//   next()
-// }
-
-// app.get('/example/d', [cb0, cb1], function (req, res, next) {
-//   console.log('the response will be sent by the next function ...')
-//   next()
-// }, function (req, res) {
-//   res.send('Hello from D!')
-// })
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
