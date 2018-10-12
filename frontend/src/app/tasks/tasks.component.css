@@ -1,28 +1,39 @@
 
 .outer-container {  
-    margin-top: 50px;
-    padding-left: 150px;
-    padding-right: 150px;  
+    margin-top: 30px;
+    /* padding-left: 150px; */
+    /* padding-right: 150px;   */
     margin-bottom: 50px;
+    margin-left: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .flex-reverse {
     flex-wrap:wrap-reverse;
 }
-.tab-container .col-6 {
-    padding:0px;
+.left-menu-container {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0px;
+    margin-right: 15px;
+    min-height: 1000px;
+    min-width: 200px;
+}
+.left-menu-items {
+    list-style-type: none;
+    padding-inline-start: 0px;
+}
+.left-menu-container .left-menu-items li {
+    display: block;
+    cursor: pointer;
+    text-align: left;
+    padding: 10px;
 }
 
-.tab-container {
-    margin: 30px;
-    padding: 0px;
-    width : 100%;
-    margin: auto;
+.left-menu-container .left-menu-items li:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
-.nav-link {
-    color: rgb(90, 94, 97);
-}
-.nav-item :hover{
-    background-color: rgba(255, 255, 255, 0.25);
+.left-menu-container .left-menu-items li.active {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .create-task {
@@ -30,15 +41,6 @@
 }
 .today-button {
     float: left;
-}
-.active {
-    background-color: rgba(255, 255, 255, 0.25);
-}
-.nav {
-    font-size: 16pt;  
-}
-.navbar-right{
-    float: right;
 }
 
 .header {
@@ -73,7 +75,9 @@
     margin: 30px;
     width : 100%;
     padding: 20px;
-    margin: auto;
+    /* margin: auto; */
+    margin: 0;
+    text-align: left;
 
 
 }
@@ -98,9 +102,6 @@
 .add-task {
     margin: 10px 10px 10px 10px;
 }
-.task-name {
-    word-break: break-word;
-}
 .button {
     padding : 5px;
 }
@@ -109,13 +110,11 @@ thead {
 	font-weight: 600;
 	text-transform: uppercase;
 	text-align: center;
-
-	
 }
+
 table {
     width: 100%;
     table-layout: fixed;
-    
 }
 
 td {
@@ -136,9 +135,11 @@ td {
     padding: 5px;
     margin: 5px;
     min-height: 50px;
-    
-    
-    /* border-bottom: 1px solid black; */
+    max-height: 100px;
+}
+.task-name {
+    overflow: hidden;
+    font-size: 9pt;
 }
 .week-task-item .checked2 {
     display: inline-block;
@@ -177,3 +178,7 @@ td {
     cursor: pointer;
 }
 
+.no-pad {
+    padding: 0px;
+    margin: 0px;
+}

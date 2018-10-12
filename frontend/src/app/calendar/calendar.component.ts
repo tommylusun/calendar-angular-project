@@ -25,6 +25,7 @@ export class CalendarComponent implements OnInit {
   firstDayOfMonth: number;
   days: string[];
   monthNames: string[];
+  dayNames: string[];
   dateSub: Subscription;
 
   constructor(private currentDateService: CurrentDateService) {
@@ -32,6 +33,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.monthNames = this.currentDateService.monthNames;
+    this.dayNames = this.currentDateService.dayNames;
     this.date = this.currentDateService.getDate();
     this.initializeCurrentDay();
     this.initializeCalendar();

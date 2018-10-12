@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 .component-background {
-    background: rgba(255,255,255,0.25);
+    background: rgba(0,0,0,0.1);
     /* box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.25); */
 }
 
 .modal-background {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.8);
 }
 
 .chevron {
@@ -24,16 +24,18 @@
 }
 
 .chevron.bottom {
-
 	transform: rotate(45deg);
 }
 
 .chevron.left {
-
 	transform: rotate(-135deg);
 }
 
 .chevron.right {
-
 	transform: rotate(45deg);
+}
+
+* {
+	/* font-family: 'Assistant', sans-serif; */
+	font-family: 'IBM Plex Sans', sans-serif;
 }

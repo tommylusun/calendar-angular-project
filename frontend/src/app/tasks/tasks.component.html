@@ -1,124 +1,118 @@
 <div class="outer-container">
 
+  <div class="row no-pad">
+    <h1>Tasks Dashboard</h1>
+  </div>
   <!-- Nav Bar container -->
-  <div class="tab-container row">
-
-    <!-- Left side Nav bar -->
-    <div class="col-6">
-      <ul class="nav">
-        <li class="nav-item">
-          <a [ngClass]="{active: showCal}" class="nav-link" (click)="showCal=!showCal" href="#">Calendar</a>
-        </li>
-      </ul>
-    </div>
+  <div class="row inner-container row flex-nowrap no-pad">
 
     <!-- Right side Nav bar -->
-    <div class="col-6">
-      <ul class="nav navbar-right">
-        <li class="nav-item pull-right">
-          <a [ngClass]="{active: view==='day'}" class="nav-link" (click)="changeView('day')" href="#">Day</a>
-        </li>
-        <li class="nav-item">
-          <a [ngClass]="{active: view==='week'}" class="nav-link" (click)="changeView('week')" href="#">Week</a>
-        </li>
-        <li class="nav-item">
-          <a [ngClass]="{active: view==='month'}" class="nav-link" (click)="changeView('month')" href="#">Month</a>
-        </li>
+    <div class="col-2 left-menu-container">
+      <ul class="left-menu-items">
+        <li [ngClass]="{active: view==='day'}" (click)="changeView('day')" href="#">Day</li>
+        <li [ngClass]="{active: view==='week'}" (click)="changeView('week')" href="#">Week</li>
+        <li [ngClass]="{active: view==='month'}" (click)="changeView('month')" href="#">Month</li>
+        <li [ngClass]="{active: showCal}" (click)="showCal=!showCal" href="#">Calendar</li>
       </ul>
     </div>
-  </div>
-  <!-- End Nav container -->
-  
-  <!-- Calendar and Tasks View container -->
-  <div class="row flex-wrap-reverse">
+    <!-- End Nav container -->
 
-    <!-- Calendar componenet -->
-    <div class="col-5" *ngIf="showCal">
-      <app-calendar></app-calendar>
-    </div>
 
-    <!-- Tasks List Views -->
     <div class="col">
-      <div class="component-background outer-box">
+      <!-- Calendar and Tasks View container -->
+      <div class="row flex-nowrap">
 
-        <!-- Top row buttons -->
-        <div class="today-button">
-          <button class="btn btn-success btn-outline-dark" (click)="goToToday()" href="#">Go to Today</button>
-        </div>
-        <div class="create-task">
-          <button class="btn btn-success" (click)="showForm=!showForm" href="#">New Task</button>
-          <div class="create-task-component" *ngIf="showForm===true">
-            <app-create-task></app-create-task>
-          </div>
-        </div>
+        <!-- Tasks List Views -->
+        <div class="col">
+          <div class="component-background outer-box">
 
-        <!-- Tasks Header -->
-        <h3>Your tasks for</h3>
-        <div class="header row">
-          <div class="col">
-            <span class="chevron left" (click)="prevDay()"></span>
-            <label class="task-list-title">{{getTitleDate()}}</label>
-            <span class="chevron right" (click)="nextDay()"></span>
-          </div>
-        </div>
-        <h3 class="task-type-header"></h3>
-
-        <!-- Day View -->
-        <div *ngIf="view === 'day'">
-          <div *ngFor="let task of showTasks">
-            <div *ngIf="task.type==='Daily'">
-              <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+            <!-- Top row buttons -->
+            <div class="">
+              <div class="today-button">
+                <button class="btn btn-success btn-outline-dark" (click)="goToToday()" href="#">Go to Today</button>
+              </div>
+              <div class="create-task">
+                <button class="btn btn-success" (click)="showForm=!showForm" href="#">New Task</button>
+                <div class="create-task-component" *ngIf="showForm===true">
+                  <app-create-task></app-create-task>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Week View -->
-        <div *ngIf="view === 'week'">
-          <h3>Weekly Tasks</h3>
-          <div *ngFor="let task of showTasks">
-            <div *ngIf="task.type==='Weekly'">
-              <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+
+            <!-- Tasks Header -->
+            <div class="header row">
+              <div class="col">
+                <span class="chevron left" (click)="prevDay()"></span>
+                <label class="task-list-title">{{getTitleDate()}}</label>
+                <span class="chevron right" (click)="nextDay()"></span>
+              </div>
             </div>
-          </div>
-          <h3 class="task-type-header"></h3>
-          <!-- Week Daily Table -->
-          <table>
-            <thead>
-              <td class="table-headers" *ngFor="let day of dayNames">{{day}}</td>
-            </thead>
-            <tbody>
-              <tr>
-                <td *ngFor="let day of weekTasks; let i = index">
-                  <div class="day-column" *ngFor="let task of day">
-                    <div style="min-width: 100%" *ngIf="task.type==='Daily'">
-                      <div class="week-task-item row" (click)="goToTask(task,i)">
-                        <p class="task-name">
-                          {{task.name}}
-                        </p>
+            <h3 class="task-type-header"></h3>
+
+            <!-- Day View -->
+            <div *ngIf="view === 'day'">
+              <div *ngFor="let task of showTasks">
+                <div *ngIf="task.type==='Daily'">
+                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+                </div>
+              </div>
+            </div>
+
+            <!-- Week View -->
+            <div *ngIf="view === 'week'">
+              <h3>Weekly Tasks</h3>
+              <div *ngFor="let task of showTasks">
+                <div *ngIf="task.type==='Weekly'">
+                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+                </div>
+              </div>
+              <h3 class="task-type-header"></h3>
+              <!-- Week Daily Table -->
+              <table>
+                <thead>
+                  <td class="table-headers" *ngFor="let day of dayNames">{{day}}</td>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td *ngFor="let day of weekTasks; let i = index">
+                      <div class="day-column" *ngFor="let task of day">
+                        <div style="min-width: 100%" *ngIf="task.type==='Daily'">
+                          <div class="week-task-item row" (click)="goToTask(task,i)">
+                            <p class="task-name">
+                              {{task.name}}
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- End Week Daily Table -->
-        </div>
-
-        <!-- Month View -->
-        <div *ngIf="view === 'month'">
-          <div *ngFor="let task of showTasks">
-            <div *ngIf="task.type==='Monthly'">
-              <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Week Daily Table -->
             </div>
+
+            <!-- Month View -->
+            <div *ngIf="view === 'month'">
+              <div *ngFor="let task of showTasks">
+                <div *ngIf="task.type==='Monthly'">
+                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+                </div>
+              </div>
+            </div>
+
+
           </div>
         </div>
+        <!-- End Tasks View -->
 
+        <!-- Calendar componenet -->
+        <div class="col-4">
+            <app-calendar></app-calendar>
+        </div>
 
       </div>
+      <!-- End Calendar and Tasks View container -->
     </div>
-    <!-- End Tasks View -->
-
   </div>
-  <!-- End Calendar and Tasks View container -->
 </div>

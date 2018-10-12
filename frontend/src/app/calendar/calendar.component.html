@@ -3,9 +3,9 @@
 
     <!-- Calendar Headers -->
     <header>
+      <a (click)="prevYear()" class="btn-prev" href="#"></a>
       <h2>{{currentYear}}</h2>
-      <a (click)="prevYear()" class="btn-prev fontawesome-angle-left" href="#"></a>
-      <a (click)="nextYear()" class="btn-next fontawesome-angle-right" href="#"></a>
+      <a (click)="nextYear()" class="btn-next" href="#"></a>
     </header>
 
     <header>
@@ -17,9 +17,8 @@
           <a href="#" (click)="selectMonth(i)" class="dropdown-item" *ngFor="let month of monthNames; let i = index">{{month}}</a>
         </div>
       </div>
-
-      <a (click)="prevMonth()" class="btn-prev fontawesome-angle-left" href="#"></a>
-      <a (click)="nextMonth()" class="btn-next fontawesome-angle-right" href="#"></a>
+      <a (click)="prevMonth()" class="btn-prev" href="#"></a>
+      <a (click)="nextMonth()" class="btn-next" href="#"></a>
     </header>
 
     <!-- Calendar Table -->
