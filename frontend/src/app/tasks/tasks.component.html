@@ -12,7 +12,7 @@
         <li [ngClass]="{active: view==='day'}" (click)="changeView('day')" href="#">Day</li>
         <li [ngClass]="{active: view==='week'}" (click)="changeView('week')" href="#">Week</li>
         <li [ngClass]="{active: view==='month'}" (click)="changeView('month')" href="#">Month</li>
-        <li [ngClass]="{active: showCal}" (click)="showCal=!showCal" href="#">Calendar</li>
+        <!-- <li [ngClass]="{active: showCal}" (click)="showCal=!showCal" href="#">Calendar</li> -->
       </ul>
     </div>
     <!-- End Nav container -->
@@ -27,7 +27,7 @@
           <div class="component-background outer-box">
 
             <!-- Top row buttons -->
-            <div class="">
+            <div class="row button-row">
               <div class="today-button">
                 <button class="btn btn-success btn-outline-dark" (click)="goToToday()" href="#">Go to Today</button>
               </div>
@@ -41,17 +41,16 @@
 
 
             <!-- Tasks Header -->
-            <div class="header row">
-              <div class="col">
+            <div class="row tasks-header">
                 <span class="chevron left" (click)="prevDay()"></span>
-                <label class="task-list-title">{{getTitleDate()}}</label>
+                <h3 class="task-list-title">{{getTitleDate()}}</h3>
                 <span class="chevron right" (click)="nextDay()"></span>
-              </div>
             </div>
+
             <h3 class="task-type-header"></h3>
 
             <!-- Day View -->
-            <div *ngIf="view === 'day'">
+            <div [ngStyle]="{'overflow-y': scroll}" *ngIf="view === 'day'">
               <div *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Daily'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>

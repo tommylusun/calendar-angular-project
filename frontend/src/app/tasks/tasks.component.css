@@ -36,15 +36,24 @@
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.create-task {
-    float: right;
-}
-.today-button {
-    float: left;
+.button-row {
+    margin: 0;
 }
 
-.header {
+.create-task {
+    margin-left: auto;
+}
+.today-button {
+    margin-right: auto;
+}
+
+.tasks-header {
+    display: inline-flex;
     text-align: center;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin: auto;    
+
 }
 .container {
     justify-content: center;
@@ -57,11 +66,10 @@
 
 }
 .task-list-title {
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 30pt;
+    font-size: 25pt;
     font-weight: 500;
     min-width: 400px;
+    justify-content: center;
 
 }
 
@@ -75,9 +83,9 @@
     margin: 30px;
     width : 100%;
     padding: 20px;
-    /* margin: auto; */
+    margin: auto;
     margin: 0;
-    text-align: left;
+    text-align: center;
 
 
 }
@@ -98,6 +106,7 @@
     padding-bottom : 20px;
     /* width : 60%; */
     justify-content: center;
+    margin-bottom:0px;
 }
 .add-task {
     margin: 10px 10px 10px 10px;
@@ -127,15 +136,24 @@ td {
 .day-column {
     display: flex;
     align-items: flex-start;
+    justify-content: center;
+}
+td {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+
 }
 .week-task-item {
     display: flex;
-    align-self: flex-start;
+    /* align-self: flex-start; */
     text-align: left;
     padding: 5px;
     margin: 5px;
-    min-height: 50px;
+    min-height: 100px;
     max-height: 100px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+table {
+    overflow-y: scroll;
 }
 .task-name {
     overflow: hidden;

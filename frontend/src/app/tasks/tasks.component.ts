@@ -97,7 +97,10 @@ export class TasksComponent implements OnInit {
     } else if (this.view === 'week') {
       const displayDate = new Date(this.day);
       displayDate.setDate(displayDate.getDate() - displayDate.getDay());
-      return displayDate.toDateString();
+      const monthNames = this.currentDateService.monthNames;
+      return `${monthNames[displayDate.getMonth()].slice(0, 3)}
+       ${displayDate.getDate()} ${displayDate.getFullYear()} - ${monthNames[displayDate.getMonth()].slice(0, 3)}
+       ${displayDate.getDate() + 7} ${displayDate.getFullYear()}`;
     } else {
       const displayDate = new Date(this.day);
       displayDate.setDate(1);
