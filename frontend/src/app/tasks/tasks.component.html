@@ -29,7 +29,7 @@
           <div class="component-background outer-box">
 
             <!-- Top row buttons -->
-            <div class="row button-row">
+            <div class="row button-row" *ngIf="view === 'day' || view === 'week' || view === 'month'">
               <div class="today-button">
                 <button class="btn btn-success btn-outline-dark" (click)="goToToday()" href="#">Go to Today</button>
               </div>
@@ -109,7 +109,7 @@
 
             <!-- Month View -->
             <div *ngIf="view === 'month'">
-                <h5 class="subheading">Monthly</h5>
+              <h5 class="subheading">Monthly</h5>
               <div *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Monthly'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
@@ -124,6 +124,11 @@
               <div class="task-item" *ngFor="let task of allTasks">
                 <app-task-item-summary [taskItem]="task"></app-task-item-summary>
               </div>
+            </div>
+
+            <!-- Summary View -->
+            <div class="notes-view" *ngIf="view === 'notes'">
+              <app-notes-view></app-notes-view>
             </div>
 
           </div>

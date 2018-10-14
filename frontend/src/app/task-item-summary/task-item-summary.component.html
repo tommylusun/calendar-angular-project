@@ -12,10 +12,10 @@
           </label>
         </div>
         <div class="col-4 task-col">
-            <label class="task-type">
-              {{taskItem.type}}
-            </label>
-          </div>
+          <label class="task-type">
+            {{taskItem.type}}
+          </label>
+        </div>
       </div>
     </div>
   </div>
@@ -23,7 +23,6 @@
 
   <!-- Task Details component -->
   <div *ngIf="taskItem.showDetails">
-    <app-task-details [task]="taskItem"></app-task-details>
   </div>
 
 </div>

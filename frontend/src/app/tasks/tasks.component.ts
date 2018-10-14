@@ -25,6 +25,9 @@ export class TasksComponent implements OnInit {
 
   dayNames: string[];
 
+  newNote: string;
+  notes: string[];
+
   constructor(private currentDateService: CurrentDateService, private taskListService: TaskListService) {}
 
   ngOnInit() {
@@ -32,6 +35,7 @@ export class TasksComponent implements OnInit {
     this.allTasks = [];
     this.showTasks = [];
     this.weekTasks = [];
+
     this.view = 'day';
     this.day = new Date();
     this.currentDateService.setDate(this.day);

@@ -33,6 +33,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/src/open-iconic-master
 
 # System Files
 .DS_Store

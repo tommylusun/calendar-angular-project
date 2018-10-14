@@ -1,0 +1,16 @@
+<h3 class="task-list-title">Notes</h3>
+              <p> These are any notes you want to write down that aren't really anything you should complete or do.</p>
+              <p> These could be ideas, reminders to yourself, or even a task that's not bound by a date.</p>
+              <div class="add-note-button" (click)="openInput = true">
+                <img style="width:50px" src="/src/open-iconic-master/svg/plus.svg" alt="add note">
+              </div>
+
+              <ul class="task-item" *ngFor="let note of notes">
+                <li>{{note}}</li>
+              </ul>
+              <div *ngIf="openInput">
+                <form (keyup.enter)="addNote(); openInput = false">
+                  <input name="taskName" [(ngModel)]="newNote" type="text" class="form-control" id="name" required>
+                </form>
+
+              </div>

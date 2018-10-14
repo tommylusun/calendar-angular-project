@@ -26,7 +26,8 @@ var taskSchema = mongoose.Schema({
   endDate: Date,
   type: String,
   checkList: Object,
-  doneCount: Number
+  doneCount: Number,
+  notes: [String]
 });
 
 var Task = mongoose.model('Task', taskSchema);
@@ -51,7 +52,8 @@ app.post('/new_task', function(req,res){
     endDate: req.body.endDate,
     type: req.body.type,
     checkList: req.body.checklist2,
-    doneCount: req.body.doneCount
+    doneCount: req.body.doneCount,
+    notes: req.body.notes
   });
 
   task.save((err,product)=>{
@@ -69,17 +71,20 @@ app.post('/new_task', function(req,res){
 });
 
 app.put('/update_task', (req,res) => {
-  if (req.body.checklist2 !== undefined){
-    Task.findByIdAndUpdate(req.body.id,{checkList: req.body.checklist2},(err,res2) => {
-      if (err) {
-        console.log(err);
-        res.send(err);
-      } else {
-        console.log(res2);
-        res.send(res2);
-      }
-    });
-  }
+  Task.findByIdAndUpdate(req.body.id,{
+    name: req.body.name,
+    description: req.body.description,
+    checkList: req.body.checklist2,
+    notes: req.body.notes
+  },(err,res2) => {
+    if (err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log(res2);
+      res.send(res2);
+    }
+  });
 })
 
 app.delete('/delete_task/:task_id', function(req,res){
