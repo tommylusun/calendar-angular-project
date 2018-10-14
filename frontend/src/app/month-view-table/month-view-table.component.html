@@ -1,0 +1,27 @@
+<div class="month-view-container">
+
+
+  <h5 class="subheading">{{monthNames[day.getMonth()]}}'s weekly tasks</h5>
+  <!-- Week Daily Table -->
+  <table>
+    <thead>
+      <td class="table-headers" *ngFor="let week of weekHeaders">{{week}}</td>
+    </thead>
+    <tbody>
+      <tr>
+        <td *ngFor="let day of weekTasks; let i = index">
+          <div class="day-column" *ngFor="let task of day">
+            <div style="min-width: 100%" *ngIf="task.type==='Weekly'">
+              <div class="week-task-item row" (click)="goToTask(task,i)">
+                <p class="task-name">
+                  {{task.name}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

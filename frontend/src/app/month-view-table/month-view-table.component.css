@@ -1,0 +1,90 @@
+.subheading {
+    margin-top: 50px;
+    display: block;
+    text-align: start;
+    font-weight: 600;
+    border-bottom: 2px solid grey;
+}
+
+thead {
+    font-weight: 600;
+    font-size: 10pt;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+table {
+    width: 100%;
+    max-height: 500px;
+    table-layout: fixed;
+    overflow-y: auto;
+}
+
+td {
+    vertical-align: top;
+}
+
+.calendar-component {
+    position: absolute;
+}
+.day-column {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+td {
+    border-left: 1px solid rgba(0, 0, 0, 0.3);
+}
+.week-task-item {
+    display: flex;
+    /* align-self: flex-start; */
+    text-align: left;
+    padding: 5px;
+    margin: 5px;
+    min-height: 100px;
+    max-height: 100px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+table {
+    overflow-y: scroll;
+}
+.task-name {
+    overflow: hidden;
+    font-size: 9pt;
+}
+.week-task-item .checked2 {
+    display: inline-block;
+    position: absolute;
+    /*Add another block-level blank space*/
+    content: '';
+    /* display: block; */
+  
+    /*Make it a small rectangle so the border will create an L-shape*/
+    width: 25px;
+    height: 55px;
+  
+    /*Add a white border on the bottom and left, creating that 'L' */
+    border: solid rgba(16, 187, 39,0.65);
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    /* left: 35%;
+    top: 30%; */
+    margin:auto;
+    z-index: -1;
+}
+
+.checkbox2{
+    display: block;
+    position: relative;
+    /* right: 65%; */
+    /* top: 30px; */
+}
+
+.week-task-item:hover {
+    /* border: 1px solid black; */
+    box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.25);
+    background: rgba(255,255,255,0.25);
+    transform: scale(1.05);
+    transition-duration: 0.2s;
+    cursor: pointer;
+}

@@ -12,6 +12,7 @@ import { TaskListService } from './task-list.service';
 import { CurrentDateService } from './current-date.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TaskItemSummaryComponent } from './task-item-summary/task-item-summary.component';
+import { MonthViewTableComponent } from './month-view-table/month-view-table.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TaskItemSummaryComponent } from './task-item-summary/task-item-summary.
     CalendarComponent,
     TaskDetailsComponent,
     TaskItemComponent,
-    TaskItemSummaryComponent
+    TaskItemSummaryComponent,
+    MonthViewTableComponent
   ],
   imports: [
     BrowserModule,

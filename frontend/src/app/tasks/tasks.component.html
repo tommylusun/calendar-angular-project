@@ -12,6 +12,7 @@
         <li [ngClass]="{active: view==='day'}" (click)="changeView('day')" href="#">Day</li>
         <li [ngClass]="{active: view==='week'}" (click)="changeView('week')" href="#">Week</li>
         <li [ngClass]="{active: view==='month'}" (click)="changeView('month')" href="#">Month</li>
+        <li [ngClass]="{active: view==='notes'}" (click)="changeView('notes')" href="#">Notes</li>
         <li [ngClass]="{active: view==='all'}" (click)="changeView('all')" href="#">All Entries</li>
         <!-- <li [ngClass]="{active: showCal}" (click)="showCal=!showCal" href="#">Calendar</li> -->
       </ul>
@@ -42,7 +43,7 @@
 
 
             <!-- Tasks Header -->
-            <div class="row tasks-header" *ngIf="view !== 'all'">
+            <div class="row tasks-header" *ngIf="view === 'day' || view === 'week' || view === 'month'">
               <span class="chevron left" (click)="prevDay()"></span>
               <h3 class="task-list-title">{{getTitleDate()}}</h3>
               <span class="chevron right" (click)="nextDay()"></span>
@@ -53,19 +54,19 @@
             <!-- Day View -->
             <div class="task-list" *ngIf="view === 'day'">
 
-              <h5 class="subheading">This day</h5>
+              <h5 class="subheading">Daily</h5>
               <div class="task-item" *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Daily'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
                 </div>
               </div>
-              <h5 class="subheading">This week</h5>
+              <h5 class="subheading">Weekly</h5>
               <div class="task-item" *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Weekly'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
                 </div>
               </div>
-              <h5 class="subheading">This month</h5>
+              <h5 class="subheading">Monthly</h5>
               <div class="task-item" *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Monthly'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
@@ -75,6 +76,13 @@
 
             <!-- Week View -->
             <div *ngIf="view === 'week'">
+              <h5 class="subheading">Weekly</h5>
+              <div *ngFor="let task of showTasks">
+                <div *ngIf="task.type==='Weekly'">
+                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
+                </div>
+              </div>
+              <h5 class="subheading">This week's daily tasks</h5>
               <!-- Week Daily Table -->
               <table>
                 <thead>
@@ -96,21 +104,18 @@
                   </tr>
                 </tbody>
               </table>
-              <div *ngFor="let task of showTasks">
-                <div *ngIf="task.type==='Weekly'">
-                  <app-task-item [taskItem]="task" [day]="day"></app-task-item>
-                </div>
-              </div>
               <!-- End Week Daily Table -->
             </div>
 
             <!-- Month View -->
             <div *ngIf="view === 'month'">
+                <h5 class="subheading">Monthly</h5>
               <div *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Monthly'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
                 </div>
               </div>
+              <app-month-view-table [day]="day"></app-month-view-table>
             </div>
 
             <!-- Summary View -->
