@@ -72,6 +72,16 @@
     justify-content: center;
 
 }
+.task-list {
+    display: block;
+    /* max-height: 450px; */
+    overflow-y: auto;
+}
+.task-item {
+    /* width: 90%; */
+    /* margin:auto; */
+    text-align: start;
+}
 
 .task-type-header {
     border-bottom: 2px solid black; 
@@ -80,14 +90,21 @@
 }
 .outer-box {
     min-width: 770px;
+    min-height: 500px;
     margin: 30px;
     width : 100%;
-    padding: 20px;
+    padding: 25px;
     margin: auto;
     margin: 0;
     text-align: center;
+}
 
-
+.subheading {
+    margin-top: 50px;
+    display: block;
+    text-align: start;
+    font-weight: 600;
+    border-bottom: 2px solid grey;
 }
   
 .create-task-component {
@@ -123,7 +140,9 @@ thead {
 
 table {
     width: 100%;
+    max-height: 500px;
     table-layout: fixed;
+    overflow-y: auto;
 }
 
 td {

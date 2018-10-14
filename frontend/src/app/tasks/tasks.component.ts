@@ -17,7 +17,7 @@ export class TasksComponent implements OnInit {
   showForm = false;
   showCal = false;
   newTaskName;
-  newTasks: Task[];
+  allTasks: Task[];
   day: Date;
   showTasks: Task[];
   view: string;
@@ -29,17 +29,12 @@ export class TasksComponent implements OnInit {
 
   ngOnInit() {
     this.dayNames = this.currentDateService.dayNames;
-    this.newTasks = [];
+    this.allTasks = [];
     this.showTasks = [];
     this.weekTasks = [];
     this.view = 'day';
-
     this.day = new Date();
     this.currentDateService.setDate(this.day);
-    this.taskListService.bootstrapTaskslist();
-    this.showTasks = this.taskListService.getDayTasks(this.day);
-    this.weekTasks = this.taskListService.constructWeekLists(this.day);
-
 
     this.currentDateService.dateSubject.subscribe((data: Date) => {
       this.day = data;
@@ -48,10 +43,14 @@ export class TasksComponent implements OnInit {
     });
 
     this.taskListService.tasksSubject.subscribe((list: Task[]) => {
+      this.allTasks = list;
+      console.log(list);
       this.showTasks = this.taskListService.getDayTasks(this.day);
       this.weekTasks = this.taskListService.constructWeekLists(this.day);
       this.showForm = false;
     });
+    this.taskListService.bootstrapTaskslist();
+
   }
 
   checkTask(task: Task) {
@@ -98,9 +97,12 @@ export class TasksComponent implements OnInit {
       const displayDate = new Date(this.day);
       displayDate.setDate(displayDate.getDate() - displayDate.getDay());
       const monthNames = this.currentDateService.monthNames;
+      const displayDateEnd = new Date(displayDate);
+      displayDateEnd.setDate(displayDate.getDate() + 6);
+
       return `${monthNames[displayDate.getMonth()].slice(0, 3)}
-       ${displayDate.getDate()} ${displayDate.getFullYear()} - ${monthNames[displayDate.getMonth()].slice(0, 3)}
-       ${displayDate.getDate() + 7} ${displayDate.getFullYear()}`;
+       ${displayDate.getDate()} ${displayDate.getFullYear()} - ${monthNames[displayDateEnd.getMonth()].slice(0, 3)}
+       ${displayDateEnd.getDate()} ${displayDateEnd.getFullYear()}`;
     } else {
       const displayDate = new Date(this.day);
       displayDate.setDate(1);

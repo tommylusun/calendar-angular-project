@@ -18,8 +18,7 @@ export class CreateTaskComponent implements OnInit {
 
   type: String = 'Daily';
   types: String[] = ['Daily', 'Weekly', 'Monthly'];
-  monthNames: String[] = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'];
+  monthNames: String[];
 
   startYear: number;
   startMonth: number;
@@ -40,6 +39,7 @@ export class CreateTaskComponent implements OnInit {
   constructor(private currentDateService: CurrentDateService, private tasksListService: TaskListService) {}
 
   ngOnInit() {
+    this.monthNames = this.currentDateService.monthNames;
     this.updateDay(this.currentDateService.getDate());
     this.startDatesList = this.createDateRange(this.startMonth, this.startYear);
     this.endDatesList = this.createDateRange(this.endMonth, this.endYear);
@@ -64,7 +64,7 @@ export class CreateTaskComponent implements OnInit {
 
     if (this.taskName === '') {
       this.taskName = this.type +
-      ' Task starting ' +
+      'Task starting ' +
       fullStartDate.toDateString() + ', ending ' +
       fullEndDate.toDateString();
     }

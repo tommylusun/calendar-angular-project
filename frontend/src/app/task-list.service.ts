@@ -29,7 +29,7 @@ export class TaskListService {
   }
 
   async bootstrapTaskslist() {
-    await this.retreiveTasksList();
+    await this.retreiveTasksListRequest();
     this.tasksSubject.next(this.tasksList);
   }
 
@@ -103,7 +103,7 @@ export class TaskListService {
     return weekTasks;
   }
 
-  retreiveTasksList() {
+  retreiveTasksListRequest() {
     return this.http.get(this.backendURL + '/task_list')
     .pipe(map((response: Task[]) => {
       for (const task of Object.values(response)) {

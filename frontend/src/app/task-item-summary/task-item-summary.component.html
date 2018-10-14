@@ -1,0 +1,24 @@
+<div class="task-container" [ngClass]="{'hover' : show, 'selected' : taskItem.showDetails}" (mouseover)="show=true"
+  (mouseout)="show=false">
+
+  <div class="row list-item">
+
+    <!-- Task Name Div -->
+    <div class="col" (click)="taskItem.showDetails=!taskItem.showDetails">
+      <div class="row2">
+        <div class="col-8 task-col">
+          <label class="task-name">
+            {{taskItem.name}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Task Name Div -->
+
+  <!-- Task Details component -->
+  <div *ngIf="taskItem.showDetails">
+    <app-task-details [task]="taskItem"></app-task-details>
+  </div>
+
+</div>
