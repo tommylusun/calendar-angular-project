@@ -9,11 +9,14 @@
     <!-- Right side Nav bar -->
     <div class="col-2 left-menu-container">
       <ul class="left-menu-items">
+        <!-- <label>Views</label> -->
         <li [ngClass]="{active: view==='day'}" (click)="changeView('day')" href="#">Day</li>
         <li [ngClass]="{active: view==='week'}" (click)="changeView('week')" href="#">Week</li>
         <li [ngClass]="{active: view==='month'}" (click)="changeView('month')" href="#">Month</li>
-        <li [ngClass]="{active: view==='notes'}" (click)="changeView('notes')" href="#">Notes</li>
         <li [ngClass]="{active: view==='all'}" (click)="changeView('all')" href="#">All Entries</li>
+        <hr>
+        <li [ngClass]="{active: view==='notes'}" (click)="changeView('notes')" href="#">Notes</li>
+
         <!-- <li [ngClass]="{active: showCal}" (click)="showCal=!showCal" href="#">Calendar</li> -->
       </ul>
     </div>
@@ -120,14 +123,14 @@
 
             <!-- Summary View -->
             <div class="task-list" *ngIf="view === 'all'">
-              <h5 class="subheading">All Tasks</h5>
+              <h3 class="all-tasks-title">All Tasks</h3>
               <div class="task-item" *ngFor="let task of allTasks">
                 <app-task-item-summary [taskItem]="task"></app-task-item-summary>
               </div>
             </div>
 
             <!-- Summary View -->
-            <div class="notes-view" *ngIf="view === 'notes'">
+            <div class="task-list" *ngIf="view === 'notes'">
               <app-notes-view></app-notes-view>
             </div>
 
