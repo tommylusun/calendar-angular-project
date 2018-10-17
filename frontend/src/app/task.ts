@@ -12,7 +12,7 @@ export class Task {
     checklist2: any;
     doneCount: number;
     showDetails: boolean;
-    notes: string[];
+    notes: string[] = [];
 
     constructor(object) {
         this.id = object.id;
@@ -24,6 +24,7 @@ export class Task {
         this.showDetails = false;
         this.doneCount = 0;
         this.checklist2 = {};
+        this.notes = object.notes;
         if (object.checklist2) {
             this.importChecklist(object.checklist2);
         } else {

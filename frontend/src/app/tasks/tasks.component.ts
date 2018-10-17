@@ -133,5 +133,9 @@ export class TasksComponent implements OnInit {
     return task.getCheckBox(temp);
   }
 
+  onMonthClick(event) {
+    this.view = 'week';
+  }
+
 
 }

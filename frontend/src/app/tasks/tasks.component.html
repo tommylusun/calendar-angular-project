@@ -7,7 +7,7 @@
   <div class="row inner-container row flex-nowrap no-pad">
 
     <!-- Right side Nav bar -->
-    <div class="col-2 left-menu-container">
+    <div class="col-1 left-menu-container">
       <ul class="left-menu-items">
         <!-- <label>Views</label> -->
         <li [ngClass]="{active: view==='day'}" (click)="changeView('day')" href="#">Day</li>
@@ -31,25 +31,38 @@
         <div class="col">
           <div class="component-background outer-box">
 
-            <!-- Top row buttons -->
-            <div class="row button-row" *ngIf="view === 'day' || view === 'week' || view === 'month'">
-              <div class="today-button">
-                <button class="btn btn-success btn-outline-dark" (click)="goToToday()" href="#">Go to Today</button>
-              </div>
-              <div class="create-task">
-                <button class="btn btn-success" (click)="showForm=!showForm" href="#">New Task</button>
-                <div class="create-task-component" *ngIf="showForm===true">
-                  <app-create-task></app-create-task>
-                </div>
-              </div>
-            </div>
+
 
 
             <!-- Tasks Header -->
-            <div class="row tasks-header" *ngIf="view === 'day' || view === 'week' || view === 'month'">
-              <span class="chevron left" (click)="prevDay()"></span>
-              <h3 class="task-list-title">{{getTitleDate()}}</h3>
-              <span class="chevron right" (click)="nextDay()"></span>
+            <div *ngIf="view === 'day' || view === 'week' || view === 'month'">
+
+
+
+              <!-- <div class="row tasks-header">
+                <span class="chevron left" (click)="prevDay()"></span>
+                <h3>{{getTitleDate()}}</h3>
+                <span class="chevron right" (click)="nextDay()"></span>
+
+              </div> -->
+
+
+              <!-- <div class="row header-divider" > </div> -->
+              <h3 class="all-tasks-title" *ngIf="view === 'day' || view === 'week' || view === 'month'">{{getTitleDate()}}</h3>
+
+              <!-- Top row buttons -->
+              <div class="row button-row">
+
+                <div class="today-button">
+                  <button class="btn btn-success btn-outline-dark" (click)="goToToday()" href="#">Go to Today</button>
+                </div>
+                <div class="create-task">
+                  <button class="btn btn-success" (click)="showForm=!showForm" href="#">New Task</button>
+                  <div class="create-task-component" *ngIf="showForm===true">
+                    <app-create-task></app-create-task>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- <h3 class="task-type-header"></h3> -->
@@ -118,7 +131,7 @@
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
                 </div>
               </div>
-              <app-month-view-table [day]="day"></app-month-view-table>
+              <app-month-view-table [day]="day" (open)="onMonthClick($event)"></app-month-view-table>
             </div>
 
             <!-- Summary View -->

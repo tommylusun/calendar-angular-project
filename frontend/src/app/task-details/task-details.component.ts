@@ -14,6 +14,8 @@ export class TaskDetailsComponent implements OnInit {
 
   iterable;
   list: Checklist[];
+  newNote: string;
+  showInput = false;
   doneCount: number;
   constructor(private taskListService: TaskListService) { }
 
@@ -26,5 +28,16 @@ export class TaskDetailsComponent implements OnInit {
   deleteTask() {
     this.taskListService.deleteTask(this.task);
   }
+
+  addNote() {
+    if (this.task.notes === null) {
+      this.task.notes = [];
+    }
+    this.task.notes.push(this.newNote);
+    this.newNote = '';
+    this.taskListService.updateTaskRequest(this.task);
+  }
+
+
 
 }

@@ -2,10 +2,11 @@
     display: flex;
     text-align: left;
     padding: 10px;
-    padding-left: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
     /* margin: 10px; */
     font-size: 10pt;
-    background: rgba(0, 0,0, 0.1);
+    background: rgba(0, 0,0, 0.04);
 }
 
 .inner-container{
@@ -13,4 +14,15 @@
 }
 .delete-button {
     float: right;
+}
+.description-box {
+    background-color: rgba(0, 0,0, 0.02);
+    /* background-color: rgba(255, 255,255, 0.25); */
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+li {
+    list-style-type: none;
 }

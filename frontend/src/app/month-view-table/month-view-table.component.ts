@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task';
 import { TaskListService } from '../task-list.service';
 import { CurrentDateService } from '../current-date.service';
@@ -11,13 +11,15 @@ import { Subscription } from 'rxjs';
 })
 export class MonthViewTableComponent implements OnInit {
 
-  // @Input() tasks: Task[];
   @Input() day: Date;
-  // allTasks;
+
+  @Output() open: EventEmitter<any> = new EventEmitter();
+
   weekTasks = [];
   weekHeaders: string[] = [];
   monthNames;
   dateSubscription: Subscription;
+
   constructor(private taskListService: TaskListService, private currentDateService: CurrentDateService) { }
 
   ngOnInit() {
@@ -83,5 +85,26 @@ export class MonthViewTableComponent implements OnInit {
     return `${startString} - ${endString}`;
   }
 
+  goToTask(task: Task, ind) {
+    const tempDate = new Date(this.day);
+    tempDate.setDate(1);
+    tempDate.setDate(tempDate.getDate() - this.day.getDay() + (ind * 7));
+    console.log(this.day);
+    this.currentDateService.dateSubject.next(this.day);
+    task.showDetails = true;
+    this.open.emit();
+  }
 
+  getStatusText(task: Task, ind) {
+    // const tempDate = new Date(this.day);
+    // tempDate.setDate(1);
+    // tempDate.setDate(tempDate.getDate() - this.day.getDay() + (ind * 7));
+    // if (task.getCheckBox(tempDate)) {
+    //   return 'Complete';
+    // } else {
+    //   return 'Not Done';
+    // }
+    return 'Complete';
+
+  }
 }

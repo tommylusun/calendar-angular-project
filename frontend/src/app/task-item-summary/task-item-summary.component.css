@@ -1,6 +1,6 @@
 .task-container {
   margin: 10px;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
 
 }
 
@@ -81,4 +81,10 @@ label {
 
 .btn {
   font-size: 10pt;
+}
+
+.task-separator {
+  border-bottom: 1px solid grey; 
+  width: 90%; 
+  margin: auto
 }

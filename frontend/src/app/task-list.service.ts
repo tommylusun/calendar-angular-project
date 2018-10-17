@@ -117,6 +117,7 @@ export class TaskListService {
           type: task['type'],
           checklist2: task['checkList'],
           count: task['count'],
+          notes: task['notes']
         });
         this.tasksList.push(newTask);
       }

@@ -1,11 +1,29 @@
 <div class="outer-container">
   <div class="inner-container">
-    
-    <p>{{task.description}}</p>
-    <p>{{task.startDate.toDateString()}} - {{task.endDate.toDateString()}}</p>
+    <label>Description</label>
+    <div class="description-box">
+        <p>{{task.description}}</p>
+    </div>
 
+    <label style="margin-top:10px">Task Duration</label>
+    <div class="date-duration description-box">
+        <p>{{task.startDate.toDateString()}} - {{task.endDate.toDateString()}}</p>
+    </div>
+
+    <label style="margin-top:10px">Task Notes</label>
+    <div class="date-duration description-box">
+        <ul>
+          <li *ngFor="let note of task.notes">{{note}}</li>
+        </ul>
+    </div>
+    <button *ngIf="!showInput" class="btn btn-light" (click)="showInput = !showInput">add note</button>
+    <div *ngIf="showInput">
+        <form (keyup.enter)="addNote(); showInput = false">
+            <input name="taskName" [(ngModel)]="newNote" type="text" class="form-control" id="name" required>
+        </form>
+    </div>
     <div>
-      <label>{{task.doneCount}} / {{list.length}} Completed</label>
+      <label >{{task.doneCount}} / {{list.length}} Completed</label>
     </div>
 
     <div>
