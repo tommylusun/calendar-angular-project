@@ -11,10 +11,10 @@ import { Subscription } from 'rxjs';
 })
 export class MonthViewTableComponent implements OnInit {
 
-  @Input() day: Date;
 
   @Output() open: EventEmitter<any> = new EventEmitter();
 
+  day: Date;
   weekTasks = [];
   weekHeaders: string[] = [];
   monthNames;
@@ -24,10 +24,12 @@ export class MonthViewTableComponent implements OnInit {
 
   ngOnInit() {
     this.monthNames = this.currentDateService.monthNames;
+    this.day = this.currentDateService.getDate();
     this.createWeekLists(this.day);
     this.constructWeekHeaders(this.day);
 
     this.dateSubscription = this.currentDateService.dateSubject.subscribe((data: Date) => {
+      this.day = new Date(data);
       this.createWeekLists(data);
       this.constructWeekHeaders(data);
 
@@ -88,10 +90,7 @@ export class MonthViewTableComponent implements OnInit {
   goToTask(task: Task, ind) {
     const tempDate = new Date(this.day);
     tempDate.setDate(1);
-    console.log(ind);
-    console.log(tempDate.getDate() + ' ' + tempDate.getDay());
     tempDate.setDate(tempDate.getDate() - tempDate.getDay() + (ind * 7));
-    console.log(tempDate);
     this.currentDateService.dateSubject.next(tempDate);
     task.showDetails = true;
     this.open.emit();

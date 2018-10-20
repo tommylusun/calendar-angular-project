@@ -1,0 +1,29 @@
+<div class="daily-task-table-container">
+  <h5 class="subheading">This week's daily tasks</h5>
+  <!-- Week Daily Table -->
+  <table>
+    <thead>
+      <td class="table-headers" *ngFor="let day of dayNames">{{day}}</td>
+    </thead>
+    <tbody>
+      <tr>
+        <td *ngFor="let day of weekTasks; let i = index">
+          <div class="day-column" *ngFor="let task of day">
+            <div style="min-width: 100%" *ngIf="task.type==='Daily'">
+              <div class="week-task-item row" (click)="goToTask(task,i)">
+                <div class="row status-bar" [ngClass]="{'complete': getStatusText(task,i)==='Complete', 'incomplete': getStatusText(task,i)==='Incomplete'}">
+                  {{getStatusText(task,i)}}
+                </div>
+                <div class="row task-name">
+                  <p>
+                    {{task.name}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

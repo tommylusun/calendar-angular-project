@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TaskItemSummaryComponent } from './task-item-summary/task-item-summary.component';
 import { MonthViewTableComponent } from './month-view-table/month-view-table.component';
 import { NotesViewComponent } from './notes-view/notes-view.component';
+import { DailyTasksTableComponent } from './daily-tasks-table/daily-tasks-table.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NotesViewComponent } from './notes-view/notes-view.component';
     TaskItemComponent,
     TaskItemSummaryComponent,
     MonthViewTableComponent,
-    NotesViewComponent
+    NotesViewComponent,
+    DailyTasksTableComponent
   ],
   imports: [
     BrowserModule,
