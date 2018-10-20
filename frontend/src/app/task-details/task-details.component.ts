@@ -17,12 +17,15 @@ export class TaskDetailsComponent implements OnInit {
   newNote: string;
   showInput = false;
   doneCount: number;
+  editButton = 'Edit';
   constructor(private taskListService: TaskListService) { }
 
   ngOnInit() {
     // this.list = Array.from(Object.keys(this.task.checklist2), check => this.task.checklist2[check]);
 
     this.list = Object.values(this.task.checklist2);
+    this.newNote = Object.assign(this.task.notes, this.newNote);
+
   }
 
   deleteTask() {
@@ -32,11 +35,28 @@ export class TaskDetailsComponent implements OnInit {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy(): void {
-    this.taskListService.updateTaskRequest(this.task);
+    // this.taskListService.updateTaskRequest(this.task);
   }
 
+  editNotes() {
+    const  textArea = document.getElementById('textarea');
+    const notesbox = document.getElementById('notesbox');
+    const style = window.getComputedStyle(notesbox);
+    textArea.style.height = style.height;
+    document.getElementById('textarea').focus();
+
+
+    this.showInput = !this.showInput;
+    if (this.showInput) {
+      this.editButton = 'Save';
+    } else {
+      this.editButton = 'Edit';
+      this.task.notes = this.newNote;
+      this.taskListService.updateTaskRequest(this.task);
+    }
+
+  }
   autogrow() {
-    this.showInput = true;
     const  textArea = document.getElementById('textarea');
     textArea.style.overflow = 'hidden';
     textArea.style.height = '0px';

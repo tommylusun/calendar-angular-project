@@ -1,7 +1,7 @@
 <div class="outer-container">
   <div class="inner-container">
     <label>Description</label>
-    <button (click)="editDescription=!editDescription" class="btn-sm btn btn-light" style="padding: 2px; float: right;">edit</button>
+    <!-- <button (click)="editDescription=!editDescription" class="btn-sm btn btn-light" style="padding: 2px; float: right;">edit</button> -->
     <div *ngIf="!editDescription" class="description-box">
       <p>{{task.description}}</p>
     </div>
@@ -13,11 +13,11 @@
     </div>
 
     <label style="margin-top:10px">Task Notes</label>
-    <button (click)="autogrow()" class="btn-sm btn btn-light" style="padding: 2px; float: right;">edit</button>
-    <div *ngIf="!showInput" class="description-box">
-      <p>{{task.notes}}</p>
+    <button (click)="editNotes()" class="btn-sm btn btn-light" style="padding: 2px; float: right;">{{editButton}}</button>
+    <div [hidden]="showInput" id="notesbox" class="description-box">
+      <p>{{newNote}}</p>
     </div>
-    <textarea id="textarea" *ngIf="showInput" class="notes-area" name="taskName" [(ngModel)]="task.notes" (keydown)="autogrow()"></textarea>
+    <textarea id="textarea" [hidden]="!showInput" class="notes-area" name="taskName" [(ngModel)]="newNote" (keydown)="autogrow()"></textarea>
 
 
     <!-- <div class="date-duration description-box">
