@@ -12,16 +12,15 @@
         <td *ngFor="let day of weekTasks; let i = index">
           <div class="day-column" *ngFor="let task of day">
             <div style="min-width: 100%" *ngIf="task.type==='Weekly'">
-              <div class="week-task-item row" (click)="goToTask(task,day)">
-                <!-- <div class="status-bar row">
-                  {{getStatusText(task,day)}}
-                </div> -->
-                <!-- <div class="row"> -->
-                    <p class="task-name">
-                        {{task.name}}
-                      </p>
-                <!-- </div> -->
-                
+              <div class="week-task-item row" (click)="goToTask(task,i)">
+                <div class="row status-bar" [ngClass]="{'complete': getStatusText(task,i)==='Complete', 'incomplete': getStatusText(task,i)==='Incomplete'}">
+                  {{getStatusText(task,i)}}
+                </div>
+                <div class="row task-name">
+                  <p class="">
+                    {{task.name}}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

@@ -46,10 +46,10 @@ table {
 	/* margin: -255px 0 0 -245px; */
     /* position: absolute;
     top: 10%; */
-	/* width: 510px; */
+	/* width: 510px;
 	animation-duration: 0.4s;
 	animation-name: slidein2;
-	animation-timing-function: cubic-bezier(0.0, 0.5, 0, 1.000);
+	animation-timing-function: cubic-bezier(0.0, 0.5, 0, 1.000); */
 	/* animation-iteration-count: infinite; */
   
 	/* padding: 10px; */
@@ -97,6 +97,12 @@ table {
 .calendar .selected {
 	border: 1px solid rgb(90, 94, 97);
 	border-radius: 5px 5px 5px 5px;
+}
+
+.calendar .current {
+	/* border: 1px solid rgb(90, 94, 97); */
+	border-radius: 5px 5px 5px 5px;
+	background-color: rgba(0, 110, 255, 0.25)
 }
 .calendar tr {
 	/* line-height: 120px; */

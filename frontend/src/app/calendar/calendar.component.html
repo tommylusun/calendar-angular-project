@@ -31,7 +31,7 @@
 
       <tbody>
         <tr>
-          <td [ngClass]="{'selected': dateSelected(date)}" (click)="clickDay(date)" *ngFor="let date of days">{{date}}</td>
+          <td [ngClass]="{'selected': dateSelected(date), 'current': todaysDate(date)}" (click)="clickDay(date)" *ngFor="let date of days">{{date}}</td>
         </tr>
       </tbody>
     </table>

@@ -88,23 +88,24 @@ export class MonthViewTableComponent implements OnInit {
   goToTask(task: Task, ind) {
     const tempDate = new Date(this.day);
     tempDate.setDate(1);
-    tempDate.setDate(tempDate.getDate() - this.day.getDay() + (ind * 7));
-    console.log(this.day);
-    this.currentDateService.dateSubject.next(this.day);
+    console.log(ind);
+    console.log(tempDate.getDate() + ' ' + tempDate.getDay());
+    tempDate.setDate(tempDate.getDate() - tempDate.getDay() + (ind * 7));
+    console.log(tempDate);
+    this.currentDateService.dateSubject.next(tempDate);
     task.showDetails = true;
     this.open.emit();
   }
 
   getStatusText(task: Task, ind) {
-    // const tempDate = new Date(this.day);
-    // tempDate.setDate(1);
-    // tempDate.setDate(tempDate.getDate() - this.day.getDay() + (ind * 7));
-    // if (task.getCheckBox(tempDate)) {
-    //   return 'Complete';
-    // } else {
-    //   return 'Not Done';
-    // }
-    return 'Complete';
+    const tempDate = new Date(this.day);
+    tempDate.setDate(1);
+    tempDate.setDate(tempDate.getDate() - tempDate.getDay() + (ind * 7));
+    if (task.getCheckBox(tempDate)) {
+      return 'Complete';
+    } else {
+      return 'Incomplete';
+    }
 
   }
 }

@@ -1,29 +1,38 @@
 <div class="outer-container">
   <div class="inner-container">
     <label>Description</label>
-    <div class="description-box">
-        <p>{{task.description}}</p>
+    <button (click)="editDescription=!editDescription" class="btn-sm btn btn-light" style="padding: 2px; float: right;">edit</button>
+    <div *ngIf="!editDescription" class="description-box">
+      <p>{{task.description}}</p>
     </div>
+    <textarea *ngIf="editDescription" class="notes-area" name="taskName" [(ngModel)]="task.description"></textarea>
 
     <label style="margin-top:10px">Task Duration</label>
     <div class="date-duration description-box">
-        <p>{{task.startDate.toDateString()}} - {{task.endDate.toDateString()}}</p>
+      <p>{{task.startDate.toDateString()}} - {{task.endDate.toDateString()}}</p>
     </div>
 
     <label style="margin-top:10px">Task Notes</label>
-    <div class="date-duration description-box">
+    <button (click)="autogrow()" class="btn-sm btn btn-light" style="padding: 2px; float: right;">edit</button>
+    <div *ngIf="!showInput" class="description-box">
+      <p>{{task.notes}}</p>
+    </div>
+    <textarea id="textarea" *ngIf="showInput" class="notes-area" name="taskName" [(ngModel)]="task.notes" (keydown)="autogrow()"></textarea>
+
+
+    <!-- <div class="date-duration description-box">
         <ul>
           <li *ngFor="let note of task.notes">{{note}}</li>
         </ul>
-    </div>
-    <button *ngIf="!showInput" class="btn btn-light" (click)="showInput = !showInput">add note</button>
-    <div *ngIf="showInput">
-        <form (keyup.enter)="addNote(); showInput = false">
-            <input name="taskName" [(ngModel)]="newNote" type="text" class="form-control" id="name" required>
-        </form>
-    </div>
+    </div> -->
+    <!-- <button *ngIf="!showInput" class="btn btn-light" (click)="showInput = !showInput">add note</button> -->
+    <!-- <div *ngIf="showInput"> -->
+    <form (keyup.enter)="addNote(); showInput = false">
+      <!-- <input name="taskName" [(ngModel)]="newNote" type="textarea" class="form-control" id="name" required> -->
+    </form>
+    <!-- </div> -->
     <div>
-      <label >{{task.doneCount}} / {{list.length}} Completed</label>
+      <label>{{task.doneCount}} / {{list.length}} Completed</label>
     </div>
 
     <div>

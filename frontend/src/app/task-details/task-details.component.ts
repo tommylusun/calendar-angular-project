@@ -29,15 +29,19 @@ export class TaskDetailsComponent implements OnInit {
     this.taskListService.deleteTask(this.task);
   }
 
-  addNote() {
-    if (this.task.notes === null) {
-      this.task.notes = [];
-    }
-    this.task.notes.push(this.newNote);
-    this.newNote = '';
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy(): void {
     this.taskListService.updateTaskRequest(this.task);
   }
 
+  autogrow() {
+    this.showInput = true;
+    const  textArea = document.getElementById('textarea');
+    textArea.style.overflow = 'hidden';
+    textArea.style.height = '0px';
+    textArea.style.height = textArea.scrollHeight + 'px';
+  }
 
 
 }

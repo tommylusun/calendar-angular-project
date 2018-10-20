@@ -16,4 +16,14 @@ export class TaskItemSummaryComponent implements OnInit {
   ngOnInit() {
   }
 
+  getStatus() {
+    if (this.taskItem.doneCount === 0) {
+      return 'Not complete';
+    } else if (this.taskItem.doneCount === Object.values(this.taskItem.checklist2).length) {
+      return 'Complete';
+    } else {
+      return 'Partially Complete';
+    }
+  }
+
 }

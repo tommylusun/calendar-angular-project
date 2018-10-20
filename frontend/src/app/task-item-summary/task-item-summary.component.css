@@ -1,6 +1,7 @@
 .task-container {
   margin: 10px;
   /* border: 1px solid grey; */
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -8,7 +9,7 @@
   /* border: 1px solid black; */
   box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.25);
   transition-duration: 0.2s;
-  transform: scale(1.01);
+  /* transform: scale(1.01); */
   background: rgba(255, 255, 255, 0.25);
   /* cursor: pointer; */
 }
@@ -27,29 +28,8 @@
 
 }
 
-.checked {
-  cursor: pointer;
-  display: inline-block;
-  position: absolute;
-  /*Add another block-level blank space*/
-  content: '';
-  /* display: block; */
-
-  /*Make it a small rectangle so the border will create an L-shape*/
-  width: 10px;
-  height: 22px;
-
-  /*Add a white border on the bottom and left, creating that 'L' */
-  border: solid rgb(16, 187, 39);
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
-  left: 10px;
-  transition-duration: 0.2s;
-
-}
-
 .list-item {
-
+  padding: 20px;
   text-align: left;
   align-items: center;
 }
@@ -77,10 +57,14 @@ input {
 
 label {
   margin-bottom: 0px;
+  font-size: 10pt;
 }
 
 .btn {
   font-size: 10pt;
+}
+.task-type {
+  float: right;
 }
 
 .task-separator {

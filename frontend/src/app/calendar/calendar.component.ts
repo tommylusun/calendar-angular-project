@@ -136,6 +136,16 @@ export class CalendarComponent implements OnInit {
     this.initializeCalendar();
   }
 
+  todaysDate(date) {
+    const today = new Date();
+    // tslint:disable-next-line:triple-equals
+    if ((date == today.getDate() && (this.currentMonth === today.getMonth()) && (this.currentYear === today.getFullYear())) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy(): void {
     this.dateSub.unsubscribe();

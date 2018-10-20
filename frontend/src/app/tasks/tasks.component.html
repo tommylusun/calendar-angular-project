@@ -1,7 +1,7 @@
 <div class="outer-container">
 
   <div class="row no-pad">
-    <h1>Tasks Dashboard</h1>
+    <h2>Tasks Dashboard</h2>
   </div>
   <!-- Nav Bar container -->
   <div class="row inner-container row flex-nowrap no-pad">
@@ -10,10 +10,10 @@
     <div class="col-1 left-menu-container">
       <ul class="left-menu-items">
         <!-- <label>Views</label> -->
-        <li [ngClass]="{active: view==='day'}" (click)="changeView('day')" href="#">Day</li>
-        <li [ngClass]="{active: view==='week'}" (click)="changeView('week')" href="#">Week</li>
-        <li [ngClass]="{active: view==='month'}" (click)="changeView('month')" href="#">Month</li>
-        <li [ngClass]="{active: view==='all'}" (click)="changeView('all')" href="#">All Entries</li>
+        <li [ngClass]="{active: view==='day'}" (click)="changeView('day')" href="#">Focused view</li>
+        <li [ngClass]="{active: view==='week'}" (click)="changeView('week')" href="#">This week</li>
+        <li [ngClass]="{active: view==='month'}" (click)="changeView('month')" href="#">This month</li>
+        <li [ngClass]="{active: view==='all'}" (click)="changeView('all')" href="#">Manage Tasks</li>
         <hr>
         <li [ngClass]="{active: view==='notes'}" (click)="changeView('notes')" href="#">Notes</li>
 
@@ -70,19 +70,19 @@
             <!-- Day View -->
             <div class="task-list" *ngIf="view === 'day'">
 
-              <h5 class="subheading">Daily</h5>
+              <h5 class="subheading">Daily tasks</h5>
               <div class="task-item" *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Daily'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
                 </div>
               </div>
-              <h5 class="subheading">Weekly</h5>
+              <h5 class="subheading">Weekly tasks</h5>
               <div class="task-item" *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Weekly'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
                 </div>
               </div>
-              <h5 class="subheading">Monthly</h5>
+              <h5 class="subheading">Monthly tasks</h5>
               <div class="task-item" *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Monthly'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
@@ -92,7 +92,7 @@
 
             <!-- Week View -->
             <div *ngIf="view === 'week'">
-              <h5 class="subheading">Weekly</h5>
+              <h5 class="subheading">Weekly tasks</h5>
               <div *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Weekly'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
@@ -110,9 +110,14 @@
                       <div class="day-column" *ngFor="let task of day">
                         <div style="min-width: 100%" *ngIf="task.type==='Daily'">
                           <div class="week-task-item row" (click)="goToTask(task,i)">
-                            <p class="task-name">
-                              {{task.name}}
-                            </p>
+                            <div class="row status-bar" [ngClass]="{'complete': getStatusText(task,i)==='Complete', 'incomplete': getStatusText(task,i)==='Incomplete'}">
+                              {{getStatusText(task,i)}}
+                            </div>
+                            <div class="row task-name">
+                              <p>
+                                {{task.name}}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -125,7 +130,7 @@
 
             <!-- Month View -->
             <div *ngIf="view === 'month'">
-              <h5 class="subheading">Monthly</h5>
+              <h5 class="subheading">Monthly tasks</h5>
               <div *ngFor="let task of showTasks">
                 <div *ngIf="task.type==='Monthly'">
                   <app-task-item [taskItem]="task" [day]="day"></app-task-item>
@@ -136,7 +141,7 @@
 
             <!-- Summary View -->
             <div class="task-list" *ngIf="view === 'all'">
-              <h3 class="all-tasks-title">All Tasks</h3>
+              <h3 class="all-tasks-title">Manage Tasks</h3>
               <div class="task-item" *ngFor="let task of allTasks">
                 <app-task-item-summary [taskItem]="task"></app-task-item-summary>
               </div>

@@ -12,7 +12,7 @@ export class Task {
     checklist2: any;
     doneCount: number;
     showDetails: boolean;
-    notes: string[] = [];
+    notes: string;
 
     constructor(object) {
         this.id = object.id;

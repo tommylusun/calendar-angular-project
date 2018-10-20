@@ -137,5 +137,15 @@ export class TasksComponent implements OnInit {
     this.view = 'week';
   }
 
+  getStatusText(task: Task, ind) {
+    const tempDate = new Date(this.day);
+    tempDate.setDate(tempDate.getDate() - tempDate.getDay() + ind);
+    if (task.getCheckBox(tempDate)) {
+      return 'Complete';
+    } else {
+      return 'Incomplete';
+    }
+
+  }
 
 }
