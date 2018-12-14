@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { Task } from '../task';
+import { Task } from '../taskNew';
 import { TaskListService } from '../task-list.service';
 import { CurrentDateService } from '../current-date.service';
 
@@ -22,9 +22,9 @@ export class TaskItemComponent implements OnInit {
     // this.task = this.taskItem;
     this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete';
 
-    // this.currentDateService.dateSubject.subscribe((date) => {
-    //   this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
-    // });
+    this.currentDateService.dateSubject.subscribe((date) => {
+      this.checkTaskButton = this.getCheckBox() ? 'Uncheck Task' : 'Mark as complete!';
+    });
   }
 
   checkTask() {
@@ -39,7 +39,6 @@ export class TaskItemComponent implements OnInit {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy(): void {
-    this.taskItem.showDetails = false;
   }
 
 }

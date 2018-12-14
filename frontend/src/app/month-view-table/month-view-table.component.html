@@ -1,32 +1,20 @@
 <div class="month-view-container">
 
+  <div class="calender-container">
 
-  <h5 class="subheading">{{monthNames[day.getMonth()]}}'s weekly tasks</h5>
-  <!-- Week Daily Table -->
-  <table>
-    <thead>
-      <td class="table-headers" *ngFor="let week of weekHeaders">{{week}}</td>
-    </thead>
-    <tbody>
-      <tr>
-        <td *ngFor="let day of weekTasks; let i = index">
-          <div class="day-column" *ngFor="let task of day">
-            <div style="min-width: 100%" *ngIf="task.type==='Weekly'">
-              <div class="week-task-item row" (click)="goToTask(task,i)">
-                <div class="row status-bar" [ngClass]="{'complete': getStatusText(task,i)==='Complete', 'incomplete': getStatusText(task,i)==='Incomplete'}">
-                  {{getStatusText(task,i)}}
-                </div>
-                <div class="row task-name">
-                  <p class="">
-                    {{task.name}}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 
+    <div class="calendar-header" *ngFor="let day of dayNames">{{day}}
+    </div>
+
+    <div *ngFor="let date of days" class="calendar-date">
+      <div>
+          {{date}}
+      </div>
+      <div class="date-item-container">
+        <app-table-date-item [date]="getFullDate(date)"></app-table-date-item>
+      </div>
+    </div>
+
+  </div>
+      
 </div>

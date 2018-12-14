@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Task } from '../task';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Task } from '../taskNew';
 import { Checklist } from '../checklist';
 import { TaskListService } from '../task-list.service';
 
@@ -12,7 +12,6 @@ export class TaskDetailsComponent implements OnInit {
 
   @Input() task: Task;
 
-  iterable;
   list: Checklist[];
   newNote: string;
   showInput = false;
@@ -23,8 +22,17 @@ export class TaskDetailsComponent implements OnInit {
   ngOnInit() {
     // this.list = Array.from(Object.keys(this.task.checklist2), check => this.task.checklist2[check]);
 
-    this.list = Object.values(this.task.checklist2);
-    this.newNote = Object.assign(this.task.notes, this.newNote);
+    // this.list = Object.values(this.task.checklist2);
+    // this.newNote = Object.assign(this.task.notes, this.newNote);
+    this.newNote = this.task.notes;
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnChanges(): void {
+    // this.newNote = Object.assign(this.task.notes, this.newNote);
+    this.newNote = this.task.notes;
+    this.showInput = false;
+    this.editButton = 'Edit';
 
   }
 
@@ -57,7 +65,7 @@ export class TaskDetailsComponent implements OnInit {
 
   }
   autogrow() {
-    const  textArea = document.getElementById('textarea');
+    const textArea = document.getElementById('textarea');
     textArea.style.overflow = 'hidden';
     textArea.style.height = '0px';
     textArea.style.height = textArea.scrollHeight + 'px';

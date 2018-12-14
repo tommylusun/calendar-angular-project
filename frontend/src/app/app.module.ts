@@ -15,6 +15,7 @@ import { TaskItemSummaryComponent } from './task-item-summary/task-item-summary.
 import { MonthViewTableComponent } from './month-view-table/month-view-table.component';
 import { NotesViewComponent } from './notes-view/notes-view.component';
 import { DailyTasksTableComponent } from './daily-tasks-table/daily-tasks-table.component';
+import { TableDateItemComponent } from './month-view-table/table-date-item/table-date-item.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DailyTasksTableComponent } from './daily-tasks-table/daily-tasks-table.
     TaskItemSummaryComponent,
     MonthViewTableComponent,
     NotesViewComponent,
-    DailyTasksTableComponent
+    DailyTasksTableComponent,
+    TableDateItemComponent
   ],
   imports: [
     BrowserModule,

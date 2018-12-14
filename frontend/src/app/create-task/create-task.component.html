@@ -1,28 +1,37 @@
-<div class="create-task-container modal-background">
+<div id="create_task_modal" class="create-task-container modal-background">
   <div>
 
     <!-- Create Task Form -->
     <form (ngSubmit)="submit()" #taskForm="ngForm">
 
-      <div class="form-group">
+      <div class="form-group task-name">
         <label for="name">Task Name</label>
-        <input name="taskName" [(ngModel)]="taskName" type="text" class="form-control" id="name" required>
+        <input autofocus name="taskName" [(ngModel)]="taskName" type="text" class="form-control" id="name" required>
       </div>
 
-      <div class="form-group">
+      <div class="form-group task-description">
         <label for="description">Task Description</label>
         <input name="taskDesc" [(ngModel)]="taskDesc" type="text" class="form-control" id="description">
       </div>
 
       <div class="form-group">
-        <label for="power">Type</label>
-        <select class="form-control" id="type" required [(ngModel)]="type" name="type" #power="ngModel">
-          <option class="" *ngFor="let type of types" [ngValue]="type">{{type}}</option>
-        </select>
+        <label class="repeat-radio" for="repeatFalse">Once</label>
+        <input type="radio" name="repeatFalse" value="0" [(ngModel)]="repeat">
+
+        <label class="repeat-radio" for="repeatTrue">Repeat</label>
+        <input type="radio" name="repeatTrue" value="1" [(ngModel)]="repeat">
+      </div>
+
+      <div *ngIf="repeat==='1'" class="form-group">
+        <label>Repeat every...</label>
+        <div>
+          <label [ngClass]="{'selected': daysPerWeek.includes(i)}" (click)="toggleDay(i)" class="day-selector" *ngFor="let day of dayNames; let i = index">{{day}}</label>
+        </div>
       </div>
 
       <!-- Start Date Form -->
-      <div>Start Date</div>
+      <div *ngIf="repeat==='0'">Date</div>
+      <div *ngIf="repeat==='1'">Start Date</div>
       <div class="row">
         <div class="col-4 dropdown">
           <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
@@ -51,30 +60,32 @@
       </div>
 
       <!-- End Date Form -->
-      <div>End Date</div>
-      <div class="row">
-        <div class="col-4 dropdown">
-          <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
-            {{endYear}}
-          </button>
-          <div class="dropdown-menu dropdown-menu-year" aria-labelledby="dropdownMenuButton">
-            <a href="#" (click)="selectEndYear(i)" class="dropdown-item" *ngFor="let i of yearsList">{{i}}</a>
+      <div *ngIf="repeat==='1'">
+        <div>End Date</div>
+        <div class="row">
+          <div class="col-4 dropdown">
+            <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
+              {{endYear}}
+            </button>
+            <div class="dropdown-menu dropdown-menu-year" aria-labelledby="dropdownMenuButton">
+              <a href="#" (click)="selectEndYear(i)" class="dropdown-item" *ngFor="let i of yearsList">{{i}}</a>
+            </div>
           </div>
-        </div>
-        <div class="col-4 dropdown">
-          <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
-            {{monthNames[endMonth]}}
-          </button>
-          <div class="dropdown-menu dropdown-menu-month" aria-labelledby="dropdownMenuButton">
-            <a href="#" (click)="selectEndMonth(i)" class="dropdown-item" *ngFor="let month of monthNames; let i = index">{{month}}</a>
+          <div class="col-4 dropdown">
+            <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
+              {{monthNames[endMonth]}}
+            </button>
+            <div class="dropdown-menu dropdown-menu-month" aria-labelledby="dropdownMenuButton">
+              <a href="#" (click)="selectEndMonth(i)" class="dropdown-item" *ngFor="let month of monthNames; let i = index">{{month}}</a>
+            </div>
           </div>
-        </div>
-        <div class="col-4 dropdown" *ngIf="type!=='Monthly'">
-          <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
-            {{endDate}}
-          </button>
-          <div class="dropdown-menu dropdown-menu-date" aria-labelledby="dropdownMenuButton">
-            <a href="#" (click)="selectEndDate(i)" class="dropdown-item" *ngFor="let i of endDatesList">{{i}}</a>
+          <div class="col-4 dropdown" *ngIf="type!=='Monthly'">
+            <button class="month-dropdown" id="dropdownMenuButton" data-toggle="dropdown">
+              {{endDate}}
+            </button>
+            <div class="dropdown-menu dropdown-menu-date" aria-labelledby="dropdownMenuButton">
+              <a href="#" (click)="selectEndDate(i)" class="dropdown-item" *ngFor="let i of endDatesList">{{i}}</a>
+            </div>
           </div>
         </div>
       </div>

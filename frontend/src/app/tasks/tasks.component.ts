@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CreateTaskComponent } from '../create-task/create-task.component';
-import { Task } from '../task';
+import { Task } from '../taskNew';
 import { CalendarComponent } from '../calendar/calendar.component';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { TaskListService } from '../task-list.service';
@@ -24,7 +24,8 @@ export class TasksComponent implements OnInit {
   weekTasks: any[];
 
   dayNames: string[];
-
+  currentTask: Task = null;
+  selectedDate: Date = null;
   newNote: string;
   notes: string[];
 
@@ -39,22 +40,25 @@ export class TasksComponent implements OnInit {
     this.view = 'day';
     this.day = new Date();
     this.currentDateService.setDate(this.day);
-
+    this.showTasks = this.taskListService.getDayTasks(this.day);
     this.currentDateService.dateSubject.subscribe((data: Date) => {
       this.day = data;
       this.showTasks = this.taskListService.getDayTasks(this.day);
-      this.weekTasks = this.taskListService.constructWeekLists(this.day);
     });
 
     this.taskListService.tasksSubject.subscribe((list: Task[]) => {
       this.allTasks = list;
-      console.log(list);
       this.showTasks = this.taskListService.getDayTasks(this.day);
-      this.weekTasks = this.taskListService.constructWeekLists(this.day);
+      if (this.allTasks.indexOf(this.currentTask) === -1) {
+        this.currentTask = null;
+      }
       this.showForm = false;
     });
-    this.taskListService.bootstrapTaskslist();
 
+    this.taskListService.sendTask.subscribe(({task, date}) => {
+      this.currentTask = task;
+      this.selectedDate = date;
+    });
   }
 
   checkTask(task: Task) {
@@ -123,14 +127,13 @@ export class TasksComponent implements OnInit {
   goToTask(task: Task, ind) {
       this.day.setDate(this.day.getDate() - this.day.getDay() + ind);
       this.currentDateService.dateSubject.next(this.day);
-      task.showDetails = true;
       this.view = 'day';
   }
 
   taskChecked(task: Task, ind) {
     const temp = new Date(this.day);
     temp.setDate(this.day.getDate() - this.day.getDay() + ind);
-    return task.getCheckBox(temp);
+    // return task.getCheckBox(temp);
   }
 
   onMonthClick(event) {

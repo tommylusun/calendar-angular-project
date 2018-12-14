@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import {
   Task
-} from './task';
+} from './taskNew';
 import {
   Subject
 } from 'rxjs';
@@ -23,9 +23,26 @@ export class TaskListService {
 
   tasksList: Task[];
   tasksSubject = new Subject <Task[]>();
+  sendTask = new Subject <{task: Task, date: Date}>();
 
   constructor(private http: HttpClient) {
     this.tasksList = [];
+
+    // for (let i = 0; i < 10; i++ ) {
+    //   const startDate = new Date();
+    //   startDate.setDate(i);
+    //   const newTask = {
+    //     id: i,
+    //     name: 'task ' + i,
+    //     description: 'task task task task ' + i,
+    //     startDate: startDate,
+    //     endDate: new Date(),
+    //     notes:  ' This is some notes for Task: ' + i,
+    //     daysPerWeek: []
+    // };
+    //   this.tasksList.push(new Task(newTask));
+    // }
+    this.bootstrapTaskslist();
   }
 
   async bootstrapTaskslist() {
@@ -34,17 +51,17 @@ export class TaskListService {
   }
 
   async addTask(task: Task) {
-    this.tasksList.push(task);
-    await this.saveNewTaskRequest(task).then(res => {
-      console.log(res);
+    await this.saveNewTaskRequest(task).then( (res: any) => {
+      this.tasksList.push(this.castTask(res.saved_task));
+      this.tasksSubject.next(this.tasksList);
+      console.log(res.saved_task);
     });
-    this.tasksSubject.next(this.tasksList);
   }
 
   async deleteTask(task: Task) {
-    this.tasksList.splice(this.tasksList.indexOf(task), 1);
-    this.tasksSubject.next(this.tasksList);
     await this.deleteTaskRequest(task).then(res => {
+      this.tasksList.splice(this.tasksList.indexOf(task), 1);
+      this.tasksSubject.next(this.tasksList);
       console.log(res);
     }, err => {
       console.log(err);
@@ -52,7 +69,13 @@ export class TaskListService {
   }
 
   async toggleCheckBox(task: Task, date: Date) {
-    task.toggleCheckBox(date);
+    if (!this.getCheckBox(task, date)) {
+      task.checklist[date.toDateString()] = true;
+      task.doneCount++;
+    } else {
+      delete task.checklist[date.toDateString()];
+      task.doneCount--;
+    }
     await this.updateTaskRequest(task).then(res => {
       console.log(res);
     }, err => {
@@ -65,30 +88,25 @@ export class TaskListService {
   }
 
   getDayTasks(date: Date) {
-    const showTasks = [];
-
-    this.tasksList.forEach(task => {
-      if (task.ifShouldShow(date)) {
-        task.showDetails = false;
-        showTasks.push(task);
-      }
+    const showTasks = this.tasksList.filter( task => {
+      return this.ifTaskinDate(task, date);
     });
+
     return showTasks;
   }
 
   getDayTasksWithType(date: Date, type: string) {
     const showTasks = [];
 
-    this.tasksList.forEach(task => {
-      if (task.ifShouldShow(date) && task.type === type) {
-        showTasks.push(task);
-      }
-    });
     return showTasks;
   }
 
   getCheckBox(task: Task, date: Date) {
-    return task.getCheckBox(date);
+    if (!!task.checklist && !!task.checklist[date.toDateString()]) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   constructWeekLists(day: Date) {
@@ -107,21 +125,15 @@ export class TaskListService {
     return this.http.get(this.backendURL + '/task_list')
     .pipe(map((response: Task[]) => {
       for (const task of Object.values(response)) {
-        console.log(task);
-        const newTask = new Task({
-          id: task['_id'],
-          name: task['name'],
-          description: task['description'],
-          startDate: new Date(task['startDate']),
-          endDate: new Date(task['endDate']),
-          type: task['type'],
-          checklist2: task['checkList'],
-          count: task['count'],
-          notes: task['notes']
-        });
-        this.tasksList.push(newTask);
+        this.tasksList.push(this.castTask(task));
       }
     })).toPromise();
+  }
+
+  castTask(task) {
+    task.startDate = new Date(task.startDate);
+    task.endDate = new Date(task.endDate);
+    return new Task(task);
   }
 
   saveNewTaskRequest(task: Task) {
@@ -129,11 +141,39 @@ export class TaskListService {
   }
 
   deleteTaskRequest(task: Task) {
-    return this.http.delete(this.backendURL + '/delete_task/' + task.id).toPromise();
+    return this.http.delete(this.backendURL + '/delete_task/' + task._id).toPromise();
   }
 
   updateTaskRequest(task: Task) {
     return this.http.put(this.backendURL + '/update_task', task).toPromise();
+  }
+
+  ifTaskinDate(task: Task, date: Date) {
+
+    // if (date.getFullYear>)
+    // if (task.startDate.getMonth() < date.getMonth()) {
+
+    // }
+    // if (task.startDate.getFullYear() <= date.getFullYear()
+    // && task.startDate.getMonth() <= date.getMonth()
+    // && task.startDate.getDate() <= date.getDate()
+    // && task.endDate.getFullYear() >= date.getFullYear()
+    // && task.endDate.getMonth() >= date.getMonth()
+    // && task.endDate.getDate() >= date.getDate()
+    // && (task.daysPerWeek.includes(date.getDay()) || task.daysPerWeek.length === 0 )) {
+    //   return true;
+    // }
+    task.startDate.setHours(0, 0, 0, 0);
+    task.endDate.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
+
+    if (task.startDate <= date
+      && date <= task.endDate
+      && (task.daysPerWeek.includes(date.getDay()) || task.daysPerWeek.length === 0 )) {
+      return true;
+    }
+    return false;
+
   }
 
 }

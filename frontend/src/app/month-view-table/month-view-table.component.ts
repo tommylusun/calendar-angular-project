@@ -3,6 +3,7 @@ import { Task } from '../task';
 import { TaskListService } from '../task-list.service';
 import { CurrentDateService } from '../current-date.service';
 import { Subscription } from 'rxjs';
+import { TableDateItemComponent } from './table-date-item/table-date-item.component';
 
 @Component({
   selector: 'app-month-view-table',
@@ -14,26 +15,40 @@ export class MonthViewTableComponent implements OnInit {
 
   @Output() open: EventEmitter<any> = new EventEmitter();
 
-  day: Date;
   weekTasks = [];
   weekHeaders: string[] = [];
   monthNames;
   dateSubscription: Subscription;
+  currentTaskSubscription: Subscription;
+
+  month: number;
+  currentDate: number;
+  currentMonth: number;
+  currentYear: number;
+  day: number;
+  date: Date;
+  selectedDate = Date;
+  firstDayOfMonth: number;
+  days: string[];
+  dayNames: string[];
 
   constructor(private taskListService: TaskListService, private currentDateService: CurrentDateService) { }
 
   ngOnInit() {
     this.monthNames = this.currentDateService.monthNames;
-    this.day = this.currentDateService.getDate();
-    this.createWeekLists(this.day);
-    this.constructWeekHeaders(this.day);
+    this.dayNames = this.currentDateService.dayNames;
+    this.date = this.currentDateService.getDate();
+
+    this.initializeCurrentDay();
+    this.initializeCalendar();
 
     this.dateSubscription = this.currentDateService.dateSubject.subscribe((data: Date) => {
-      this.day = new Date(data);
-      this.createWeekLists(data);
-      this.constructWeekHeaders(data);
+      this.date = new Date(data);
+      this.initializeCurrentDay();
+      this.initializeCalendar();
 
     });
+    // this.currentTaskSubscription = this.taskListService.sendTask.subscribe((task))
     // this.taskListService.getTasks();
   }
 
@@ -42,69 +57,32 @@ export class MonthViewTableComponent implements OnInit {
     this.dateSubscription.unsubscribe();
   }
 
-  createWeekLists(date) {
-    this.weekTasks = [];
+  initializeCalendar() {
+    const days = this.currentDateService.getDaysPerMonth(this.currentYear);
+    // Push list of dates of month to array
+    this.days = Array.from((Array(days[this.currentMonth] + 1).keys())).map(String);
+    this.days.shift();
 
-    const tempDate = new Date(date);
-    tempDate.setDate(1);
-    tempDate.setDate(tempDate.getDate() - tempDate.getDay());
+    // Determine which day first date of month begins on
+    const firstDay = new Date(this.currentYear, this.currentMonth, 1, 0);
+    this.days.unshift(...Array(firstDay.getDay()).fill(''));
 
-    for (let i = 0; i < 6; i++) {
-      const list = this.taskListService.getDayTasksWithType(tempDate, 'Weekly');
-      this.weekTasks.push(list);
-      tempDate.setDate(tempDate.getDate() + 7);
-      if (tempDate.getMonth() > date.getMonth()) {
-        break;
-      }
+    // Determine which day last date of month ends on
+    const lastDay = new Date(this.currentYear, this.currentMonth, days[this.currentMonth] + 1, 0);
+
+    this.days.push(...Array(7 - lastDay.getDay()).fill(''));
+  }
+
+  initializeCurrentDay() {
+    this.currentDate = this.date.getDate();
+    this.day = this.date.getDay();
+    this.currentMonth = this.date.getMonth();
+    this.currentYear = this.date.getFullYear();
+  }
+
+  getFullDate(day) {
+    if (day !== '') {
+      return new Date(this.currentYear, this.currentMonth, day);
     }
-  }
-  constructWeekHeaders(date) {
-    this.weekHeaders = [];
-
-    const tempDate = new Date(date);
-    tempDate.setDate(1);
-
-    tempDate.setDate(tempDate.getDate() - tempDate.getDay());
-    const tempDate2 = new Date(tempDate);
-    tempDate2.setDate(tempDate.getDate() + 6);
-
-    for (let i = 0; i < 6; i++) {
-      const d = this.formatWeekHeader(tempDate, tempDate2);
-      this.weekHeaders.push(d);
-      tempDate.setDate(tempDate.getDate() + 7);
-      tempDate2.setDate(tempDate2.getDate() + 7);
-
-      if (tempDate.getMonth() > date.getMonth()) {
-        break;
-      }
-    }
-  }
-
-  formatWeekHeader(start: Date, end: Date) {
-
-    const startString = `${this.monthNames[start.getMonth()].slice(0, 3)} ${start.getDate()}`;
-    const endString = `${this.monthNames[end.getMonth()].slice(0, 3)} ${end.getDate()}`;
-    return `${startString} - ${endString}`;
-  }
-
-  goToTask(task: Task, ind) {
-    const tempDate = new Date(this.day);
-    tempDate.setDate(1);
-    tempDate.setDate(tempDate.getDate() - tempDate.getDay() + (ind * 7));
-    this.currentDateService.dateSubject.next(tempDate);
-    task.showDetails = true;
-    this.open.emit();
-  }
-
-  getStatusText(task: Task, ind) {
-    const tempDate = new Date(this.day);
-    tempDate.setDate(1);
-    tempDate.setDate(tempDate.getDate() - tempDate.getDay() + (ind * 7));
-    if (task.getCheckBox(tempDate)) {
-      return 'Complete';
-    } else {
-      return 'Incomplete';
-    }
-
   }
 }
