@@ -1,35 +1,39 @@
-<div class="task-container" [ngClass]="{'hover' : show, 'selected' : taskItem.showDetails}" (mouseover)="show=true"
-  (mouseout)="show=false">
-
-  <div class="row list-item">
-
-    <!-- Task Name Div -->
-    <div class="col" (click)="taskItem.showDetails=!taskItem.showDetails">
-      <div class="row2">
-        <div class="col-1 checkbox center">
-          <span [ngClass]="{checked: getCheckBox()}">
-          </span>
-        </div>
-        <div class="col-8 task-col">
-          <label class="task-name">
-            {{taskItem.name}}
-          </label>
+<div class="row">
+    <div class="task-container col" [ngClass]="{'hover' : show, 'selected' : taskItem.showDetails}" (mouseover)="show=true"
+    (mouseout)="show=false">
+  
+    <div class="row list-item">
+  
+      <!-- Task Name Div -->
+      <div class="col" (click)="taskItem.showDetails=!taskItem.showDetails">
+        <div class="row2">
+          <div class="col-1 checkbox center">
+            <span [ngClass]="{checked: getCheckBox()}">
+            </span>
+          </div>
+          <div class="col-8 task-col">
+            <label class="task-name">
+              {{taskItem.name}}
+            </label>
+          </div>
         </div>
       </div>
+  
     </div>
-
-    <!-- Complete Task Button -->
-    <div class="col-3 check-button">
-      <button class="btn btn-secondary" (click)="checkTask()">{{checkTaskButton}}</button>
+    <!-- End Task Name Div -->
+  
+    <!-- Task Details component -->
+    <div *ngIf="taskItem.showDetails">
+      <app-task-details [task]="taskItem"></app-task-details>
     </div>
-
+  
   </div>
-  <!-- End Task Name Div -->
-
-  <!-- Task Details component -->
-  <div *ngIf="taskItem.showDetails">
-    <app-task-details [task]="taskItem"></app-task-details>
+  
+  <!-- Complete Task Button -->
+  <div class="col-3 check-button">
+      <button class="btn btn-secondary" (click)="checkTask()">{{checkTaskButton}}</button>
   </div>
 
 </div>
+
 

@@ -124,6 +124,7 @@ export class TaskListService {
   retreiveTasksListRequest() {
     return this.http.get(this.backendURL + '/task_list')
     .pipe(map((response: Task[]) => {
+      console.log(response);
       for (const task of Object.values(response)) {
         this.tasksList.push(this.castTask(task));
       }

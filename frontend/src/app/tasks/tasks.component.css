@@ -67,7 +67,7 @@
 .left-menu-container .left-menu-items li.active {
     background-color: rgba(255,255,255,0.5);
     background-color: rgba(0,0,0,0.05);
-    box-shadow: 2px 1px 2px 1px rgba(0,0,0,0.1);
+    /* box-shadow: 2px 1px 2px 1px rgba(0,0,0,0.1); */
     color: rgb(32, 103, 255);
 }
 

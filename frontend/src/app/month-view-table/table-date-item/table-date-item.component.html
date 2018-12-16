@@ -1,7 +1,7 @@
 <div class='date-item-container'>
   <!-- {{date.toDateString()}} -->
   <div (click)="selectTask(task)" class="task-item" *ngFor="let task of tasks">
-    <span class="dot-incomplete"></span>
+    <span [ngClass]="taskComplete(task) ? 'dot-complete' : 'dot-incomplete'"></span>
     <span class="task-name">{{task.name}}</span>
   </div>
 </div>

@@ -35,4 +35,8 @@ export class TableDateItemComponent implements OnInit {
     this.taskListService.sendTask.next({task: task, date: this.date});
   }
 
+  taskComplete(task) {
+    return this.taskListService.getCheckBox(task, this.date);
+  }
+
 }
