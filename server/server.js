@@ -2,16 +2,18 @@ const express = require('express')
 const app = express()
 const request = require('request');
 var bodyParser = require("body-parser");
+const cors = require('cors');
 
 
 // Body Parser for parsing JSON
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
 // MLab Mongo DB Connection
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://');
+mongoose.connect('mongodb://testuser1:testuser1@ds113942.mlab.com:13942/node_test_1');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
@@ -24,10 +26,11 @@ var taskSchema = mongoose.Schema({
   description: String,
   startDate: Date,
   endDate: Date,
-  type: String,
-  checkList: Object,
+  checklist: Object,
+  daysPerWeek: [Number],
   doneCount: Number,
-  notes: [String]
+  count: Number,
+  notes: String
 });
 
 var Task = mongoose.model('Task', taskSchema);
@@ -50,9 +53,10 @@ app.post('/new_task', function(req,res){
     description: req.body.description,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
-    type: req.body.type,
-    checkList: req.body.checklist2,
-    doneCount: req.body.doneCount,
+    daysPerWeek: req.body.daysPerWeek,
+    doneCount: 0,
+    count: req.body.count,
+    checklist: {},
     notes: req.body.notes
   });
 
@@ -71,10 +75,10 @@ app.post('/new_task', function(req,res){
 });
 
 app.put('/update_task', (req,res) => {
-  Task.findByIdAndUpdate(req.body.id,{
+  Task.findByIdAndUpdate(req.body._id,{
     name: req.body.name,
     description: req.body.description,
-    checkList: req.body.checklist2,
+    checklist: req.body.checklist,
     notes: req.body.notes
   },(err,res2) => {
     if (err) {

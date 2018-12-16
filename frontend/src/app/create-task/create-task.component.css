@@ -1,12 +1,14 @@
 .create-task-container {
 
   padding: 20px;
-  /* animation-duration: 0.5s; */
-  /* animation-name: slidein; */
+  animation-duration: 0.5s;
+  animation-name: slidein;
   box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.25);
-  /* animation-iteration-count: infinite; */
-
   /* padding: 10px; */
+}
+
+.task-name .taskname {
+  text-align: start;
 }
 
 @keyframes slidein {
@@ -47,12 +49,31 @@
   overflow-y: auto;
 }
 
-.dropdown-item {}
-
 .dropdown {
   padding: 5px;
 }
 
 .dropdown-item {
   font-size: 10pt;
+}
+
+.repeat-radio {
+  padding-left: 25px;
+  padding-right: 10px;
+}
+
+.day-selector {
+  display: inline-block;
+  border: 1px solid rgb(200,200,200);
+  margin: 2px;
+  width: 40px;
+  cursor: pointer;
+  user-select: none; 
+}
+.selected {
+  border: 1px solid rgb(0,150,0);
+  color: rgb(0,150,0);
+}
+button {
+  outline: none;
 }

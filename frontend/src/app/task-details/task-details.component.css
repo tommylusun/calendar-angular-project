@@ -6,7 +6,7 @@
     padding-right: 25px;
     /* margin: 10px; */
     font-size: 10pt;
-    background: rgba(0, 0,0, 0.04);
+    background: #00000008;
 }
 
 .inner-container{
@@ -16,8 +16,7 @@
     float: right;
 }
 .description-box {
-    background-color: rgba(0, 0,0, 0.02);
-    /* background-color: rgba(255, 255,255, 0.25); */
+    background-color: rgba(255, 255,255, 0.5);
     padding: 10px;
     margin-bottom: 15px;
     margin-top: 5px;
@@ -30,16 +29,22 @@ li {
 
 .notes-area {
     padding: 10px;
-    background-color: rgba(255, 255,255, 0.8);
+    margin-bottom: 15px;
+    margin-top: 5px;
+    background-color: rgba(255, 255,255, 1);
     box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
     width: 100%;
     resize: none;
-    /* transition-duration: 1s; */
-    /* border: none; */
-    /* outline: none; */
-
+    transition-duration: .3s;
+    border: dashed 1px grey;
+    outline: none;
+    overflow: hidden;
 }
 
 p {
-    white-space:pre;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.title-header {
+    margin-top: 10px;
 }

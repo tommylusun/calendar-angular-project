@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnDestroy } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import { Task } from '../task';
+import { Task } from '../taskNew';
 import { CurrentDateService } from '../current-date.service';
 import { Subscription } from 'rxjs';
 import { TaskListService } from '../task-list.service';
@@ -11,13 +11,11 @@ import { TaskListService } from '../task-list.service';
 })
 export class CreateTaskComponent implements OnInit {
 
-  showForm: boolean;
+  // showForm: boolean;
   taskName: String = '';
   taskDesc: String = '';
-  taskType: String;
-
-  type: String = 'Daily';
-  types: String[] = ['Daily', 'Weekly', 'Monthly'];
+  repeat: string;
+  daysPerWeek: number[];
   monthNames: String[];
 
   startYear: number;
@@ -31,19 +29,22 @@ export class CreateTaskComponent implements OnInit {
   yearsList: number[];
   startDatesList: number[];
   endDatesList: number[];
+  dayNames: string[];
 
   dateService: Subscription;
-
-  @Output() submitPressed = new EventEmitter<any>();
 
   constructor(private currentDateService: CurrentDateService, private tasksListService: TaskListService) {}
 
   ngOnInit() {
+    const create_task_modal = document.getElementById('create_task_modal');
     this.monthNames = this.currentDateService.monthNames;
     this.updateDay(this.currentDateService.getDate());
     this.startDatesList = this.createDateRange(this.startMonth, this.startYear);
     this.endDatesList = this.createDateRange(this.endMonth, this.endYear);
     this.yearsList = Array.from((Array(10).keys())).map( (_, ind) => 2018 + ind);
+    this.repeat = '0';
+    this.daysPerWeek = [];
+    this.dayNames = this.currentDateService._dayNames;
 
     this.dateService = this.currentDateService.dateSubject.subscribe((data: Date) => {
       this.updateDay(data);
@@ -60,25 +61,30 @@ export class CreateTaskComponent implements OnInit {
   submit(taskForm: NgForm) {
 
     const fullStartDate = new Date(this.startYear, this.startMonth, this.startDate);
-    const fullEndDate = new Date(this.endYear, this.endMonth, this.endDate);
+    let fullEndDate = new Date(this.endYear, this.endMonth, this.endDate);
 
+    if (this.repeat === '0') {
+      fullEndDate = new Date(this.startYear, this.startMonth, this.startDate);
+    }
     if (this.taskName === '') {
-      this.taskName = this.type +
+      this.taskName =
       'Task starting ' +
       fullStartDate.toDateString() + ', ending ' +
       fullEndDate.toDateString();
     }
+    const count = this.calcCount(fullStartDate, fullEndDate, this.daysPerWeek);
+
     const newTask = new Task({
       name: this.taskName,
       description: this.taskDesc,
-      type: this.type,
       startDate: fullStartDate,
-      endDate: fullEndDate
+      endDate: fullEndDate,
+      daysPerWeek: this.daysPerWeek,
+      count: count
     });
 
     this.tasksListService.addTask(newTask);
     this.reset();
-    this.showForm = false;
   }
 
   reset() {
@@ -86,8 +92,17 @@ export class CreateTaskComponent implements OnInit {
     this.taskDesc = '';
   }
 
-  cancel() {
-    this.showForm = false;
+  calcCount(start: Date, end: Date, days: number[]) {
+
+    const cur = new Date(start);
+    let count = 1;
+    while (cur.getTime() !== end.getTime()) {
+      if (days.length === 0 || days.includes(cur.getDay())) {
+        count++;
+      }
+      cur.setDate(cur.getDate() + 1);
+    }
+    return count;
   }
 
   selectStartMonth(ind) {
@@ -125,5 +140,20 @@ export class CreateTaskComponent implements OnInit {
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     this.dateService.unsubscribe();
+  }
+
+  toggleDay(day) {
+    const index = this.daysPerWeek.indexOf(day);
+
+    if (index === -1) {
+      this.daysPerWeek.push(day);
+    } else {
+      this.daysPerWeek.splice(index, 1);
+    }
+    console.log(this.repeat);
+  }
+
+  closeModal() {
+    console.log('fads');
   }
 }

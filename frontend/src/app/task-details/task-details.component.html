@@ -1,39 +1,26 @@
 <div class="outer-container">
   <div class="inner-container">
-    <label>Description</label>
+    <label><b>Description</b></label>
     <!-- <button (click)="editDescription=!editDescription" class="btn-sm btn btn-light" style="padding: 2px; float: right;">edit</button> -->
-    <div *ngIf="!editDescription" class="description-box">
+    <div *ngIf="!editDescription" class="">
       <p>{{task.description}}</p>
     </div>
-    <textarea *ngIf="editDescription" class="notes-area" name="taskName" [(ngModel)]="task.description"></textarea>
 
-    <label style="margin-top:10px">Task Duration</label>
-    <div class="date-duration description-box">
-      <p>{{task.startDate.toDateString()}} - {{task.endDate.toDateString()}}</p>
+    <label class="tite-header"><b>Task Details</b></label>
+    <div class="task-details">
+      <p>Starting: {{task.startDate.toDateString()}}</p>
+      <p>Ending: {{task.endDate.toDateString()}}</p>
+      <p>Completed So far: {{task.doneCount}}/{{task.count}}</p>
     </div>
 
-    <label style="margin-top:10px">Task Notes</label>
+    
+    <label class="title-header"><b>Task Notes</b></label>
     <button (click)="editNotes()" class="btn-sm btn btn-light" style="padding: 2px; float: right;">{{editButton}}</button>
     <div [hidden]="showInput" id="notesbox" class="description-box">
-      <p>{{newNote}}</p>
+      <p class="notes-text">{{newNote}}</p>
     </div>
+    
     <textarea id="textarea" [hidden]="!showInput" class="notes-area" name="taskName" [(ngModel)]="newNote" (keydown)="autogrow()"></textarea>
-
-
-    <!-- <div class="date-duration description-box">
-        <ul>
-          <li *ngFor="let note of task.notes">{{note}}</li>
-        </ul>
-    </div> -->
-    <!-- <button *ngIf="!showInput" class="btn btn-light" (click)="showInput = !showInput">add note</button> -->
-    <!-- <div *ngIf="showInput"> -->
-    <form (keyup.enter)="addNote(); showInput = false">
-      <!-- <input name="taskName" [(ngModel)]="newNote" type="textarea" class="form-control" id="name" required> -->
-    </form>
-    <!-- </div> -->
-    <div>
-      <label>{{task.doneCount}} / {{list.length}} Completed</label>
-    </div>
 
     <div>
       <button class="btn btn-danger delete-button" (click)="deleteTask()">Delete</button>

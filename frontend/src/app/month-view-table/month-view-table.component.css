@@ -6,24 +6,6 @@
     border-bottom: 2px solid grey;
 }
 
-thead {
-    font-weight: 600;
-    font-size: 10pt;
-	text-transform: uppercase;
-	text-align: center;
-}
-
-table {
-    width: 100%;
-    max-height: 500px;
-    table-layout: fixed;
-    overflow-y: auto;
-}
-
-td {
-    vertical-align: top;
-}
-
 .calendar-component {
     position: absolute;
 }
@@ -31,9 +13,6 @@ td {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-}
-td {
-    border-left: 1px solid rgba(0, 0, 0, 0.3);
 }
 .week-task-item {
     display: flex;
@@ -46,9 +25,6 @@ td {
     box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
 
     /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
-}
-table {
-    overflow-y: scroll;
 }
 .task-name {
     overflow: hidden;
@@ -85,4 +61,65 @@ table {
     padding: 5px;
     margin: 0px;
 
+}
+
+/* ---------- GENERAL ---------- */
+
+/* body {
+	background: #d47f7f;
+	color: #0e171c;
+	font: 300 100%/1.5em 'Lato', sans-serif;
+	margin: auto;
+} */
+
+a {
+	text-decoration: none;
+}
+
+.month-dropdown {
+	font-size: 1.2em;
+	line-height: 1.2em;
+	margin: .3em 0;
+	border: 1px solid black;
+	border-radius: 5px 5px 5px 5px;
+	cursor: pointer;
+}
+
+h2 {
+	font-size: 1.2em;
+	line-height: 1.2em;
+	margin: .3em 0;
+}
+
+h3 {
+	font-size: 1em;
+	line-height: 1em;
+	margin: .13em 0;
+}
+
+/* ---------- CALENDAR ---------- */
+
+.calender-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+    padding-top: 15px;
+    /* width: 90%; */
+}
+.calendar-header {
+    min-width: calc(100%/7);
+    height: 25px;
+}
+
+.calendar-date {
+    min-width: calc(100%/7);
+    max-width: calc(100%/7);
+    height: 120px;
+    border: 1px solid rgb(201, 201, 201);
+
+    margin: -0.5px;
+}
+.date-item-container {
+    height: calc(100% - 25px);
 }
