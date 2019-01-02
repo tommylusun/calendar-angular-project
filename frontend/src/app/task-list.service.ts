@@ -19,7 +19,8 @@ import {
 })
 export class TaskListService {
 
-  backendURL = 'http://localhost:3000';
+  // backendURL = 'http://localhost:3000';
+  backendURL = 'http://calendarbackend-env.qmgwxtzky3.us-east-2.elasticbeanstalk.com';
 
   tasksList: Task[];
   tasksSubject = new Subject <Task[]>();

@@ -10,6 +10,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const port = process.env.PORT || 80;
 
 // MLab Mongo DB Connection
 var mongoose = require('mongoose');
@@ -103,4 +104,4 @@ app.delete('/delete_task/:task_id', function(req,res){
 
 })
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(port, () => console.log('Calendar running on ' + port));
